@@ -24,7 +24,7 @@ class Login extends StatelessWidget {
           elevation: 0.0,
           title: Text('9'.tr, style:Theme.of(context).textTheme.headline1!.copyWith(color: AppColor.grey))
       ),
-      body: Container(
+      body:  Container(
         padding: const EdgeInsets.symmetric(vertical: 15 , horizontal: 30),
         child:Form(
           key:controller.formstate,
@@ -83,9 +83,10 @@ class Login extends StatelessWidget {
             )
           ]),
         ),
-      ),
+      )
+      ,);
 
-    );
+
 
 
   }
