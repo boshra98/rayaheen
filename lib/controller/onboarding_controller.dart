@@ -13,12 +13,13 @@ class OnBoardingControllerImp extends OnBoardingController {
   late PageController pageController;
 
   int currentPage = 0;
-
+MyServices myServices = Get.find();
   @override
   next() {
     currentPage++;
 
     if (currentPage > onBoardingList.length - 1) {
+      myServices.sharedPreferences.setString("onboarding","1");
       Get.offAllNamed(AppRoute.login) ;
     } else {
       pageController.animateToPage(currentPage,

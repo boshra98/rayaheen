@@ -4,6 +4,7 @@ import 'package:get/get_core/src/get_main.dart';
 import 'package:rayaheen_bookstore/router.dart';
 import 'package:rayaheen_bookstore/view/screen/language.dart';
 
+import 'binding/initialbinding.dart';
 import 'core/constant/color.dart';
 import 'core/localization/changelocal.dart';
 import 'core/localization/translation.dart';
@@ -29,11 +30,14 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       locale:controller.language,
       theme: controller.appTheme ,
-      home:
+      initialBinding:InitialBindings() ,
+      // routes: routes,
+      getPages: routes,
+     // home:
       //Test(),
 
-      const Language(),
-      routes: routes,
+      //const Language(),
+     // routes: routes,
     );
   }
 }
