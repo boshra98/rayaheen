@@ -50,6 +50,9 @@ class LoginControllerImp extends LoginController {
       if (StatusRequest.success == statusRequest) {
         if (response['message'] == "true") {
           print("hhhhhh");
+          myServices.sharedPreferences
+              .setString("id", response['id']);
+          String userid = myServices.sharedPreferences.getString("id")!;
           // data.addAll(response['data']);
           //  myServices.sharedPreferences.setString("token", response['data']['access_token']) ;
           //  myServices.sharedPreferences.setString("username", response['data']['users_name']) ;

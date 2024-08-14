@@ -1,17 +1,17 @@
 class ItemsModel {
-  String? itemsId;
+  int? itemsId;
   String? itemsName;
   String? itemsNameAr;
   String? itemsDesc;
   String? itemsDescAr;
   String? itemsImage;
-  String? itemsCount;
+  int? itemsCount;
   String? itemsActive;
   String? itemsPrice;
   String? itemsDiscount;
   String? itemsDate;
-  String? itemsCat;
-  String? categoriesId;
+  int? itemsCat;
+  int? categoriesId;
   String? categoriesName;
   String? categoriesNamaAr;
   String? categoriesImage;
@@ -37,23 +37,23 @@ class ItemsModel {
         this.categoriesDatetime});
 
   ItemsModel.fromJson(Map<String, dynamic> json) {
-    itemsId = json['items_id'];
-    itemsName = json['items_name'];
-    itemsNameAr = json['items_name_ar'];
-    itemsDesc = json['items_desc'];
-    itemsDescAr = json['items_desc_ar'];
-    itemsImage = json['items_image'];
-    itemsCount = json['items_count'];
-    itemsActive = json['items_active'];
-    itemsPrice = json['items_price'];
-    itemsDiscount = json['items_discount'];
-    itemsDate = json['items_date'];
-    itemsCat = json['items_cat'];
+    itemsId = json['id'];
+    itemsName = json['title'];
+    //itemsNameAr = json['items_name_ar'];
+    itemsDesc = json['description'];
+    //itemsDescAr = json['items_desc_ar'];
+    itemsImage = json['cover_image'];
+    itemsCount = json['count'];
+    //itemsActive = json['items_active'];
+    itemsPrice = json['price'];
+    //itemsDiscount = json['items_discount'];
+    //itemsDate = json['items_date'];
+    itemsCat = json['category_id'];
     categoriesId = json['categories_id'];
     categoriesName = json['categories_name'];
-    categoriesNamaAr = json['categories_nama_ar'];
+   // categoriesNamaAr = json['categories_nama_ar'];
     categoriesImage = json['categories_image'];
-    categoriesDatetime = json['categories_datetime'];
+    //categoriesDatetime = json['categories_datetime'];
   }
 
   Map<String, dynamic> toJson() {

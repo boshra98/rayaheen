@@ -19,6 +19,13 @@ class AppRoute {
 
   static const String checkemail = "/checkemail";
   static const String verifyCodeSignUp = "/verifycodesignup";
+  static const String items = "/items";
+
+
+
+  static const String productdetails = "/productdetails";
+ static const String myfavroite = "/myfavroite";
+
 
 
 }
