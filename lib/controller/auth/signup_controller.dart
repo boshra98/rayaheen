@@ -18,14 +18,50 @@ class SignUpControllerImp extends SignUpController {
   late TextEditingController phone;
   late TextEditingController password;
 
-
+// late StatusRequest statusRequest;
+// SignupData signupData = SignupData(Get.find());
+//List data =[];
   @override
+  // signUp() async {
+  //   if (formstate.currentState!.validate()) {
+  //     statusRequest = StatusRequest.loading;
+  //
+  //     var response = await signupData.postdata(username.text , password.text ,email.text ,phone.text);
+  //
+  //     print("=============================== Controller $response ");
+  //
+  //     statusRequest = handlingData(response);
+  //
+  //     if (StatusRequest.success == statusRequest){
+  //
+  //       // Start backend
+  //       if (response['status'] == "success") {
+  //
+  //         data.addAll(response['data']);
+  //          Get.offNamed(AppRoute.verifyCodeSignUp);
+  //
+  //
+  //       }else{
+  //         Get.defaultDialog(title: "warning" , middleText:"phone nomber or email alredy exist") ;
+  //
+  //         statusRequest = StatusRequest.failure ;
+  //
+  //       }
+  //       // End
+  //     }
+  //     update();
+  //    // Get.offNamed(AppRoute.verifyCodeSignUp);
+  //    // Get.delete<SignUpControllerImp>();
+  //   } else {
+  //   }
+  // }
+
   signUp() {
     if (formstate.currentState!.validate()) {
       Get.offNamed(AppRoute.verifyCodeSignUp);
-      Get.delete<SignUpControllerImp>();
-    } else {
     }
+    else {
+         }
   }
 
   @override

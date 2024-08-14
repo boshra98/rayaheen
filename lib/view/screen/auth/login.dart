@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:rayaheen_bookstore/view/screen/home.dart';
 
-import '../../../controller/auth/login.dart';
+import '../../../controller/auth/login_controller.dart';
+import '../../../core/class/statusrequest.dart';
 import '../../../core/constant/color.dart';
 import '../../../core/functions/validinput.dart';
 import '../../widget/auth/custombuttomauth.dart';
@@ -11,21 +13,30 @@ import '../../widget/auth/customtexttitleauth.dart';
 import '../../widget/auth/logoauth.dart';
 import '../../widget/auth/textsignup.dart';
 
-class Login extends StatelessWidget {
-  const Login({Key? key}) : super(key: key);
 
+class Login extends StatelessWidget {
+
+   const Login({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
-    LoginControllerImp controller = Get.put(LoginControllerImp()) ;
+
+    Get.put(LoginControllerImp()) ;
     return Scaffold(
       appBar: AppBar(
           centerTitle:true,
           backgroundColor: AppColor.backgroundcolor,
           elevation: 0.0,
-          title: Text('9'.tr, style:Theme.of(context).textTheme.headline1!.copyWith(color: AppColor.grey))
+          title: Text('9'.tr, style:Theme.of(context).textTheme.displayLarge!.copyWith(color: AppColor.grey))
       ),
-      body: Container(
-        padding: const EdgeInsets.symmetric(vertical: 15 , horizontal: 30),
+      body:  Container(
+        child: GetBuilder<LoginControllerImp>(
+        builder: (controller) =>
+    controller.statusRequest == StatusRequest.loading
+        ?  const Center(child: Text("Loading"))
+        : Container(
+      padding: const EdgeInsets.symmetric(
+          vertical: 15, horizontal: 30),
+       // padding: const EdgeInsets.symmetric(vertical: 15 , horizontal: 30),
         child:Form(
           key:controller.formstate,
           child: ListView(children: [
@@ -71,6 +82,7 @@ class Login extends StatelessWidget {
                 ,),
             ) ,
             CustomButtomAuth(text:"15".tr,onPressed:(){
+
               controller.login();
             },),
             const  SizedBox(height: 40,),
@@ -83,11 +95,8 @@ class Login extends StatelessWidget {
             )
           ]),
         ),
-      ),
-
+    ),
+        )),
     );
-
-
   }
-
 }
