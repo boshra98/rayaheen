@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:rayaheen_bookstore/router.dart';
-import 'package:rayaheen_bookstore/view/screen/language.dart';
-
+import 'package:rayaheen_bookstore/view/screen/homescreen.dart';
 import 'binding/initialbinding.dart';
-import 'core/constant/color.dart';
 import 'core/localization/changelocal.dart';
 import 'core/localization/translation.dart';
 import 'core/services/services.dart';
@@ -31,10 +28,11 @@ class MyApp extends StatelessWidget {
       locale:controller.language,
       theme: controller.appTheme ,
       initialBinding:InitialBindings() ,
-      // routes: routes,
+      //: routes,
       getPages: routes,
-     // home:
-      //Test(),
+     //  home:
+     //  HomeScreen(),
+
 
       //const Language(),
      // routes: routes,

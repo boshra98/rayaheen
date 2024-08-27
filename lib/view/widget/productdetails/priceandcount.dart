@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-
 import '../../../core/constant/color.dart';
 
 class PriceAndCountItems extends StatelessWidget {
@@ -25,9 +24,7 @@ class PriceAndCountItems extends StatelessWidget {
       children: [
         Row(
           children: [
-            IconButton(onPressed:
-
-            onAdd, icon: const Icon(Icons.add)),
+            IconButton(onPressed: onAdd, icon: const Icon(Icons.add)),
             Container(
                 alignment: Alignment.center,
                 padding: const EdgeInsets.only(bottom: 2),
@@ -36,14 +33,10 @@ class PriceAndCountItems extends StatelessWidget {
                 decoration:
                 BoxDecoration(border: Border.all(color: Colors.black)),
                 child: Text(
-                  c.toString(),
+                  count,
                   style: const TextStyle(fontSize: 20, height: 1.1),
                 )),
-            IconButton(onPressed: (){
-            c++;
-            }
-
-            , icon: const Icon(Icons.remove)),
+            IconButton(onPressed: onRemove, icon: const Icon(Icons.remove)),
           ],
         ),
         const Spacer(),

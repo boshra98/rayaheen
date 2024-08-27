@@ -3,11 +3,14 @@
 
 import 'package:get/get.dart';
 import 'package:rayaheen_bookstore/test_view.dart';
+import 'package:rayaheen_bookstore/view/screen/address/add.dart';
+import 'package:rayaheen_bookstore/view/screen/address/adddetails.dart';
+import 'package:rayaheen_bookstore/view/screen/address/view.dart';
 import 'package:rayaheen_bookstore/view/screen/auth/forgetpassword/forgetpassword.dart';
 import 'package:rayaheen_bookstore/view/screen/auth/forgetpassword/resetpassword.dart';
 import 'package:rayaheen_bookstore/view/screen/auth/forgetpassword/success_resetpassword.dart';
 import 'package:rayaheen_bookstore/view/screen/auth/forgetpassword/verifycode.dart';
-import 'package:rayaheen_bookstore/view/screen/auth/forgetpassword/verifycodesignup.dart';
+import 'package:rayaheen_bookstore/view/screen/auth/verifycodesignup.dart';
 import 'package:rayaheen_bookstore/view/screen/auth/login.dart';
 import 'package:rayaheen_bookstore/view/screen/auth/signup.dart';
 import 'package:rayaheen_bookstore/view/screen/auth/success_signup.dart';
@@ -23,19 +26,19 @@ import 'core/constant/routes.dart';
 import 'core/middleware/mymiddleware.dart';
 
 List<GetPage<dynamic>>? routes = [
+  //GetPage(name: "/", page: () => const Language() ),
   GetPage(name: "/", page: () => const Language() , middlewares: [
     MyMiddleWare()
   ]),
-
-
   GetPage(name: AppRoute.login, page: () => const Login()),
+  GetPage(name: AppRoute.onBoarding, page: () => const OnBoarding()),
+
   GetPage(name: AppRoute.signUp, page: () => const SignUp()),
   GetPage(name: AppRoute.forgetPassword, page: () => const ForgetPassword()),
   GetPage(name: AppRoute.verfiyCode, page: () => const VerifyCode()),
   GetPage(name: AppRoute.resetPassword, page: () => const ResetPassword()),
   GetPage(name: AppRoute.successResetPassword, page: () => const SuccessResetPassword()),
   GetPage(name: AppRoute.successSignUp, page: () => const SuccessSignUp()),
-  GetPage(name: AppRoute.onBoarding, page: () => const OnBoarding()),
   GetPage(name: AppRoute.verifyCodeSignUp, page: () => const VerifyCodeSignUp()),
 
 
@@ -44,7 +47,12 @@ List<GetPage<dynamic>>? routes = [
   GetPage(name: AppRoute.productdetails, page: () => const ProductDetails()),
   GetPage(name: AppRoute.myfavroite, page: () => const MyFavorite()),
 
+  GetPage(name: AppRoute.addressview, page: () => const AddressView()),
+  GetPage(name: AppRoute.addressadd, page: () => const AddressAdd()),
+  GetPage(
+      name: AppRoute.addressadddetails, page: () => const AddressAddDetails()),
 
+// GetPage(name: AppRoute.checkout, page: () => const Checkout()),
 
 
  // GetPage(name: AppRoute.items, page: () => const Items()),

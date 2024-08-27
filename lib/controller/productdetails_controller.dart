@@ -30,47 +30,47 @@ class ProductDetailsControllerImp extends ProductDetailsController {
   }
 
   getCountItems(int itemsid) async {
-    // statusRequest = StatusRequest.loading;
-    // var response = await cartData.getCountCart(
-    //     myServices.sharedPreferences.getString("id")!, itemsid);
-    // print("=============================== Controller $response ");
-    // statusRequest = handlingData(response);
-    // if (StatusRequest.success == statusRequest) {
-    //   // Start backend
-    //   if (response['status'] == "success") {
-    //     int countitems = 0;
-    //     countitems = int.parse(response['data']);
-    //     print("==================================");
-    //     print("$countitems");
-    //     return countitems;
-    //     // data.addAll(response['data']);
-    //   } else {
-    //     statusRequest = StatusRequest.failure;
-    //   }
-    //   // End
-    // }
+    statusRequest = StatusRequest.loading;
+    var response = await cartData.getCountCart(
+        myServices.sharedPreferences.getString("id")!, itemsid);
+    print("=============================== Controller $response ");
+    statusRequest = handlingData(response);
+    if (StatusRequest.success == statusRequest) {
+      // Start backend
+      if (response['status'] == "success") {
+        int countitems = 0;
+        countitems = int.parse(response['data']);
+        print("==================================");
+        print("$countitems");
+        return countitems;
+        // data.addAll(response['data']);
+      } else {
+        statusRequest = StatusRequest.failure;
+      }
+      // End
+    }
   }
 
   addItems(int itemsid) async {
-    // statusRequest = StatusRequest.loading;
-    // update();
-    // var response = await cartData.addCart(
-    //     myServices.sharedPreferences.getString("id")! , itemsid);
-    // print("=============================== Controller $response ");
-    // statusRequest = handlingData(response);
-    // if (StatusRequest.success == statusRequest) {
-    //   // Start backend
-    //   if (response['status'] == "success") {
-    //     Get.rawSnackbar(
-    //         title: "اشعار",
-    //         messageText: const Text("تم اضافة المنتج الى السلة "));
-    //     // data.addAll(response['data']);
-    //   } else {
-    //     statusRequest = StatusRequest.failure;
-    //   }
-    //   // End
-    // }
-    // update();
+    statusRequest = StatusRequest.loading;
+    update();
+    var response = await cartData.addCart(
+        myServices.sharedPreferences.getString("id")! , itemsid);
+    print("=============================== Controller $response ");
+    statusRequest = handlingData(response);
+    if (StatusRequest.success == statusRequest) {
+      // Start backend
+      if (response['status'] == "success") {
+        Get.rawSnackbar(
+            title: "اشعار",
+            messageText: const Text("تم اضافة المنتج الى السلة "));
+        // data.addAll(response['data']);
+      } else {
+        statusRequest = StatusRequest.failure;
+      }
+      // End
+    }
+    update();
   }
 
   deleteitems(String itemsid) async {

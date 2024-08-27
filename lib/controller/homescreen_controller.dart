@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 
 import '../view/screen/home.dart';
 import '../view/screen/notification.dart';
+import '../view/screen/profile.dart';
 import '../view/screen/settings.dart';
 
 abstract class HomeScreenController extends GetxController {
@@ -17,10 +18,11 @@ class HomeScreenControllerImp extends HomeScreenController {
   List<Widget> listPage = [
     const HomePage(),
     const NotificationView() ,
-    const Column(
-      mainAxisAlignment: MainAxisAlignment.center,
-      children: [Center(child: Text("Profile"))],
-    ),
+    ProfilePage(),
+    // const Column(
+    //   mainAxisAlignment: MainAxisAlignment.center,
+    //   children: [Center(child: Text("Profile"))],
+    // ),
     const Settings()
   ];
 

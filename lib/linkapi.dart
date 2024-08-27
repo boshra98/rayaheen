@@ -1,12 +1,12 @@
 class AppLink {
 
-  static const String server = "http://192.168.137.233:8000/api";
+  static const String server = "http://192.168.43.34:8000/api";
 
 
 
-  static const String imagestatic = "http://192.168.137.233:8000/";
-  static const String imagesCategories = "http://192.168.137.233:8000/";
-  static const String imagesItems = "http://192.168.137.233:8000/";
+  static const String imagestatic = "http://192.168.43.34:8000/";
+  static const String imagesCategories = "http://192.168.43.34:8000/";
+  static const String imagesItems = "http://192.168.43.34:8000/";
 
 
 
@@ -18,6 +18,8 @@ class AppLink {
   static const String signUp = "$server/auth/signup.php";
   static const String login = "$server/login";
   static const String verifycodessignup = "$server/auth/verfiycode.php";
+  static const String resend ="$server/auth/resend.php";
+
 
 // ================================= ForgetPassword ========================== //
 
@@ -36,6 +38,17 @@ class AppLink {
   static const String favoriteView = "server/favorite/view.php";
   static const String deletefromfavroite =
       "server/favorite/deletefromfavroite.php";
+
+
+  // Address
+
+  static const String addressView = "server/address/view.php";
+  static const String addressAdd = "server/address/add.php";
+  static const String addressEdit = "server/address/edit.php";
+  static const String addressDelete = "server/address/delete.php";
+
+
+
   // Cart
   static const String cartview = "$server/cart";
   static const String cartadd = "$server/cart";

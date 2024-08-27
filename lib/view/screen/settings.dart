@@ -4,6 +4,8 @@
 // import 'package:ecommercecourse/core/constant/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:rayaheen_bookstore/view/screen/address/view.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../controller/settings_controller.dart';
 import '../../core/constant/color.dart';
@@ -64,7 +66,7 @@ class Settings extends StatelessWidget {
                 ),
                 ListTile(
                   onTap: () {
-                   // Get.toNamed(AppRoute.addressview);
+                    Get.toNamed(AppRoute.addressview);
                   },
                   trailing: Icon(Icons.location_on_outlined),
                   title: Text("Address"),
@@ -75,7 +77,10 @@ class Settings extends StatelessWidget {
                   title: Text("About us"),
                 ),
                 ListTile(
-                  onTap: () {},
+                  onTap: () {
+
+                    launchUrl(Uri.parse("tel:+97152886100"));
+                  },
                   trailing: Icon(Icons.phone_callback_outlined),
                   title: Text("Contact us"),
                 ),

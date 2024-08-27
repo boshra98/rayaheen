@@ -18,20 +18,20 @@ class TopProductPageDetails extends GetView<ProductDetailsControllerImp> {
           height: 180,
           decoration: const BoxDecoration(color: AppColor.secondColor),
         ),
-        // Positioned(
-        //     top: 30.0,
-        //     right: Get.width / 8,
-        //     left: Get.width / 8,
-           // child: Hero(
-              //tag: "${controller.itemsModel.itemsId}",
-              // child: CachedNetworkImage(
-              //   imageUrl:
-              //   "${AppLink.imagestItems}/${controller.itemsModel.itemsImage!}",
-              //   height: 250,
-              //   fit: BoxFit.fill,
-              // ),
-            //)
-    //)
+        Positioned(
+            top: 30.0,
+            right: Get.width / 8,
+            left: Get.width / 8,
+           child: Hero(
+              tag: "${controller.itemsModel.itemsId}",
+              child: CachedNetworkImage(
+                imageUrl:
+                "${AppLink.imagesItems}/${controller.itemsModel.itemsImage!}",
+                height: 250,
+                fit: BoxFit.fill,
+              ),
+            )
+    )
       ],
     );
   }

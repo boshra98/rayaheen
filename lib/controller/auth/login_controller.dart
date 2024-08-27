@@ -5,7 +5,7 @@ import '../../core/class/statusrequest.dart';
 import '../../core/constant/routes.dart';
 import '../../core/functions/handlingdatacontroller.dart';
 import '../../core/services/services.dart';
-import '../../data/datasource/remote/auth/Apilogin.dart';
+import '../../data/datasource/remote/auth/login.dart';
 
 abstract class LoginController extends GetxController {
   login();
@@ -14,9 +14,9 @@ abstract class LoginController extends GetxController {
 }
 
 class LoginControllerImp extends LoginController {
- LoginData loginData = LoginData(Get.find());
+  LoginData loginData = LoginData(Get.find());
 
- GlobalKey<FormState> formstate = GlobalKey<FormState>();
+  GlobalKey<FormState> formstate = GlobalKey<FormState>();
 
   late TextEditingController email;
   late TextEditingController password;
@@ -27,7 +27,7 @@ class LoginControllerImp extends LoginController {
 
   StatusRequest statusRequest = StatusRequest.none;
 
- // var formstate;
+  // var formstate;
 
   showPassword() {
     isshowpassword = isshowpassword == true ? false : true;
@@ -38,6 +38,7 @@ class LoginControllerImp extends LoginController {
   login() async {
 
     print("hello");
+    //print(response);
 
 
 
@@ -62,11 +63,11 @@ class LoginControllerImp extends LoginController {
           Get.offNamed(AppRoute.homePage);
         }
       }else {
-          print("hhhhho");
-          Get.defaultDialog(
-              title: "ُWarning", middleText: "Email Or Password Not Correct");
-          statusRequest = StatusRequest.failure;
-        }
+        print("hhhhho");
+        Get.defaultDialog(
+            title: "ُWarning", middleText: "Email Or Password Not Correct");
+        statusRequest = StatusRequest.failure;
+      }
 
       update();
     } else {}
@@ -78,17 +79,17 @@ class LoginControllerImp extends LoginController {
   }
 
   @override
-   void onInit() {
+  void onInit() {
     email = TextEditingController();
     password = TextEditingController();
     super.onInit();
-  //   FirebaseMessaging.instance.getToken().then((value) {
-  //     print(value);
-  //     String? token = value;
-  //   });
-  //   email = TextEditingController();
-  //   password = TextEditingController();
-   //super.onInit();
+    //   FirebaseMessaging.instance.getToken().then((value) {
+    //     print(value);
+    //     String? token = value;
+    //   });
+    //   email = TextEditingController();
+    //   password = TextEditingController();
+    //super.onInit();
   }
 
   @override

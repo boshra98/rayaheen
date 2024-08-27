@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../core/class/statusrequest.dart';
 import '../../core/constant/routes.dart';
+import '../../core/functions/handlingdatacontroller.dart';
+import '../../data/datasource/remote/auth/signup.dart';
 
 abstract class SignUpController extends GetxController{
   signUp();
@@ -19,49 +22,37 @@ class SignUpControllerImp extends SignUpController {
   late TextEditingController password;
 
 // late StatusRequest statusRequest;
-// SignupData signupData = SignupData(Get.find());
-//List data =[];
-  @override
-  // signUp() async {
-  //   if (formstate.currentState!.validate()) {
-  //     statusRequest = StatusRequest.loading;
-  //
-  //     var response = await signupData.postdata(username.text , password.text ,email.text ,phone.text);
-  //
-  //     print("=============================== Controller $response ");
-  //
-  //     statusRequest = handlingData(response);
-  //
-  //     if (StatusRequest.success == statusRequest){
-  //
-  //       // Start backend
-  //       if (response['status'] == "success") {
-  //
-  //         data.addAll(response['data']);
-  //          Get.offNamed(AppRoute.verifyCodeSignUp);
-  //
-  //
-  //       }else{
-  //         Get.defaultDialog(title: "warning" , middleText:"phone nomber or email alredy exist") ;
-  //
-  //         statusRequest = StatusRequest.failure ;
-  //
-  //       }
-  //       // End
-  //     }
-  //     update();
-  //    // Get.offNamed(AppRoute.verifyCodeSignUp);
-  //    // Get.delete<SignUpControllerImp>();
-  //   } else {
-  //   }
-  // }
 
-  signUp() {
+  StatusRequest statusRequest = StatusRequest.none;
+
+  SignupData signupData = SignupData(Get.find());
+
+  List data = [];
+
+  @override
+  signUp() async {
     if (formstate.currentState!.validate()) {
-      Get.offNamed(AppRoute.verifyCodeSignUp);
+      statusRequest = StatusRequest.loading;
+      update() ;
+      var response = await signupData.postdata(
+          username.text, password.text, email.text, phone.text);
+      print("=============================== Controller $response ");
+      statusRequest = handlingData(response);
+      if (StatusRequest.success == statusRequest) {
+        if (response['status'] == "success") {
+          // data.addAll(response['data']);
+          Get.offNamed(AppRoute.verifyCodeSignUp  ,arguments: {
+            "email" : email.text
+          });
+        } else {
+          Get.defaultDialog(title: "ُWarning" , middleText: "Phone Number Or Email Already Exists") ;
+          statusRequest = StatusRequest.failure;
+        }
+      }
+      update();
+    } else {
+
     }
-    else {
-         }
   }
 
   @override
@@ -86,6 +77,4 @@ class SignUpControllerImp extends SignUpController {
     password.dispose();
     super.dispose();
   }
-
-
 }
