@@ -8,9 +8,11 @@ import 'package:rayaheen_bookstore/view/screen/address/view.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../controller/settings_controller.dart';
+import '../../core/constant/apptheme.dart';
 import '../../core/constant/color.dart';
 import '../../core/constant/imageasset.dart';
 import '../../core/constant/routes.dart';
+import 'language.dart';
 
 class Settings extends StatelessWidget {
   const Settings({Key? key}) : super(key: key);
@@ -34,7 +36,7 @@ class Settings extends StatelessWidget {
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(100)),
                       child: CircleAvatar(
-                        radius: 40,
+                        radius: 60,
                         backgroundColor: Colors.grey[100],
                        backgroundImage: const AssetImage(ImageAsset.logo),
                       ),
@@ -47,34 +49,41 @@ class Settings extends StatelessWidget {
               child: Column(mainAxisSize: MainAxisSize.min, children: [
                 ListTile(
                   // onTap: () {},
-                  trailing: Switch(onChanged: (val) {}, value: true),
-                  title: Text("Disable Notificatios"),
+                  trailing: const Icon(Icons.wb_sunny_outlined),
+                  onTap:(){
+                    if(Get.isDarkMode){
+                      Get.changeTheme(customLightTheme);
+                    } else{
+                      Get.changeTheme(customDarkTheme);
+                    }
+                  },
+                  title: Text('44'.tr),
                 ),
                 ListTile(
                   onTap: () {
                    // Get.toNamed(AppRoute.orderspending);
                   },
                   trailing: Icon(Icons.card_travel),
-                  title: Text("Orders"),
+                  title: Text('45'.tr),
                 ),
                 ListTile(
                   onTap: () {
                     //Get.toNamed(AppRoute.ordersarchive );
                   },
                   trailing: Icon(Icons.card_travel),
-                  title: Text("Archive"),
+                  title: Text('46'.tr),
                 ),
                 ListTile(
                   onTap: () {
                     Get.toNamed(AppRoute.addressview);
                   },
                   trailing: Icon(Icons.location_on_outlined),
-                  title: Text("Address"),
+                  title: Text('47'.tr),
                 ),
                 ListTile(
                   onTap: () {},
                   trailing: Icon(Icons.help_outline_rounded),
-                  title: Text("About us"),
+                  title: Text('48'.tr),
                 ),
                 ListTile(
                   onTap: () {
@@ -82,13 +91,20 @@ class Settings extends StatelessWidget {
                     launchUrl(Uri.parse("tel:+97152886100"));
                   },
                   trailing: Icon(Icons.phone_callback_outlined),
-                  title: Text("Contact us"),
+                  title: Text('49'.tr),
+                ),
+                ListTile(
+                  title:  Text("51".tr),
+                  trailing: const Icon(Icons.language),
+                  onTap:(){
+                    Navigator.of(context).push(MaterialPageRoute(builder: (context)=> Language()));
+                  },
                 ),
                 ListTile(
                   onTap: () {
                     controller.logout();
                   },
-                  title: Text("Logout"),
+                  title: Text('50'.tr),
                   trailing: Icon(Icons.exit_to_app),
                 ),
               ]),

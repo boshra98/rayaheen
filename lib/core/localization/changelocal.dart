@@ -35,3 +35,4 @@ class LocaleController extends GetxController {
   }
 
 }
+

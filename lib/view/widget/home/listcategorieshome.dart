@@ -1,4 +1,5 @@
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -13,7 +14,7 @@ class ListCategoriesHome extends GetView<HomeControllerImp> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 100,
+      height:100,
       child: ListView.separated(
         separatorBuilder: (context, index) => const SizedBox(width: 10),
         itemCount: controller.categories.length,
@@ -45,20 +46,29 @@ class Categories extends GetView<HomeControllerImp> {
       child: Column(
         children: [
           Container(
-            decoration: BoxDecoration(
-                color: AppColor.thirdColor,
-                borderRadius: BorderRadius.circular(20)),
+            // decoration: BoxDecoration(
+            //     color: AppColor.thirdColor,
+            //     borderRadius: BorderRadius.circular(40)),
             padding: const EdgeInsets.symmetric(horizontal: 10),
             height: 70,
             width: 70,
             //child:Image.asset("assets/images/logo.png" ,height:100,width:150,fit:BoxFit.fill,)
-            child: Image.network(
-                'http://192.186.137.1:8000/storage/${categoriesModel.categoriesImage}',
-                color: AppColor.secondColor),
-          ),
+            child:Positioned(
+                top: 30.0,
+                right: Get.width / 8,
+                left: Get.width / 8,
+
+                  child: CachedNetworkImage(
+                    imageUrl:
+                    "${AppLink.imagesCategories}/${categoriesModel.categoriesImage!}",
+                    height: 250,
+                    fit: BoxFit.fill,
+                  ),
+                )
+            ),
           Text(
             "${( categoriesModel.categoriesName)}",
-            style: const TextStyle(fontSize: 13, color: AppColor.black),
+            style: const TextStyle(fontSize: 13, color: AppColor.primaryyColor),
           )
         ],
       ),

@@ -42,7 +42,7 @@ class VerifyCodeSignUp extends StatelessWidget {
                   OtpTextField(
                     fieldWidth: 50.0,
                     borderRadius: BorderRadius.circular(20),
-                    numberOfFields: 5,
+                    numberOfFields: 6,
                     borderColor: const Color(0xFF512DA8),
                     //set to true to show as box or false to show as dash
                     showFieldAsBox: true,

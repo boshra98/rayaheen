@@ -128,19 +128,20 @@ class HomePage extends StatelessWidget {
                     CustomAppBar(
                       mycontroller: controller.search!,
 
-                      titleappbar: "Find Product",
+                      titleappbar: "41".tr,
                      // onPressedIcon: () {},
                       onPressedSearch: () {} ,
                        onPressedIconFavorite: (){
                          Get.toNamed(AppRoute.myfavroite) ;
                        },
                     ),
-                    const CustomCardHome(
-                        title: "A summer surprise", body: "Cashback 20%"),
-                    const CustomTitleHome(title: "Categories"),
+                     CustomCardHome(
+                        title: '39'.tr, body: '40'.tr),
+                     CustomTitleHome(title: '42'.tr),
                     const ListCategoriesHome(),
-                    const CustomTitleHome(title: "Product for you"),
+                    CustomTitleHome(title: '43'.tr),
                     const ListItemsHome(),
+
                     // const CustomTitleHome(title: "Offer"),
                     // const ListItemsHome()
                   ],

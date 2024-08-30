@@ -18,26 +18,26 @@ class CustomCardHome extends GetView<HomeControllerImp> {
       child: Stack(children: [
         Container(
           alignment: Alignment.center,
-          height: 150,
+          height: 170,
           decoration: BoxDecoration(
               color: AppColor.primaryColor,
-              borderRadius: BorderRadius.circular(20)),
+              borderRadius: BorderRadius.circular(25)),
           child: ListTile(
             title: Text(title,
-                style: const TextStyle(color: Colors.white, fontSize: 20)),
+                style: const TextStyle(color: Colors.white, fontSize: 22)),
             subtitle: Text(body,
-                style: const TextStyle(color: Colors.white, fontSize: 30)),
+                style: const TextStyle(color: Colors.white, fontSize: 27)),
           ),
         ),
         Positioned(
-          top: -20,
-             right:controller.lang == "en" ?  -20 : null ,
+          bottom: -10,
+             right:controller.lang == "en" ?  -60: null ,
               left: controller.lang == "ar" ?  -20 : null ,
           child: Container(
             height: 160,
             width: 160,
             decoration: BoxDecoration(
-                color: AppColor.secondColor,
+                color: AppColor.primaryyColor,
                 borderRadius: BorderRadius.circular(160)),
           ),
         )

@@ -4,9 +4,9 @@ class AppLink {
 
 
 
-  static const String imagestatic = "http://192.168.43.34:8000/";
-  static const String imagesCategories = "http://192.168.43.34:8000/";
-  static const String imagesItems = "http://192.168.43.34:8000/";
+  static const String imagestatic = "http://192.168.43.34:8000/storage";
+  static const String imagesCategories = "http://192.168.43.34:8000/storage";
+  static const String imagesItems = "http://192.168.43.34:8000/storage";
 
 
 
@@ -15,10 +15,10 @@ class AppLink {
 
 // ================================= Auth ========================== //
 
-  static const String signUp = "$server/auth/signup.php";
+  static const String signUp = "$server/register";
   static const String login = "$server/login";
-  static const String verifycodessignup = "$server/auth/verfiycode.php";
-  static const String resend ="$server/auth/resend.php";
+  static const String verifycodessignup = "$server/verify-email";
+  static const String resend ="$server/verify-email";
 
 
 // ================================= ForgetPassword ========================== //

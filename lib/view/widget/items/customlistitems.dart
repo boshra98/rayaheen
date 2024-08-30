@@ -7,6 +7,7 @@ import '../../../controller/items_controller.dart';
 import '../../../core/constant/color.dart';
 import '../../../core/constant/imageasset.dart';
 import '../../../data/model/itemsmodel.dart';
+import '../../../linkapi.dart';
 
 class CustomListItems extends GetView<ItemsControllerImp> {
   final ItemsModel itemsModel;
@@ -28,15 +29,15 @@ class CustomListItems extends GetView<ItemsControllerImp> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                    //  Hero(
-                     //   tag: "${itemsModel.itemsId}",
-                        // child: CachedNetworkImage(
-                        //   imageUrl:
-                        //   AppLink.imagestItems + "/" + itemsModel.itemsImage!,
-                        //   height: 100,
-                        //   fit: BoxFit.fill,
-                        // ),
-                    //  ),
+                     Hero(
+                       tag: "${itemsModel.itemsId}",
+                        child: CachedNetworkImage(
+                          imageUrl:
+                          AppLink.imagesItems + "/" + itemsModel.itemsImage!,
+                          height: 100,
+                          fit: BoxFit.fill,
+                        ),
+                     ),
                       const SizedBox(height: 10),
                       // Text(
                       //     translateDatabase(
@@ -73,7 +74,7 @@ class CustomListItems extends GetView<ItemsControllerImp> {
                              "${itemsModel.itemsName}",
                               style: const TextStyle(
                                   color: AppColor.primaryColor,
-                                  fontSize: 16,
+                                  //fontSize: 16,
                                   fontWeight: FontWeight.bold,
                                   fontFamily: "sans")),
                           GetBuilder<FavoriteController>(

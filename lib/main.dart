@@ -30,8 +30,8 @@ class MyApp extends StatelessWidget {
       initialBinding:InitialBindings() ,
       //: routes,
       getPages: routes,
-     //  home:
-     //  HomeScreen(),
+      // home:
+      // HomeScreen(),
 
 
       //const Language(),

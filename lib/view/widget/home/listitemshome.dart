@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -33,25 +34,34 @@ class ItemsHome extends StatelessWidget {
     return Stack(
       children: [
         Container(
-          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 10),
-          margin: const EdgeInsets.symmetric(horizontal: 10),
+          padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+          margin: const EdgeInsets.symmetric(horizontal:20),
            // child:Image.asset("assets/images/logo.png" ,height:100,width:150,fit:BoxFit.fill,)
-    child: Image.network(
-    'http://192.168.137.233:8000/storage/${itemsModel.itemsImage}',
-    color: AppColor.secondColor,
-          height: 100,
-          width: 150,
-             fit: BoxFit.fill,
-    ),
-    ),
+            child:Positioned(
+              top: 30.0,
+            right: Get.width / 8,
+              left: Get.width / 8,
+
+              child: CachedNetworkImage(
+                imageUrl:
+                "${AppLink.imagesItems}/${itemsModel.itemsImage!}",
+                height: 100,
+                width: 120,
+                fit: BoxFit.fill,
+
+              ),
+            ),
+
          //   child: Image.network(
          //    "${AppLink.imagestItems}/${itemsModel.itemsImage}",
          //    height: 100,
          //    width: 150,
          //    fit: BoxFit.fill,
          // ),//
-
+        ),
         Container(
+          margin: const EdgeInsets.symmetric(horizontal:10),
+
           decoration: BoxDecoration(
               color: AppColor.black.withOpacity(0.3),
               borderRadius: BorderRadius.circular(20)),
@@ -59,12 +69,16 @@ class ItemsHome extends StatelessWidget {
           width: 200,
         ),
         Positioned(
-            left: 10,
+            top:-5,
+            left: 50,
             child: Text(
               "${itemsModel.itemsName}",
+
               style: const TextStyle(
-                  color: Colors.white,
-                  // fontWeight: FontWeight.bold,
+                  color: Colors.pink,
+                 // width: 200,
+                  //height:50,
+                  fontWeight: FontWeight.bold,
                   fontSize: 14),
             ))
       ],
