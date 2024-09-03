@@ -75,7 +75,7 @@ class ItemsHome extends StatelessWidget {
               "${itemsModel.itemsName}",
 
               style: const TextStyle(
-                  color: Colors.pink,
+                  color: AppColor.primaryColor,
                  // width: 200,
                   //height:50,
                   fontWeight: FontWeight.bold,

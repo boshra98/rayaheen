@@ -1,7 +1,4 @@
-// import 'package:ecommercecourse/controller/settings_controller.dart';
-// import 'package:ecommercecourse/core/constant/color.dart';
-// import 'package:ecommercecourse/core/constant/imgaeasset.dart';
-// import 'package:ecommercecourse/core/constant/routes.dart';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:rayaheen_bookstore/view/screen/address/view.dart';

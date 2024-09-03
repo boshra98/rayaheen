@@ -34,11 +34,11 @@ class CustomCardHome extends GetView<HomeControllerImp> {
              right:controller.lang == "en" ?  -60: null ,
               left: controller.lang == "ar" ?  -20 : null ,
           child: Container(
-            height: 160,
-            width: 160,
+            height: 140,
+            width: 140,
             decoration: BoxDecoration(
-                color: AppColor.primaryyColor,
-                borderRadius: BorderRadius.circular(160)),
+                color: AppColor.fourth2Color,
+                borderRadius: BorderRadius.circular(140)),
           ),
         )
       ]),

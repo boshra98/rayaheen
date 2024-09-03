@@ -1,5 +1,9 @@
 import 'package:flutter/material.dart';
 
+import '../../core/constant/color.dart';
+
+
+
 class CustomAppBar extends StatelessWidget {
   final String titleappbar;
   final void Function()? onPressedIconFavorite;
@@ -13,13 +17,14 @@ class CustomAppBar extends StatelessWidget {
       this.onPressedSearch,
       required this.onPressedIconFavorite,
       this.onChanged,
-      required this.mycontroller,   this.iconData =   Icons.favorite_border_outlined})
+      required this.mycontroller,   this.iconData =   Icons.favorite_border_outlined, required AppBar appBar})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(top: 10),
+
+    margin: EdgeInsets.only(top: 10),
       child: Row(children: [
         Expanded(
             child: TextFormField(
@@ -38,7 +43,7 @@ class CustomAppBar extends StatelessWidget {
         )),
         SizedBox(width: 10),
         Container(
-          decoration: BoxDecoration(
+        decoration: BoxDecoration(
               color: Colors.grey[200], borderRadius: BorderRadius.circular(10)),
           width: 60,
           padding: EdgeInsets.symmetric(vertical: 8),

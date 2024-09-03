@@ -22,9 +22,13 @@ class CustomListItems extends GetView<ItemsControllerImp> {
         },
         child: Card(
           child: Stack(
-            children: [
-              Padding(
-                padding: const EdgeInsets.all(10),
+
+
+          children: [
+
+            Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 15),
+
                 child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -39,66 +43,44 @@ class CustomListItems extends GetView<ItemsControllerImp> {
                         ),
                      ),
                       const SizedBox(height: 10),
-                      // Text(
-                      //     translateDatabase(
-                      //         itemsModel.itemsNameAr, itemsModel.itemsName),
-                      //     style: const TextStyle(
-                      //         color: AppColor.black,
-                      //         fontSize: 16,
-                      //         fontWeight: FontWeight.bold)),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          const Text("Rating 3.5 ", textAlign: TextAlign.center),
-                          Container(
-                            alignment: Alignment.bottomCenter,
-                            height: 22,
-                            child: Row(
-                              children: [
-                                ...List.generate(
-                                    5,
-                                        (index) => const Icon(
-                                      Icons.star,
-                                      size: 15,
-                                    ))
-                              ],
-                            ),
-                          )
-                        ],
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
 
-                             "${itemsModel.itemsName}",
-                              style: const TextStyle(
-                                  color: AppColor.primaryColor,
-                                  //fontSize: 16,
-                                  fontWeight: FontWeight.bold,
-                                  fontFamily: "sans")),
-                          GetBuilder<FavoriteController>(
-                              builder: (controller) => IconButton(
-                                  onPressed: () {
-                                    if (controller.isFavorite[itemsModel.itemsId] ==
-                                        "1") {
-                                      controller.setFavorite(
-                                          itemsModel.itemsId, "0");
-                                      controller
-                                          .removeFavorite(itemsModel.itemsId! as String);
-                                    } else {
-                                      controller.setFavorite(
-                                          itemsModel.itemsId, "1");
-                                      controller.addFavorite(itemsModel.itemsId! as String);
-                                    }
-                                  },
-                                  icon: Icon(
-                                    controller.isFavorite[itemsModel.itemsId] == "1"
-                                        ? Icons.favorite
-                                        : Icons.favorite_border_outlined,
+                      SizedBox(
+                       // width: MediaQuery.of(context).size.width * 0.8, // Adjust the width as needed
+
+                        child: Column(
+                          //mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Text(
+
+                               "${itemsModel.itemsName}",
+                                style: const TextStyle(
                                     color: AppColor.primaryColor,
-                                  )))
-                        ],
+                                    //fontSize: 16,
+                                    fontWeight: FontWeight.bold,
+                                    fontFamily: "sans")),
+                            GetBuilder<FavoriteController>(
+                                builder: (controller) => IconButton(
+                                    onPressed: () {
+                                      if (controller.isFavorite[itemsModel.itemsId] ==
+                                          "1") {
+                                        controller.setFavorite(
+                                            itemsModel.itemsId, "0");
+                                        controller
+                                            .removeFavorite(itemsModel.itemsId! as String);
+                                      } else {
+                                        controller.setFavorite(
+                                            itemsModel.itemsId, "1");
+                                        controller.addFavorite(itemsModel.itemsId! as String);
+                                      }
+                                    },
+                                    icon: Icon(
+                                      controller.isFavorite[itemsModel.itemsId] == "1"
+                                          ? Icons.favorite
+                                          : Icons.favorite_border_outlined,
+                                      color: AppColor.primaryColor,
+                                    )))
+                          ],
+                        ),
                       )
                     ]),
               ),

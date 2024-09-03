@@ -6,6 +6,7 @@ import '../../controller/favorit_controller.dart';
 import '../../controller/home_controller.dart';
 import '../../controller/items_controller.dart';
 import '../../core/class/handlingdataview.dart';
+import '../../core/constant/color.dart';
 import '../../core/constant/routes.dart';
 import '../../data/model/itemsmodel.dart';
 import '../../linkapi.dart';
@@ -37,7 +38,8 @@ class items extends StatelessWidget {
             },
             onPressedIconFavorite: () {
               Get.toNamed(AppRoute.myfavroite);
-            },
+            }, appBar: AppBar(backgroundColor:AppColor.primaryColor),
+            //backgroundColor: AppColor.primaryColor,
           ),
           const SizedBox(height: 20),
           const ListCategoriesItems(),

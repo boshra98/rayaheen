@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 
 import '../../controller/myfavorit_controller.dart';
 import '../../core/class/handlingdataview.dart';
+import '../../core/constant/color.dart';
 import '../../core/constant/routes.dart';
 import '../widget/customappbar.dart';
 import '../widget/myfavorite/customlistfavoriteitems.dart';
@@ -35,7 +36,10 @@ class MyFavorite extends StatelessWidget {
                     onPressedIconFavorite: () {
                       Get.toNamed(AppRoute.myfavroite);
                     },
+                    appBar: AppBar(backgroundColor:AppColor.primaryColor),
+                    //backgroundColor: AppColor.primaryColor,
                   ),
+
                   const SizedBox(height: 20),
                   HandlingDataView(
                       statusRequest: controller.statusRequest,

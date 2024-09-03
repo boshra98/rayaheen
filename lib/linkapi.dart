@@ -55,6 +55,20 @@ class AppLink {
   static const String cartdelete = "$server/removecart";
   static const String cartgetcountitems = "server/cart/getcountitems.php";
 
+  // Coupon
+
+  static const String checkcoupon  = "server/coupon/checkcoupon.php";
+
+  // Checkout
+
+  static const String checkout  = "server/orders/checkout.php";
+
+  static const String pendingorders  = "server/orders/pending.php";
+  static const String ordersarchive  = "server/orders/archive.php";
+  static const String ordersdetails  = "server/orders/details.php";
+  static const String ordersdelete  = "server/orders/delete.php";
+
+
 
 
 }

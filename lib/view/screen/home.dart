@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 
 import '../../controller/home_controller.dart';
 import '../../core/class/handlingdataview.dart';
+import '../../core/constant/color.dart';
 import '../../data/model/itemsmodel.dart';
 import '../../linkapi.dart';
 import '../widget/home/customcardhome.dart';
@@ -126,7 +127,10 @@ class HomePage extends StatelessWidget {
                 child: ListView(
                   children: [
                     CustomAppBar(
-                      mycontroller: controller.search!,
+                      appBar:AppBar(backgroundColor:AppColor.primaryColor),
+                      //backgroundColor:AppColor.primaryColor,
+
+                    mycontroller: controller.search!,
 
                       titleappbar: "41".tr,
                      // onPressedIcon: () {},

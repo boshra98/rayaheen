@@ -14,6 +14,8 @@ import 'package:rayaheen_bookstore/view/screen/auth/verifycodesignup.dart';
 import 'package:rayaheen_bookstore/view/screen/auth/login.dart';
 import 'package:rayaheen_bookstore/view/screen/auth/signup.dart';
 import 'package:rayaheen_bookstore/view/screen/auth/success_signup.dart';
+import 'package:rayaheen_bookstore/view/screen/cart.dart';
+import 'package:rayaheen_bookstore/view/screen/checkout.dart';
 import 'package:rayaheen_bookstore/view/screen/home.dart';
 import 'package:rayaheen_bookstore/view/screen/homescreen.dart';
 import 'package:rayaheen_bookstore/view/screen/items.dart';
@@ -52,7 +54,8 @@ List<GetPage<dynamic>>? routes = [
   GetPage(
       name: AppRoute.addressadddetails, page: () => const AddressAddDetails()),
 
-// GetPage(name: AppRoute.checkout, page: () => const Checkout()),
+   GetPage(name: AppRoute.checkout, page: () => const Checkout()),
+  GetPage(name: AppRoute.cart, page: () => const Cart()),
 
 
  // GetPage(name: AppRoute.items, page: () => const Items()),

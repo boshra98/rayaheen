@@ -68,7 +68,7 @@ class Categories extends GetView<HomeControllerImp> {
             ),
           Text(
             "${( categoriesModel.categoriesName)}",
-            style: const TextStyle(fontSize: 13, color: AppColor.primaryyColor),
+            style: const TextStyle(fontSize: 13, color: AppColor.primaryColor),
           )
         ],
       ),
