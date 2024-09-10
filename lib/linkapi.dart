@@ -1,12 +1,12 @@
 class AppLink {
 
-  static const String server = "http://192.168.43.34:8000/api";
+  static const String server = "http://192.168.40.227:8000/api";
 
 
 
-  static const String imagestatic = "http://192.168.43.34:8000/storage";
-  static const String imagesCategories = "http://192.168.43.34:8000/storage";
-  static const String imagesItems = "http://192.168.43.34:8000/storage";
+  static const String imagestatic = "http://192.168.40.227:8000/storage";
+  static const String imagesCategories = "http://192.168.40.227:8000/storage";
+  static const String imagesItems = "http://192.168.40.227:8000/storage";
 
 
 
@@ -32,12 +32,11 @@ class AppLink {
   static const String items = "$server/items";
   static const String searchitems = "$server/items/search.php";
 
-
-  static const String favoriteAdd = "server/favorite/add.php";
-  static const String favoriteRemove = "server/favorite/remove.php";
-  static const String favoriteView = "server/favorite/view.php";
+  static const String favoriteAdd = "$server/addfavorite";
+  static const String favoriteRemove = "$server/removefavorites";
+  static const String favoriteView = "$server/viewfavorites";
   static const String deletefromfavroite =
-      "server/favorite/deletefromfavroite.php";
+      "$server/deleteitemfavorites";
 
 
   // Address
@@ -48,12 +47,11 @@ class AppLink {
   static const String addressDelete = "server/address/delete.php";
 
 
-
   // Cart
   static const String cartview = "$server/cart";
-  static const String cartadd = "$server/cart";
+  static const String cartadd = "$server/addtocart";
   static const String cartdelete = "$server/removecart";
-  static const String cartgetcountitems = "server/cart/getcountitems.php";
+  static const String cartgetcountitems = "$server/getcountitems";
 
   // Coupon
 

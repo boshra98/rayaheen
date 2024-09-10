@@ -41,7 +41,7 @@ class ItemsModel {
         //this.favorite
       });
 
-  ItemsModel.fromJson(Map<String, dynamic> json) {
+  ItemsModel.fromJson(Map<dynamic, dynamic> json) {
     itemsId = json['id'];
     itemsName = json['title'];
     //itemsNameAr = json['items_name_ar'];
@@ -60,7 +60,7 @@ class ItemsModel {
     categoriesName = json['categories_name'];
    // categoriesNamaAr = json['categories_nama_ar'];
     categoriesImage = json['categories_image'];
-   // favorite = json['favorite'];
+    //favorite = json['favorite'];
 
     //categoriesDatetime = json['categories_datetime'];
   }

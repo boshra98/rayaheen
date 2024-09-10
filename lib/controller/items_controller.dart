@@ -31,7 +31,7 @@ class ItemsControllerImp extends SearchMixController {
 
   @override
   void onInit() {
-     search = TextEditingController();
+    search = TextEditingController();
     intialData();
     super.onInit();
   }
@@ -46,6 +46,7 @@ class ItemsControllerImp extends SearchMixController {
 
   @override
   changeCat(val, catval) {
+    print(val);
     selectedCat = val;
     catid = catval;
     getItems(catid!);
@@ -57,14 +58,21 @@ class ItemsControllerImp extends SearchMixController {
     data.clear();
     statusRequest = StatusRequest.loading;
     var response = await testData.getData(
-        categoryid, "1");
-        //myServices.sharedPreferences.getString("id")!);
+
+        categoryid, myServices.sharedPreferences.getString("id")!);
+
     print("=============================== Controller $response ");
     statusRequest = handlingData(response);
     if (StatusRequest.success == statusRequest) {
       // Start backend
+      print("joudddddddddddddd");
       if (response['status'] == "success") {
-        data.addAll(response['data']);
+
+// Check if dataresponse is a List or a Map
+          // It's a list, process as a List
+          //data.clear();
+          data.addAll(response['data']);
+
 
 
       } else {

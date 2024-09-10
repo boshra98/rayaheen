@@ -42,7 +42,7 @@ class MyFavoriteController extends SearchMixController {
     update();
   }
 
-  deleteFromFavorite(String favroiteid) {
+  deleteFromFavorite(int favroiteid) {
     // data.clear();
     // statusRequest = StatusRequest.loading;
     var response = favoriteData.deleteData(favroiteid);

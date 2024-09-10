@@ -1,9 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../../core/constant/color.dart';
-
-
-
 class CustomAppBar extends StatelessWidget {
   final String titleappbar;
   final void Function()? onPressedIconFavorite;

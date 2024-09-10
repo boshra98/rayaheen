@@ -7,14 +7,16 @@ class FavoriteData {
   Crud crud;
   FavoriteData(this.crud);
   addFavorite(String usersid, String itemsid) async {
+    print( AppLink.favoriteAdd);
     var response = await crud.postData(
-        AppLink.favoriteAdd, {"usersid": usersid, "itemsid": itemsid});
+        AppLink.favoriteAdd, {"user_id": usersid, "book_id": itemsid});
+    print(response);
     return response.fold((l) => l, (r) => r);
   }
 
   removeFavorite(String usersid, String itemsid) async {
     var response = await crud.postData(
-        AppLink.favoriteRemove, {"usersid": usersid, "itemsid": itemsid});
+        AppLink.favoriteRemove, {"user_id": usersid, "book_id": itemsid});
     return response.fold((l) => l, (r) => r);
   }
 }

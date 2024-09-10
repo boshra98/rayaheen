@@ -39,7 +39,7 @@ class ProductDetailsControllerImp extends ProductDetailsController {
       // Start backend
       if (response['status'] == "success") {
         int countitems = 0;
-        countitems = int.parse(response['data']);
+        countitems = response['data'];
         print("==================================");
         print("$countitems");
         return countitems;
@@ -55,7 +55,7 @@ class ProductDetailsControllerImp extends ProductDetailsController {
     statusRequest = StatusRequest.loading;
     update();
     var response = await cartData.addCart(
-        myServices.sharedPreferences.getString("id")! , itemsid);
+        myServices.sharedPreferences.getString("id")! , "${itemsid}");
     print("=============================== Controller $response ");
     statusRequest = handlingData(response);
     if (StatusRequest.success == statusRequest) {
@@ -73,12 +73,12 @@ class ProductDetailsControllerImp extends ProductDetailsController {
     update();
   }
 
-  deleteitems(String itemsid) async {
+  deleteitems(int itemsid) async {
     statusRequest = StatusRequest.loading;
     update();
 
     var response = await cartData.deleteCart(
-        myServices.sharedPreferences.getString("id")!, itemsid);
+        myServices.sharedPreferences.getString("id")!, "${itemsid}");
     print("=============================== Controller $response ");
     statusRequest = handlingData(response);
     if (StatusRequest.success == statusRequest) {
@@ -110,7 +110,7 @@ class ProductDetailsControllerImp extends ProductDetailsController {
 
   remove() {
     if (countitems > 0) {
-      deleteitems(itemsModel.itemsId! as String);
+      deleteitems(itemsModel.itemsId! );
       countitems--;
       update();
     }

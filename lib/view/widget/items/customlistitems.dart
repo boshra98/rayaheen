@@ -18,41 +18,43 @@ class CustomListItems extends GetView<ItemsControllerImp> {
   Widget build(BuildContext context) {
     return InkWell(
         onTap: () {
+        // print(" ${AppLink.imagesItems}" + "/" + "${itemsModel.itemsImage}");
+
           controller.goToPageProductDetails(itemsModel);
         },
         child: Card(
           child: Stack(
 
 
-          children: [
+            children: [
 
-            Padding(
+              Padding(
                 padding: const EdgeInsets.symmetric(horizontal: 15),
 
                 child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                     Hero(
-                       tag: "${itemsModel.itemsId}",
+                      Hero(
+                        tag: "${itemsModel.itemsId}",
                         child: CachedNetworkImage(
                           imageUrl:
                           AppLink.imagesItems + "/" + itemsModel.itemsImage!,
                           height: 100,
                           fit: BoxFit.fill,
                         ),
-                     ),
+                      ),
                       const SizedBox(height: 10),
 
                       SizedBox(
-                       // width: MediaQuery.of(context).size.width * 0.8, // Adjust the width as needed
+                        // width: MediaQuery.of(context).size.width * 0.8, // Adjust the width as needed
 
                         child: Column(
                           //mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
                             Text(
 
-                               "${itemsModel.itemsName}",
+                                "${itemsModel.itemsName}",
                                 style: const TextStyle(
                                     color: AppColor.primaryColor,
                                     //fontSize: 16,
@@ -66,11 +68,11 @@ class CustomListItems extends GetView<ItemsControllerImp> {
                                         controller.setFavorite(
                                             itemsModel.itemsId, "0");
                                         controller
-                                            .removeFavorite(itemsModel.itemsId! as String);
+                                            .removeFavorite(itemsModel.itemsId!);
                                       } else {
                                         controller.setFavorite(
                                             itemsModel.itemsId, "1");
-                                        controller.addFavorite(itemsModel.itemsId! as String);
+                                        controller.addFavorite(itemsModel.itemsId! );
                                       }
                                     },
                                     icon: Icon(

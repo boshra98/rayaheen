@@ -36,7 +36,7 @@ class CartController extends GetxController {
     statusRequest = StatusRequest.loading;
     update();
     var response = await cartData.addCart(
-        myServices.sharedPreferences.getString("id")!, itemsid as int);
+        myServices.sharedPreferences.getString("id")!, itemsid );
     print("=============================== Controller $response ");
     statusRequest = handlingData(response);
     if (StatusRequest.success == statusRequest) {
@@ -143,8 +143,11 @@ class CartController extends GetxController {
           Map dataresponsecountprice = response['countprice'];
           data.clear();
           data.addAll(dataresponse.map((e) => CartModel.fromJson(e)));
-          totalcountitems = int.parse(dataresponsecountprice['totalcount']);
-          priceorders = double.parse(dataresponsecountprice['totalprice']);
+          totalcountitems = (dataresponsecountprice['totalcount']);
+
+          priceorders = (dataresponsecountprice['totalprice'])-0.1;
+          priceorders = double.parse(priceorders.toStringAsFixed(1));
+
           print(priceorders);
         }
       } else {
