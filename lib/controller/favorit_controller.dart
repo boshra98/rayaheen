@@ -40,7 +40,7 @@ class FavoriteController extends GetxController {
         Get.rawSnackbar(
             title: "اشعار",
             messageText: const Text("تم اضافة المنتج من المفضلة "));
-        // data.addAll(response['data']);
+         data.addAll(response['data']);
       } else {
         statusRequest = StatusRequest.failure;
       }
@@ -61,7 +61,7 @@ class FavoriteController extends GetxController {
         Get.rawSnackbar(
             title: "اشعار",
             messageText: const Text("تم حذف المنتج من المفضلة "));
-        // data.addAll(response['data']);
+         data.addAll(response['data']);
       } else {
         statusRequest = StatusRequest.failure;
       }

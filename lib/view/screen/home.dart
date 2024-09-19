@@ -58,7 +58,7 @@ class HomePage extends StatelessWidget {
                             body: '40'.tr),
                         CustomTitleHome(title: '42'.tr),
                         const ListCategoriesHome(),
-                        CustomTitleHome(title: '42'.tr),
+                        CustomTitleHome(title: '43'.tr),
                         const ListItemsHome(),
                       ],
                     )
@@ -105,7 +105,7 @@ class ListItemsSearch extends GetView<HomeControllerImp> {
                             flex: 2,
                             child: ListTile(
                               title: Text(listdatamodel[index].itemsName!),
-                              subtitle: Text(listdatamodel[index].categoriesName!),
+                              subtitle: Text(listdatamodel[index].itemsPrice!),
                             )),
                       ],
                     ),

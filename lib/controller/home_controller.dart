@@ -82,6 +82,8 @@ class HomeControllerImp extends HomeController {
 
 class SearchMixController extends GetxController {
   List<ItemsModel> listdata = [];
+  bool isSearch = false;
+  TextEditingController? search;
 
   late StatusRequest statusRequest;
   HomeData homedata = HomeData(Get.find());
@@ -103,8 +105,7 @@ class SearchMixController extends GetxController {
     update();
   }
 
-  bool isSearch = false;
-  TextEditingController? search;
+
   checkSearch(val) {
     if (val == "") {
       statusRequest = StatusRequest.none;

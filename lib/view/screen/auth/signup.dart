@@ -48,20 +48,20 @@ class SignUp extends StatelessWidget {
               labeltext: "20".tr,
 
             ) ,
-            CustomTextFormAuth(
-              isNumber: false,
-
-              valid:(val){
-                return validInput(val! ,5,100, "email") ;
-
-              },
-
-              mycontroller: controller.email,
-              hinttext: "12".tr,
-              iconData: Icons.lock_outline,
-              labeltext: "18".tr,
-              //mycontrller
-            ) ,
+            // CustomTextFormAuth(
+            //   isNumber: false,
+            //
+            //   valid:(val){
+            //     return validInput(val! ,5,100, "email") ;
+            //
+            //   },
+            //
+            //   mycontroller: controller.email,
+            //   hinttext: "12".tr,
+            //   iconData: Icons.lock_outline,
+            //   labeltext: "18".tr,
+            //   //mycontrller
+            // ) ,
 
             CustomTextFormAuth(
               isNumber: true,

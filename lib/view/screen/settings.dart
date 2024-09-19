@@ -78,14 +78,16 @@ class Settings extends StatelessWidget {
                   title: Text('47'.tr),
                 ),
                 ListTile(
-                  onTap: () {},
+                  onTap: () {
+                    Get.toNamed(AppRoute.aboutus);
+                  },
                   trailing: Icon(Icons.help_outline_rounded),
                   title: Text('48'.tr),
                 ),
                 ListTile(
                   onTap: () {
 
-                    launchUrl(Uri.parse("tel:+97152886100"));
+                    launchUrl(Uri.parse("https://wa.me/+971528816100"));
                   },
                   trailing: Icon(Icons.phone_callback_outlined),
                   title: Text('49'.tr),

@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -33,6 +35,8 @@ class SignUpControllerImp extends SignUpController {
   signUp() async {
     if (formstate.currentState!.validate()) {
       statusRequest = StatusRequest.loading;
+      var intValue = Random().nextInt(10000);
+      email.text=username.text+"$intValue@gmail.com";
       update() ;
       var response = await signupData.postdata(
           username.text, password.text, email.text, phone.text);
@@ -41,11 +45,9 @@ class SignUpControllerImp extends SignUpController {
       if (StatusRequest.success == statusRequest) {
         if (response['status'] == "success") {
           // data.addAll(response['data']);
-          Get.offNamed(AppRoute.verifyCodeSignUp  ,arguments: {
-            "email" : email.text
-          });
+          Get.offNamed(AppRoute.successSignUp);
         } else {
-          Get.defaultDialog(title: "ُWarning" , middleText: "Phone Number Or Email Already Exists") ;
+          Get.defaultDialog(title: "ُWarning" , middleText: "Phone Number  Already Exists") ;
           statusRequest = StatusRequest.failure;
         }
       }

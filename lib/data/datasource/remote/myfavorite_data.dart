@@ -11,7 +11,7 @@ class MyFavoriteData {
     return response.fold((l) => l, (r) => r);
   }
 
-  deleteData(int id) async {
+  deleteData(String id) async {
     var response = await crud.postData(AppLink.deletefromfavroite, {"id": id});
     return response.fold((l) => l, (r) => r);
   }

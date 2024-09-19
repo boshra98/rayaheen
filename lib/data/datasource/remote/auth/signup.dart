@@ -5,6 +5,7 @@ class SignupData {
   Crud crud;
   SignupData(this.crud);
   postdata(String username ,String password ,String email ,String phone ) async {
+    print("email$email");
     var response = await crud.postData(AppLink.signUp, {
       "username" : username ,
       "password" : password  ,

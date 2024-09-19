@@ -35,5 +35,8 @@ class AppRoute {
   static const String checkout = "/checkout";
   static const String addressadddetails = "/addressadddetails";
 
+  static const String aboutus = "/aboutus";
+
+
 
 }

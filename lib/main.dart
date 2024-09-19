@@ -29,9 +29,9 @@ class MyApp extends StatelessWidget {
       theme: controller.appTheme ,
       initialBinding:InitialBindings() ,
       //: routes,
-     getPages: routes,
-     //  home:
-     //  HomeScreen(),
+     //getPages: routes,
+      home:
+      HomeScreen(),
 
 
       //const Language(),

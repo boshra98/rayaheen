@@ -48,7 +48,7 @@ class ProductDetails extends StatelessWidget {
                           Text("${controller.itemsModel.itemsName}",
                               style: Theme.of(context)
                                   .textTheme
-                                  .headline1!
+                                  .headlineLarge!
                                   .copyWith(
                                 color: AppColor.fourthColor,
                               )),
@@ -68,7 +68,7 @@ class ProductDetails extends StatelessWidget {
                           Text("${controller.itemsModel.itemsDesc}",
                               style: Theme.of(context)
                                   .textTheme
-                                  .bodyText1!
+                                  .bodyMedium!
                                   .copyWith(
                                   fontSize: 16,
                                   fontWeight: FontWeight.w300,

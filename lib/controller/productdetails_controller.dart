@@ -42,6 +42,8 @@ class ProductDetailsControllerImp extends ProductDetailsController {
         countitems = response['data'];
         print("==================================");
         print("$countitems");
+        if(countitems==0)
+          countitems=1;
         return countitems;
         // data.addAll(response['data']);
       } else {
@@ -76,8 +78,8 @@ class ProductDetailsControllerImp extends ProductDetailsController {
   deleteitems(int itemsid) async {
     statusRequest = StatusRequest.loading;
     update();
-
-    var response = await cartData.deleteCart(
+// if(getCountItems(itemsid)>1)
+    {var response = await cartData.deleteCart(
         myServices.sharedPreferences.getString("id")!, "${itemsid}");
     print("=============================== Controller $response ");
     statusRequest = handlingData(response);
@@ -92,7 +94,9 @@ class ProductDetailsControllerImp extends ProductDetailsController {
         statusRequest = StatusRequest.failure;
       }
       // End
-    }
+    }}
+
+
     update();
   }
 

@@ -27,38 +27,34 @@ class CustomListFavoriteItems extends GetView<MyFavoriteController> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  // Hero(
-                  //   tag: "${itemsModel.itemsId}",
-                  //   child: CachedNetworkImage(
-                  //     imageUrl:
-                  //         AppLink.imagestItems + "/" + itemsModel.itemsImage!,
-                  //     height: 100,
-                  //     fit: BoxFit.fill,
-                  //   ),
-                  // ),
+                  Hero(
+                    tag: "${itemsModel.itemsId}",
+                    child: CachedNetworkImage(
+                      imageUrl:
+                      AppLink.imagesItems + "/" + itemsModel.itemsImage!,
+                      height: 100,
+                      fit: BoxFit.fill,
+                    ),
+                  ),
                   const SizedBox(height: 10),
-                  // Text(
-                  //     translateDatabase(
-                  //         itemsModel.itemsNameAr, itemsModel.itemsName),
-                  //     style: const TextStyle(
-                  //         color: AppColor.black,
-                  //         fontSize: 16,
-                  //         fontWeight: FontWeight.bold)),
+                  Text(itemsModel.itemsName!
+                    // style: const TextStyle(
+                    //     color: AppColor.black,
+                    //     fontSize: 16,
+                    //     fontWeight: FontWeight.bold)
+
+
+                  ),
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      const Text("Rating 3.5 ", textAlign: TextAlign.center),
+                     // const Text("Rating 3.5 ", textAlign: TextAlign.center),
                       Container(
                         alignment: Alignment.bottomCenter,
                         height: 22,
                         child: Row(
                           children: [
-                            ...List.generate(
-                                5,
-                                (index) => const Icon(
-                                      Icons.star,
-                                      size: 15,
-                                    ))
+
                           ],
                         ),
                       )
@@ -67,7 +63,7 @@ class CustomListFavoriteItems extends GetView<MyFavoriteController> {
                   Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
-                      Text("${itemsModel.itemsPrice} \$",
+                      Text("${itemsModel.itemsPrice} \درهم ",
                           style: const TextStyle(
                               color: AppColor.primaryColor,
                               fontSize: 16,
@@ -75,7 +71,7 @@ class CustomListFavoriteItems extends GetView<MyFavoriteController> {
                               fontFamily: "sans")),
                       IconButton(
                           onPressed: () {
-                              controller.deleteFromFavorite(itemsModel.favoriteId!) ;
+                            controller.deleteFromFavorite(itemsModel.favoriteId!) ;
                           },
                           icon: Icon(
                             Icons.delete_outline_outlined,
@@ -120,20 +116,20 @@ class CustomListFavoriteItems extends GetView<MyFavoriteController> {
 
 // logical thinking
 
-  // GetBuilder<FavoriteController>(
-  //                         builder: (controller) => IconButton(
-  //                             onPressed: () {
-  //                                 if (controller.isFavorite[itemsModel.itemsId] == "1" ) {
-  //                                   controller.setFavorite(
-  //                                       itemsModel.itemsId, "0");
-  //                                 } else {
-  //                                   controller.setFavorite(
-  //                                       itemsModel.itemsId, "1");
-  //                                 }
-  //                             },
-  //                             icon: Icon(
-  //                               controller.isFavorite[itemsModel.itemsId] == "1"
-  //                                   ? Icons.favorite
-  //                                   : Icons.favorite_border_outlined,
-  //                               color: AppColor.primaryColor,
-  //                             )))
+// GetBuilder<FavoriteController>(
+//                         builder: (controller) => IconButton(
+//                             onPressed: () {
+//                                 if (controller.isFavorite[itemsModel.itemsId] == "1" ) {
+//                                   controller.setFavorite(
+//                                       itemsModel.itemsId, "0");
+//                                 } else {
+//                                   controller.setFavorite(
+//                                       itemsModel.itemsId, "1");
+//                                 }
+//                             },
+//                             icon: Icon(
+//                               controller.isFavorite[itemsModel.itemsId] == "1"
+//                                   ? Icons.favorite
+//                                   : Icons.favorite_border_outlined,
+//                               color: AppColor.primaryColor,
+//                             )))

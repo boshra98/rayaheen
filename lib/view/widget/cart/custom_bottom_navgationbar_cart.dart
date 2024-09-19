@@ -46,18 +46,18 @@ class BottomNavgationBarCart extends GetView<CartController> {
                             isDense: true,
                             contentPadding: EdgeInsets.symmetric(
                                 vertical: 8, horizontal: 10),
-                            hintText: "Coupon Code",
+                            hintText: "كود الحسم",
                             border: OutlineInputBorder()),
                       )),
                   SizedBox(width: 5),
                   Expanded(
                       flex: 1,
                       child: CustomButtonCoupon(
-                        textbutton: "apply",
+                        textbutton: "تفعيل",
                         onPressed: onApplyCoupon,
                       ))
                 ]))
-                : Container(child: Text("Coupon Code ${controller.couponname!}" , style: TextStyle(color: AppColor.primaryColor , fontWeight: FontWeight.bold),))
+                : Container(child: Text("كود الحسم ${controller.couponname!}" , style: TextStyle(color: AppColor.primaryColor , fontWeight: FontWeight.bold),))
                 ),
         Container(
           margin: EdgeInsets.all(10),
@@ -71,10 +71,10 @@ class BottomNavgationBarCart extends GetView<CartController> {
               children: [
                 Container(
                     padding: EdgeInsets.symmetric(horizontal: 20),
-                    child: Text("price", style: TextStyle(fontSize: 16))),
+                    child: Text("السعر", style: TextStyle(fontSize: 16))),
                 Container(
                     padding: EdgeInsets.symmetric(horizontal: 20),
-                    child: Text("$price \$", style: TextStyle(fontSize: 16)))
+                    child: Text("$priceدرهم \ ", style: TextStyle(fontSize: 16)))
               ],
             ),
             Row(
@@ -82,7 +82,7 @@ class BottomNavgationBarCart extends GetView<CartController> {
               children: [
                 Container(
                     padding: EdgeInsets.symmetric(horizontal: 20),
-                    child: Text("discount", style: TextStyle(fontSize: 16))),
+                    child: Text("الحسم", style: TextStyle(fontSize: 16))),
                 Container(
                     padding: EdgeInsets.symmetric(horizontal: 20),
                     child: Text("$discount ", style: TextStyle(fontSize: 16)))
@@ -93,7 +93,7 @@ class BottomNavgationBarCart extends GetView<CartController> {
               children: [
                 Container(
                     padding: EdgeInsets.symmetric(horizontal: 20),
-                    child: Text("shipping", style: TextStyle(fontSize: 16))),
+                    child: Text("التوصيل", style: TextStyle(fontSize: 16))),
                 Container(
                     padding: EdgeInsets.symmetric(horizontal: 20),
                     child: Text("$shipping ", style: TextStyle(fontSize: 16)))
@@ -105,17 +105,19 @@ class BottomNavgationBarCart extends GetView<CartController> {
               children: [
                 Container(
                     padding: EdgeInsets.symmetric(horizontal: 20),
-                    child: Text("Total Price",
+                    child: Text("السعر الكلي",
                         style: TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.bold,
                             color: AppColor.primaryColor))),
                 Container(
                     padding: EdgeInsets.symmetric(horizontal: 20),
-                    child: Text("$totalprice \$",
+                    child: Text("$totalpriceدرهم\ ",
                         style: TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.bold,
+                            wordSpacing:4,
+                            //letterSpacing: 2,
                             color: AppColor.primaryColor)))
               ],
             ),
@@ -123,7 +125,7 @@ class BottomNavgationBarCart extends GetView<CartController> {
         ),
         SizedBox(height: 10),
         CustomButtonCart(
-          textbutton: "Order",
+          textbutton: "اطلب الآن",
           onPressed: () { 
             controller.goToPageCheckout() ; 
           },

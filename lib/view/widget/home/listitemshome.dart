@@ -63,7 +63,7 @@ class ItemsHome extends StatelessWidget {
           margin: const EdgeInsets.symmetric(horizontal:10),
 
           decoration: BoxDecoration(
-              color: AppColor.black.withOpacity(0.3),
+              color: AppColor.thirdColor.withOpacity(0.3),
               borderRadius: BorderRadius.circular(20)),
           height: 120,
           width: 200,

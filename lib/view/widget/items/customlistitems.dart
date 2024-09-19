@@ -57,7 +57,7 @@ class CustomListItems extends GetView<ItemsControllerImp> {
                                 "${itemsModel.itemsName}",
                                 style: const TextStyle(
                                     color: AppColor.primaryColor,
-                                    //fontSize: 16,
+                                    fontSize: 16,
                                     fontWeight: FontWeight.bold,
                                     fontFamily: "sans")),
                             GetBuilder<FavoriteController>(

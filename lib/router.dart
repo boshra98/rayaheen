@@ -3,6 +3,7 @@
 
 import 'package:get/get.dart';
 import 'package:rayaheen_bookstore/test_view.dart';
+import 'package:rayaheen_bookstore/view/screen/aboutus.dart';
 import 'package:rayaheen_bookstore/view/screen/address/add.dart';
 import 'package:rayaheen_bookstore/view/screen/address/adddetails.dart';
 import 'package:rayaheen_bookstore/view/screen/address/view.dart';
@@ -41,7 +42,7 @@ List<GetPage<dynamic>>? routes = [
   GetPage(name: AppRoute.resetPassword, page: () => const ResetPassword()),
   GetPage(name: AppRoute.successResetPassword, page: () => const SuccessResetPassword()),
   GetPage(name: AppRoute.successSignUp, page: () => const SuccessSignUp()),
-  GetPage(name: AppRoute.verifyCodeSignUp, page: () => const VerifyCodeSignUp()),
+ // GetPage(name: AppRoute.verifyCodeSignUp, page: () => const VerifyCodeSignUp()),
 
 
   GetPage(name: AppRoute.homePage, page: () => const HomeScreen()),
@@ -56,8 +57,10 @@ List<GetPage<dynamic>>? routes = [
 
    GetPage(name: AppRoute.checkout, page: () => const Checkout()),
   GetPage(name: AppRoute.cart, page: () => const Cart()),
+  GetPage(name: AppRoute.aboutus, page: () => const AboutUs()),
 
 
- // GetPage(name: AppRoute.items, page: () => const Items()),
+
+  // GetPage(name: AppRoute.items, page: () => const Items()),
 
 ];

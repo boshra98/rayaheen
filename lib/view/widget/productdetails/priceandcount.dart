@@ -19,7 +19,6 @@ class PriceAndCountItems extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    var c=0;
     return Row(
       children: [
         Row(
@@ -41,9 +40,9 @@ class PriceAndCountItems extends StatelessWidget {
         ),
         const Spacer(),
         Text(
-          "$price \$",
+          "$price درهم\ ",
           style: const TextStyle(
-              color: AppColor.primaryColor, fontSize: 30, height: 1.1),
+              color: AppColor.primaryColor, fontSize: 24, height: 1.1),
         )
       ],
     );

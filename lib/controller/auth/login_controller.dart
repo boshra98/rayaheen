@@ -18,7 +18,7 @@ class LoginControllerImp extends LoginController {
 
   GlobalKey<FormState> formstate = GlobalKey<FormState>();
 
-  late TextEditingController email;
+  late TextEditingController phone;
   late TextEditingController password;
 
   bool isshowpassword = true;
@@ -45,7 +45,7 @@ class LoginControllerImp extends LoginController {
     if (formstate.currentState!.validate()) {
       statusRequest = StatusRequest.loading;
       update();
-      var response = await loginData.postdata(email.text, password.text);
+      var response = await loginData.postdata(phone.text, password.text);
       print("=============================== Controller $response ");
       statusRequest = handlingData(response);
       if (StatusRequest.success == statusRequest) {
@@ -80,7 +80,7 @@ class LoginControllerImp extends LoginController {
 
   @override
   void onInit() {
-    email = TextEditingController();
+    phone = TextEditingController();
     password = TextEditingController();
     super.onInit();
     //   FirebaseMessaging.instance.getToken().then((value) {
@@ -94,7 +94,7 @@ class LoginControllerImp extends LoginController {
 
   @override
   void dispose() {
-    email.dispose();
+    phone.dispose();
     password.dispose();
     super.dispose();
   }

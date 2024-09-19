@@ -45,7 +45,7 @@ class MyFavoriteController extends SearchMixController {
   deleteFromFavorite(int favroiteid) {
     // data.clear();
     // statusRequest = StatusRequest.loading;
-    var response = favoriteData.deleteData(favroiteid);
+    var response = favoriteData.deleteData("${favroiteid}");
     data.removeWhere((element) => element.favoriteId == favroiteid);
     update();
   }

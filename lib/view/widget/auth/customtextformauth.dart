@@ -29,7 +29,7 @@ class CustomTextFormAuth extends StatelessWidget {
                 child:  Text(labeltext)),
             suffixIcon: Icon(iconData) ,
             border:OutlineInputBorder(
-                borderRadius: BorderRadius.circular(30)
+                borderRadius: BorderRadius.circular(30),
             )
         ),
       ),

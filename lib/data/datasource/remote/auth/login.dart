@@ -6,9 +6,12 @@ import '../../../../linkapi.dart';
 class LoginData {
   Crud crud;
   LoginData(this.crud);
-  postdata(String email ,String password) async {
+  postdata(String phone ,String password) async {
+    print(phone);
+    print(password);
+
     var response = await crud.postData(AppLink.login, {
-      "email" : email ,
+      "phone" : phone ,
       "password" : password
     });
     return response.fold((l) => l, (r) => r);
