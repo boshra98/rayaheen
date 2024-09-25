@@ -2,31 +2,36 @@ import 'package:flutter/material.dart';
 
 import '../../../core/constant/color.dart';
 
-class CardDeliveryTypeCheckout extends StatelessWidget {
-  final String imagename ; 
-  final String title  ; 
-  final bool active   ; 
-  const CardDeliveryTypeCheckout({Key? key, required this.imagename, required this.title, required this.active}) : super(key: key);
+class CardDeliveryAddressCheckout extends StatelessWidget {
+  final String hinttext ;
+  final String labeltext ;
+  final TextEditingController? mycontroller;
+  final String? Function(String?)valid ;
+  final bool isNumber;
+  const CardDeliveryAddressCheckout({Key? key, required this.hinttext, required this.labeltext, this.mycontroller, required this.valid, required this.isNumber, }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 120,
-      width: 120,
-      decoration: BoxDecoration(
-          color:active  ? AppColor.secondColor : null ,
-          border: Border.all(color: AppColor.secondColor)),
-      child: Column(mainAxisAlignment: MainAxisAlignment.center, children: [
-        Image.asset(
-          imagename,
-          width: 60,
-          color:active ? Colors.white : null ,
-        ),
-        Text(
-          title,
-          style: TextStyle(color:active ? Colors.white : AppColor.secondColor, fontWeight:FontWeight.bold ),
-        )
-      ]),
+      margin:  const EdgeInsets.only(bottom:20),
+      child: // Add some space between text and fields
+
+          // First TextField
+          TextField(
+            keyboardType:isNumber ?TextInputType.numberWithOptions(decimal:true):TextInputType.text,
+            controller: mycontroller,
+            decoration: InputDecoration(
+              labelText: labeltext,
+              hintText: hinttext,
+              hintStyle:const  TextStyle(fontSize: 14),
+              floatingLabelBehavior: FloatingLabelBehavior.always,
+              contentPadding: const EdgeInsets.symmetric(vertical:5 , horizontal: 30)
+
+          ),
+          ),
+
+
+
     );
   }
 }

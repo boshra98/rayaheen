@@ -4,6 +4,8 @@ class ImageAsset {
   static const String logo                 = "$rootImages/logo.png";
   static const String onBoardingImageOne   = "$rootImages/im1.png";
   static const String onBoardingImageTwo   = "$rootImages/im2.png";
+  static const String card   = "$rootImages/card.ipg";
+
   static const String loading = "$rootLottie/loading.json";
   static const String offline = "$rootLottie/offline.json";
   static const String noData = "$rootLottie/nodata.json";

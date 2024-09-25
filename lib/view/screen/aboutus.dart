@@ -7,9 +7,13 @@ import '../../core/constant/imageasset.dart';
 class AboutUs extends StatelessWidget {
   const AboutUs({Key? key}) : super(key: key);
 
+
   @override
   Widget build(BuildContext context) {
+    double fontSize = MediaQuery.of(context).size.width * 0.06; // 6% of screen width
+
     return Container(
+      color: AppColor.thirdColor,
       child: ListView(
           children: [
           Stack(
@@ -34,23 +38,42 @@ class AboutUs extends StatelessWidget {
       ),
 
 
-         const SizedBox(height: 100),
-        Container(
-          padding: const EdgeInsets.symmetric(horizontal: 10),
-          child:   Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              crossAxisAlignment: CrossAxisAlignment.start,
+        const SizedBox(height: 100),
+
+
+              Container(
+              padding: EdgeInsets.all(20),
+              alignment: Alignment.center,
+                  child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Text(
-                  "52".tr
+              Container(
+              alignment: Alignment.center,
+              child: Text(
+              "52".tr, // Assuming translation key (optional)
+              textAlign: TextAlign.center,
+              style: Theme.of(context).textTheme.bodyMedium!.copyWith(
+              fontSize: fontSize, // Responsive font size
+              fontWeight: FontWeight.bold,
+              color: AppColor.primaryColor,
 
-                ),
-              ]),
-        ),
-
-    ],
-    ),
+              //letterSpacing: 1.2,
+              ),
+              ),
+              ),
+              ],
+              ),
+              )
+        ]),
     );
+
   }
 }
+
+
+
+
+
+
 

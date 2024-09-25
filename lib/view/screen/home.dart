@@ -1,10 +1,14 @@
 
+import 'dart:io';
+
+import 'package:double_tap_to_exit/double_tap_to_exit.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../controller/home_controller.dart';
 import '../../core/class/handlingdataview.dart';
 import '../../core/constant/color.dart';
+import '../../core/functions/alartexitapp.dart';
 import '../../data/model/itemsmodel.dart';
 import '../../linkapi.dart';
 import '../widget/home/customcardhome.dart';
@@ -27,12 +31,21 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    const DoubleTapToExit(
+      child: Scaffold(),
+      snackBar: SnackBar(
+        content: Text('Tap again to exit !'),
+      ),
+    );
     Get.put(HomeControllerImp());
+
     return GetBuilder<HomeControllerImp>(
         builder: (controller) => Container(
             padding: const EdgeInsets.symmetric(horizontal: 15),
+
             child: ListView(
               children: [
+
                 CustomAppBar(
                   mycontroller: controller.search!,
                   titleappbar:  "41".tr,
@@ -47,22 +60,31 @@ class HomePage extends StatelessWidget {
                     Get.toNamed(AppRoute.myfavroite);
                   }, appBar:AppBar(backgroundColor:AppColor.primaryColor),
                 ),
+
                 HandlingDataView(
                     statusRequest: controller.statusRequest,
                     widget: !controller.isSearch
                         ?  Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        CustomCardHome(
-                            title: '39'.tr,
-                            body: '40'.tr),
+                        const CustomCardHome(
+                        ),
                         CustomTitleHome(title: '42'.tr),
                         const ListCategoriesHome(),
                         CustomTitleHome(title: '43'.tr),
                         const ListItemsHome(),
+                        // const DoubleTapToExit(
+                        //   child: Scaffold(),
+                        //   snackBar: SnackBar(
+                        //     content: Text('Tap again to exit !'),
+                        //   ),
+                        // ),
                       ],
                     )
                         : ListItemsSearch(listdatamodel: controller.listdata)
+                    ,
+
+
                 )
 
                 // const CustomTitleHome(title: "Offer"),
@@ -71,6 +93,9 @@ class HomePage extends StatelessWidget {
             )));
   }
 }
+
+
+
 
 
 

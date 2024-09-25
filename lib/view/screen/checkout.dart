@@ -1,11 +1,14 @@
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 import '../../controller/checkout_controller.dart';
 import '../../core/class/handlingdataview.dart';
 import '../../core/constant/color.dart';
 import '../../core/constant/imageasset.dart';
+import '../../core/functions/validinput.dart';
+import '../widget/auth/custombuttomauth.dart';
 import '../widget/checkout/carddeliveerytype.dart';
 import '../widget/checkout/cardpaymentmethod.dart';
 import '../widget/checkout/cardshippingaddress.dart';
@@ -15,7 +18,9 @@ class Checkout extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    CheckoutController controller = Get.put(CheckoutController());
+    Get.lazyPut(()=>CheckoutControllerImp());
+
+    //CheckoutController controller = Get.put(CheckoutController());
     return Scaffold(
       appBar: AppBar(
         title: const Text('Checkout'),
@@ -26,22 +31,22 @@ class Checkout extends StatelessWidget {
             color: AppColor.secondColor,
             textColor: Colors.white,
             onPressed: () {
-              controller.checkout();
+            // controller.checkout();
             },
             child: const Text("Checkout",
-                style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+                style: TextStyle(fontWeight: FontWeight.bold, color:AppColor.secondColor2 , fontSize: 16)),
           )),
-      body: GetBuilder<CheckoutController>(
-          builder: (controller) => HandlingDataView(
-              statusRequest: controller.statusRequest,
-              widget: Container(
-                  padding: const EdgeInsets.all(20),
-                  child: ListView(
+      body: GetBuilder<CheckoutControllerImp>(builder:(controller)=>Container(
+               //   padding: const EdgeInsets.all(20),
+          padding: const EdgeInsets.symmetric(vertical: 15 , horizontal: 30),
+          child:
+          Form(key:controller.formstate,
+           child: ListView(
                     children: [
                       const Text(
-                        "Choose Payment Method",
+                        "اختر طريقة الدفع",
                         style: TextStyle(
-                            color: AppColor.secondColor,
+                            color: AppColor.secondColor2,
                             fontWeight: FontWeight.bold,
                             fontSize: 16),
                       ),
@@ -51,7 +56,8 @@ class Checkout extends StatelessWidget {
                           controller.choosePaymentMethod("0");
                         },
                         child: CardPaymentMethodCheckout(
-                            title: "Cash On Delivery",
+                            title: "كاش",
+
                             isActive: controller.paymentMethod == "0" // cash
                                 ? true
                                 : false),
@@ -60,85 +66,158 @@ class Checkout extends StatelessWidget {
                       InkWell(
                         onTap: () {
                           controller.choosePaymentMethod("1");
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return AlertDialog(
+                                title: Text("Confirmation"),
+                                content: Text("Do you want to proceed to WhatsApp?"),
+                                actions: [
+                                  TextButton(
+                                    child: Text("Cancel"),
+                                    onPressed: () {
+                                      Navigator.of(context).pop(); // Close the dialog
+                                    },
+                                  ),
+                                  TextButton(
+                                    child: Text("OK"),
+                                    onPressed: () {
+                                      // Launch WhatsApp when "OK" is pressed
+                                      launchUrl(Uri.parse("https://wa.me/+971528816100"));
+                                      Navigator.of(context).pop(); // Close the dialog
+                                    },
+                                  ),
+                                ],
+                              );
+                            },
+                          );
                         },
                         child: CardPaymentMethodCheckout(
-                            title: "Payment Cards",
+                            title: "تحويل",
                             isActive: controller.paymentMethod == "1" // Card
                                 ? true
                                 : false),
                       ),
                       const SizedBox(height: 20),
                       const Text(
-                        "Choose Delivery Type",
+                        "حدد عنوان السكن",
                         style: TextStyle(
-                            color: AppColor.secondColor,
+                            color: AppColor.secondColor2,
                             fontWeight: FontWeight.bold,
                             fontSize: 16),
                       ),
-                      const SizedBox(height: 10),
-                      Row(
-                        children: [
-                          InkWell(
-                            onTap: () {
-                              controller.chooseDeliveryType("0");// 0 => Delivery
-                            },
-                            child: CardDeliveryTypeCheckout(
-                                imagename: ImageAsset.logo,
-                                title: "Delivery",
-                                active: controller.deliveryType == "0"
-                                    ? true
-                                    : false),
-                          ),
-                          const SizedBox(width: 10),
-                          InkWell(
-                            onTap: () {
-                              controller.chooseDeliveryType("1"); // 1 => recive
-                            },
-                            child: CardDeliveryTypeCheckout(
-                                imagename: ImageAsset.logo,
-                                title: "Revice",
-                                active: controller.deliveryType == "1"
-                                    ? true
-                                    : false),
-                          ),
-                        ],
-                      ),
+
                       const SizedBox(height: 20),
-                      if (controller.deliveryType == "0")
-                        Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            const Text(
-                              "Shipping Address",
-                              style: TextStyle(
-                                  color: AppColor.secondColor,
-                                  fontWeight: FontWeight.bold,
-                                  fontSize: 16),
-                            ),
-                            const SizedBox(height: 10),
-                            ...List.generate(
-                              controller.dataaddress.length,
-                              (index) => InkWell(
-                                onTap: () {
-                                  controller.chooseShippingAddress(
-                                      controller.dataaddress[index].addressId!);
+                      // if (controller.deliveryType == "0")
+                          Card(
+                         // crossAxisAlignment: CrossAxisAlignment.start,
+
+                            child: Column(mainAxisSize: MainAxisSize.min, children: [
+
+
+                              CardDeliveryAddressCheckout(
+                                isNumber: false,
+                               //mycontroller:controller.Imara,
+                                hinttext: "ادخل اسم الامارة",
+                                labeltext: "الامارة" ,
+                                valid:(val){
+                                  return validInput(val! ,5,30, "username") ;
+
                                 },
-                                child: CardShppingAddressCheckout(
-                                    title:
-                                        "${controller.dataaddress[index].addressName}",
-                                    body:
-                                        "${controller.dataaddress[index].addressCity} ${controller.dataaddress[index].addressStreet}",
-                                    isactive: controller.addressid ==
-                                            controller
-                                                .dataaddress[index].addressId
-                                        ? true
-                                        : false),
+
                               ),
-                            )
+                              CardDeliveryAddressCheckout(
+                                isNumber: false,
+                                //mycontroller: controller.mantica,
+                                hinttext: "ادخل اسم المنطقة".tr,
+                                labeltext: "المنطقة".tr,
+                                valid:(val){
+                                  return validInput(val! ,5,30, "username") ;
+
+                                },
+                              ),
+                              CardDeliveryAddressCheckout(
+                                isNumber: false,
+                                //mycontroller: controller.sharae,
+                                hinttext: "ادخل اسم الشارع".tr,
+                                labeltext: "الشارع".tr,
+                                valid:(val){
+                                  return validInput(val! ,5,30, "username") ;
+
+                                },
+                              ),
+                              CardDeliveryAddressCheckout(
+                                isNumber: true,
+                                //mycontroller: controller.phone,
+                                hinttext: "ادخل رقم الهاتف".tr,
+                                labeltext:"الهاتف".tr,
+                                valid:(val){
+                                  return validInput(val! ,9,9, "phone") ;
+
+                                },
+                              ),
+
+                            // const Text(
+                            //   "Shipping Address",
+                            //   style: TextStyle(
+                            //       color: AppColor.secondColor,
+                            //       fontWeight: FontWeight.bold,
+                            //       fontSize: 16),
+                            // ),
+                            // TextField(
+                            //   // controller: _addresscontroller,
+                            //   keyboardType: TextInputType.text,
+                            //   decoration: InputDecoration(
+                            //     label:Text('الإمارة')
+                            //   )
+                            // ),
+                            // TextField(
+                            //   // controller: _addresscontroller,
+                            //     keyboardType: TextInputType.text,
+                            //     decoration: InputDecoration(
+                            //         label:Text('المنطقة')
+                            //     )
+                            // ),
+                            // TextField(
+                            //   // controller: _addresscontroller,
+                            //     keyboardType: TextInputType.text,
+                            //     decoration: InputDecoration(
+                            //         label:Text('الشارع')
+                            //     )
+                            // ),
+                            // TextField(
+                            //   //z controller: _addresscontroller,
+                            //     keyboardType: TextInputType.text,
+                            //     decoration: InputDecoration(
+                            //         label:Text('رقم المنزل ')
+                            //     )
+                            // ) ,
+                              // TextField(
+                              //
+                              //   //z controller: _addresscontroller,
+                              //     keyboardType: TextInputType.number,
+                              //     decoration: InputDecoration(
+                              //         label:Text('رقم الهاتف ')
+                              //     )
+                              // ) ,
+
+                           // SizedBox(height:20),
+
+                            //CustomButtomAuth(text:"15".tr,onPressed:() {
+                             // controller.checkout();
+                            //}
+                            //)
                           ],
-                        )
-                    ],
-                  )))),
+                                                 ),
+                                                  )
+              ]
+
+
+                  )
+          )
+
+          )
+      ),
     );
   }
 }

@@ -28,10 +28,11 @@ class MyApp extends StatelessWidget {
       locale:controller.language,
       theme: controller.appTheme ,
       initialBinding:InitialBindings() ,
+
       //: routes,
-     //getPages: routes,
-      home:
-      HomeScreen(),
+     getPages: routes,
+     // home:
+       //HomeScreen(),
 
 
       //const Language(),

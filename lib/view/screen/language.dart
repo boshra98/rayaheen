@@ -16,13 +16,13 @@ class Language extends GetView<LocaleController> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center ,
             children: [
-              Text("1".tr , style: Theme.of(context).textTheme.headline1),
+              Text("1".tr , style: Theme.of(context).textTheme.displayMedium),
               const SizedBox(height: 20) ,
-              CustomButtonLang(textbutton: "Ar" ,onPressed: (){
+              CustomButtonLang(textbutton: "العربية" ,onPressed: (){
                 controller.changeLang("ar");
                 Get.toNamed(AppRoute.onBoarding) ;
               }) ,
-              CustomButtonLang(textbutton: "En" ,onPressed: (){
+              CustomButtonLang(textbutton: "English" ,onPressed: (){
                 controller.changeLang("en");
                 Get.toNamed(AppRoute.onBoarding);
 

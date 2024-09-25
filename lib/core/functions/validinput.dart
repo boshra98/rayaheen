@@ -18,6 +18,13 @@ validInput( String val , int min , int max ,  String type)
     if(!GetUtils.isPhoneNumber(val)){
       return"not valid phone" ;
     }
+
+    if(type=="address"){
+      if(!GetUtils.isUsername(val)){
+        return"not valid address" ;
+      }
+
+    }
   }
 
   if(val.length<min){

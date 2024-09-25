@@ -14,16 +14,21 @@ class ListCategoriesHome extends GetView<HomeControllerImp> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height:100,
-      child: ListView.separated(
-        separatorBuilder: (context, index) => const SizedBox(width: 10),
+      height: 200,  // Keep the same height restriction
+      child: GridView.builder(
         itemCount: controller.categories.length,
-        scrollDirection: Axis.horizontal,
+        scrollDirection: Axis.horizontal,  // Horizontal scrolling
+        gridDelegate:
+        const SliverGridDelegateWithFixedCrossAxisCount(
+          crossAxisCount: 2,  // Only 1 row since height is limited
+          crossAxisSpacing: 30,  // Spacing between items horizontally
+          mainAxisSpacing: 70,  // Spacing between items vertically
+          childAspectRatio: 1.5, // Adjust this as necessary
+        ),
         itemBuilder: (context, index) {
           return Categories(
             i: index,
-            categoriesModel:
-                CategoriesModel.fromJson(controller.categories[index]),
+            categoriesModel: CategoriesModel.fromJson(controller.categories[index]),
           );
         },
       ),
@@ -47,9 +52,9 @@ class Categories extends GetView<HomeControllerImp> {
       child: Column(
         children: [
           Container(
-            // decoration: BoxDecoration(
-            //     color: AppColor.thirdColor,
-            //     borderRadius: BorderRadius.circular(40)),
+            decoration: BoxDecoration(
+                color: AppColor.thirdColor,
+                borderRadius: BorderRadius.circular(60)),
             padding: const EdgeInsets.symmetric(horizontal: 10),
             height: 70,
             width: 70,
@@ -67,10 +72,10 @@ class Categories extends GetView<HomeControllerImp> {
                   ),
                 )
             ),
-          Text(
-            "${( categoriesModel.categoriesName)}",
-            style: const TextStyle(fontSize: 13, color: AppColor.primaryColor),
-          )
+          // Text(
+          //   "${( categoriesModel.categoriesName)}",
+          //   style: const TextStyle(fontSize: 13, color: AppColor.primaryColor),
+          // )
         ],
       ),
     );

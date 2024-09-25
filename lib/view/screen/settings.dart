@@ -1,4 +1,5 @@
 
+import 'package:double_tap_to_exit/double_tap_to_exit.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:rayaheen_bookstore/view/screen/address/view.dart';
@@ -9,6 +10,7 @@ import '../../core/constant/apptheme.dart';
 import '../../core/constant/color.dart';
 import '../../core/constant/imageasset.dart';
 import '../../core/constant/routes.dart';
+import '../../core/functions/alartexitapp.dart';
 import 'language.dart';
 
 class Settings extends StatelessWidget {
@@ -20,6 +22,8 @@ class Settings extends StatelessWidget {
     return Container(
       child: ListView(
         children: [
+
+
           Stack(
               clipBehavior: Clip.none,
               alignment: Alignment.center,
@@ -58,25 +62,25 @@ class Settings extends StatelessWidget {
                 ),
                 ListTile(
                   onTap: () {
-                   // Get.toNamed(AppRoute.orderspending);
+                    Get.toNamed(AppRoute.orderspending);
                   },
                   trailing: Icon(Icons.card_travel),
                   title: Text('45'.tr),
                 ),
                 ListTile(
                   onTap: () {
-                    //Get.toNamed(AppRoute.ordersarchive );
+                    Get.toNamed(AppRoute.ordersarchive );
                   },
                   trailing: Icon(Icons.card_travel),
                   title: Text('46'.tr),
                 ),
-                ListTile(
-                  onTap: () {
-                    Get.toNamed(AppRoute.addressview);
-                  },
-                  trailing: Icon(Icons.location_on_outlined),
-                  title: Text('47'.tr),
-                ),
+                // ListTile(
+                //   onTap: () {
+                //     Get.toNamed(AppRoute.addressview);
+                //   },
+                //   trailing: Icon(Icons.location_on_outlined),
+                //   title: Text('47'.tr),
+                // ),
                 ListTile(
                   onTap: () {
                     Get.toNamed(AppRoute.aboutus);

@@ -23,6 +23,9 @@ import 'package:rayaheen_bookstore/view/screen/items.dart';
 import 'package:rayaheen_bookstore/view/screen/language.dart';
 import 'package:rayaheen_bookstore/view/screen/myfavorite.dart';
 import 'package:rayaheen_bookstore/view/screen/onboarding.dart';
+import 'package:rayaheen_bookstore/view/screen/orders/archive.dart';
+import 'package:rayaheen_bookstore/view/screen/orders/details.dart';
+import 'package:rayaheen_bookstore/view/screen/orders/pending.dart';
 import 'package:rayaheen_bookstore/view/screen/productdetails.dart';
 
 import 'core/constant/routes.dart';
@@ -58,6 +61,12 @@ List<GetPage<dynamic>>? routes = [
    GetPage(name: AppRoute.checkout, page: () => const Checkout()),
   GetPage(name: AppRoute.cart, page: () => const Cart()),
   GetPage(name: AppRoute.aboutus, page: () => const AboutUs()),
+
+  GetPage(name: AppRoute.orderspending, page: () => const OrdersPending()),
+  GetPage(name: AppRoute.ordersarchive, page: () => const OrdersArchiveView()),
+  GetPage(name: AppRoute.ordersdetails, page: () => const OrdersDetails()),
+
+
 
 
 

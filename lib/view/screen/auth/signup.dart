@@ -21,7 +21,7 @@ class SignUp extends StatelessWidget {
           centerTitle:true,
           backgroundColor: AppColor.backgroundcolor,
           elevation: 0.0,
-          title: Text('17'.tr, style:Theme.of(context).textTheme.headline1!.copyWith(color: AppColor.grey))
+          title: Text('17'.tr, style:Theme.of(context).textTheme.displayMedium!.copyWith(color: AppColor.grey))
       ),
       body: GetBuilder<SignUpControllerImp>(builder:(controller)=>Container(
         padding: const EdgeInsets.symmetric(vertical: 15 , horizontal: 30),

@@ -1,12 +1,12 @@
 class AppLink {
 
-  static const String server = "http://192.168.1.110:8000/api";
+  static const String server = "http://192.168.43.34:8000/api";
 
 
 
-  static const String imagestatic = "http://192.168.1.110:8000/storage";
-  static const String imagesCategories = "http://192.168.1.110:8000/storage";
-  static const String imagesItems = "http://192.168.1.110:8000/storage";
+  static const String imagestatic = "http://192.168.43.34:8000/storage";
+  static const String imagesCategories = "http://192.168.43.34:8000/storage";
+  static const String imagesItems = "http://192.168.43.34:8000/storage";
 
 
 
@@ -65,6 +65,8 @@ class AppLink {
   static const String ordersarchive  = "server/orders/archive.php";
   static const String ordersdetails  = "server/orders/details.php";
   static const String ordersdelete  = "server/orders/delete.php";
+  static const String notification = "/notification.php";
+
 
 
 

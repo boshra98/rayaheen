@@ -1,4 +1,5 @@
 
+import 'package:double_tap_to_exit/double_tap_to_exit.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -13,8 +14,20 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     Get.put(HomeScreenControllerImp());
+
     return GetBuilder<HomeScreenControllerImp>(
         builder: (controller) => Scaffold(
+
+
+
+          // const DoubleTapToExit(
+          //   child: Scaffold(),
+          //   snackBar: SnackBar(
+          //     content: Text('Tap again to exit !'),
+          //   ),
+          // ),
+
+
           floatingActionButton: FloatingActionButton(
               backgroundColor: AppColor.primaryColor,
               onPressed: () {
