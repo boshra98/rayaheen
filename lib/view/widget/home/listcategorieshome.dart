@@ -1,4 +1,3 @@
-
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -21,8 +20,8 @@ class ListCategoriesHome extends GetView<HomeControllerImp> {
         gridDelegate:
         const SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2,  // Only 1 row since height is limited
-          crossAxisSpacing: 30,  // Spacing between items horizontally
-          mainAxisSpacing: 70,  // Spacing between items vertically
+          crossAxisSpacing: 20,  // Spacing between items horizontally
+          mainAxisSpacing: 80,  // Spacing between items vertically
           childAspectRatio: 1.5, // Adjust this as necessary
         ),
         itemBuilder: (context, index) {
@@ -46,34 +45,41 @@ class Categories extends GetView<HomeControllerImp> {
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {
-      //  print("categoriesId${categoriesModel.categoriesId!}");
-         controller.goToItems(controller.categories, i! , "${categoriesModel.categoriesId!}" );
+        // Print or navigate to items based on category id
+        controller.goToItems(controller.categories, i!, "${categoriesModel.categoriesId!}");
       },
       child: Column(
         children: [
+          // Circular container with dynamic category name inside
           Container(
-            decoration: BoxDecoration(
-                color: AppColor.thirdColor,
-                borderRadius: BorderRadius.circular(60)),
-            padding: const EdgeInsets.symmetric(horizontal: 10),
-            height: 70,
-            width: 70,
-            //child:Image.asset("assets/images/logo.png" ,height:100,width:150,fit:BoxFit.fill,)
-            child:Positioned(
-                top: 30.0,
-                right: Get.width / 8,
-                left: Get.width / 8,
-
-                  child: CachedNetworkImage(
-                    imageUrl:
-                    "${AppLink.imagesCategories}/${categoriesModel.categoriesImage!}",
-                    height: 250,
-                    fit: BoxFit.fill,
-                  ),
-                )
+            decoration: const BoxDecoration(
+              color: AppColor.thirdColor,
+              shape: BoxShape.circle, // Makes the container a circle
             ),
+            height: 80,
+            width: 80,
+            alignment: Alignment.center, // Centers the text inside the circle
+            child: Text(
+              categoriesModel.categoriesName ?? "No Name", // Dynamic category name
+              style: const TextStyle(
+                color: Colors.white, // Text color (adjust as needed)
+                fontWeight: FontWeight.bold, // You can customize the style
+                fontSize: 16,
+              ),
+              textAlign: TextAlign.center, // Center the text if it's multiline
+            ),
+          ),
+
+          // Optionally, you can also display category images here:
+          // CachedNetworkImage(
+          //   imageUrl: "${AppLink.imagesCategories}/${categoriesModel.categoriesImage!}",
+          //   height: 250,
+          //   fit: BoxFit.fill,
+          // ),
+
+          // You can also add a description or more text below the image
           // Text(
-          //   "${( categoriesModel.categoriesName)}",
+          //   "${categoriesModel.categoriesDescription}",
           //   style: const TextStyle(fontSize: 13, color: AppColor.primaryColor),
           // )
         ],

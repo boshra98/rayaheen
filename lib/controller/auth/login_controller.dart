@@ -40,8 +40,6 @@ class LoginControllerImp extends LoginController {
     print("hello");
     //print(response);
 
-
-
     if (formstate.currentState!.validate()) {
       statusRequest = StatusRequest.loading;
       update();
@@ -51,8 +49,12 @@ class LoginControllerImp extends LoginController {
       if (StatusRequest.success == statusRequest) {
         if (response['message'] == "true") {
           print("hhhhhh");
-          myServices.sharedPreferences
-              .setString("id", response['id']);
+          myServices.sharedPreferences.setString("id", response['id']);
+
+
+          // Simulate login by saving a token
+          // SharedPreferences prefs = await SharedPreferences.getInstance();
+          // await prefs.setString('auth_token', 'user_token');
           String userid = myServices.sharedPreferences.getString("id")!;
           // data.addAll(response['data']);
           //  myServices.sharedPreferences.setString("token", response['data']['access_token']) ;

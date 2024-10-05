@@ -5,6 +5,7 @@ import 'package:url_launcher/url_launcher.dart';
 
 import '../../controller/checkout_controller.dart';
 import '../../core/class/handlingdataview.dart';
+import '../../core/class/statusrequest.dart';
 import '../../core/constant/color.dart';
 import '../../core/constant/imageasset.dart';
 import '../../core/functions/validinput.dart';
@@ -16,32 +17,29 @@ import '../widget/checkout/cardshippingaddress.dart';
 class Checkout extends StatelessWidget {
   const Checkout({Key? key}) : super(key: key);
 
+
   @override
   Widget build(BuildContext context) {
-    Get.lazyPut(()=>CheckoutControllerImp());
+    //Get.lazyPut(()=>CheckoutControllerImp());
+    Get.put(CheckoutControllerImp()) ;
 
-    //CheckoutController controller = Get.put(CheckoutController());
+    // CheckoutController controller = Get.put(CheckoutControllerImp());
     return Scaffold(
       appBar: AppBar(
         title: const Text('Checkout'),
       ),
-      bottomNavigationBar: Container(
-          padding: const EdgeInsets.symmetric(horizontal: 20),
-          child: MaterialButton(
-            color: AppColor.secondColor,
-            textColor: Colors.white,
-            onPressed: () {
-            // controller.checkout();
-            },
-            child: const Text("Checkout",
-                style: TextStyle(fontWeight: FontWeight.bold, color:AppColor.secondColor2 , fontSize: 16)),
-          )),
-      body: GetBuilder<CheckoutControllerImp>(builder:(controller)=>Container(
-               //   padding: const EdgeInsets.all(20),
+
+
+      body: GetBuilder<CheckoutControllerImp>(builder:(controller)=>
+
+          Container(
+
+              //   padding: const EdgeInsets.all(20),
           padding: const EdgeInsets.symmetric(vertical: 15 , horizontal: 30),
           child:
           Form(key:controller.formstate,
-           child: ListView(
+
+            child: ListView(
                     children: [
                       const Text(
                         "اختر طريقة الدفع",
@@ -53,7 +51,11 @@ class Checkout extends StatelessWidget {
                       const SizedBox(height: 10),
                       InkWell(
                         onTap: () {
+                          print(controller.paymentMethod);
+
                           controller.choosePaymentMethod("0");
+                          print(controller.paymentMethod);
+
                         },
                         child: CardPaymentMethodCheckout(
                             title: "كاش",
@@ -66,31 +68,31 @@ class Checkout extends StatelessWidget {
                       InkWell(
                         onTap: () {
                           controller.choosePaymentMethod("1");
-                          showDialog(
-                            context: context,
-                            builder: (BuildContext context) {
-                              return AlertDialog(
-                                title: Text("Confirmation"),
-                                content: Text("Do you want to proceed to WhatsApp?"),
-                                actions: [
-                                  TextButton(
-                                    child: Text("Cancel"),
-                                    onPressed: () {
-                                      Navigator.of(context).pop(); // Close the dialog
-                                    },
-                                  ),
-                                  TextButton(
-                                    child: Text("OK"),
-                                    onPressed: () {
-                                      // Launch WhatsApp when "OK" is pressed
-                                      launchUrl(Uri.parse("https://wa.me/+971528816100"));
-                                      Navigator.of(context).pop(); // Close the dialog
-                                    },
-                                  ),
-                                ],
-                              );
-                            },
-                          );
+                          // showDialog(
+                          //   context: context,
+                          //   builder: (BuildContext context) {
+                          //     return AlertDialog(
+                          //       title: Text("Confirmation"),
+                          //       content: Text("Do you want to proceed to WhatsApp?"),
+                          //       actions: [
+                          //         TextButton(
+                          //           child: Text("Cancel"),
+                          //           onPressed: () {
+                          //             Navigator.of(context).pop(); // Close the dialog
+                          //           },
+                          //         ),
+                          //         TextButton(
+                          //           child: Text("OK"),
+                          //           onPressed: () {
+                          //             // Launch WhatsApp when "OK" is pressed
+                          //             launchUrl(Uri.parse("https://wa.me/+971528816100"));
+                          //             Navigator.of(context).pop(); // Close the dialog
+                          //           },
+                          //         ),
+                          //       ],
+                          //     );
+                          //   },
+                          // );
                         },
                         child: CardPaymentMethodCheckout(
                             title: "تحويل",
@@ -117,7 +119,7 @@ class Checkout extends StatelessWidget {
 
                               CardDeliveryAddressCheckout(
                                 isNumber: false,
-                               //mycontroller:controller.Imara,
+                               mycontroller:controller.Imara,
                                 hinttext: "ادخل اسم الامارة",
                                 labeltext: "الامارة" ,
                                 valid:(val){
@@ -128,7 +130,7 @@ class Checkout extends StatelessWidget {
                               ),
                               CardDeliveryAddressCheckout(
                                 isNumber: false,
-                                //mycontroller: controller.mantica,
+                                mycontroller: controller.mantica,
                                 hinttext: "ادخل اسم المنطقة".tr,
                                 labeltext: "المنطقة".tr,
                                 valid:(val){
@@ -138,7 +140,7 @@ class Checkout extends StatelessWidget {
                               ),
                               CardDeliveryAddressCheckout(
                                 isNumber: false,
-                                //mycontroller: controller.sharae,
+                                mycontroller: controller.sharae,
                                 hinttext: "ادخل اسم الشارع".tr,
                                 labeltext: "الشارع".tr,
                                 valid:(val){
@@ -148,13 +150,59 @@ class Checkout extends StatelessWidget {
                               ),
                               CardDeliveryAddressCheckout(
                                 isNumber: true,
-                                //mycontroller: controller.phone,
-                                hinttext: "ادخل رقم الهاتف".tr,
-                                labeltext:"الهاتف".tr,
                                 valid:(val){
                                   return validInput(val! ,9,9, "phone") ;
 
                                 },
+                                mycontroller: controller.phone,
+                                hinttext: "ادخل رقم الهاتف".tr,
+                                labeltext:"الهاتف".tr,
+
+                              ),
+                              CustomButtomAuth(text:"17".tr,onPressed:(){
+                                if(controller.paymentMethod=='1') {
+                                  showDialog(
+                                    context: context,
+                                    barrierDismissible: false, // Prevent dialog from closing if clicked outside
+
+                                    builder: (BuildContext context) {
+                                      return AlertDialog(
+                                        title: const Text("Confirmation"),
+                                        content: const Text(
+                                            "Do you want to proceed to WhatsApp?"),
+                                        actions: [
+                                          TextButton(
+                                            child: const Text("Cancel"),
+                                            onPressed: () {
+                                              Navigator.of(context)
+                                                  .pop();
+                                              //controller.checkout() ;
+
+                                              // Close the dialog
+                                            },
+                                          ),
+                                          TextButton(
+                                            child: Text("OK"),
+                                            onPressed: () {
+                                              // Launch WhatsApp when "OK" is pressed
+                                              launchUrl(Uri.parse(
+                                                  "https://wa.me/+971528816100"));
+                                              Navigator.of(context)
+                                                  .pop();
+
+                                              controller.checkout() ;
+// Close the dialog
+                                            },
+                                          ),
+                                        ],
+                                      );
+                                    },
+                                  );
+                                }
+                                else
+                                controller.checkout() ;
+                              },
+
                               ),
 
                             // const Text(
@@ -213,11 +261,13 @@ class Checkout extends StatelessWidget {
               ]
 
 
-                  )
+                  ),
+
           )
 
           )
       ),
+
     );
   }
 }

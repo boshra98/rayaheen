@@ -36,7 +36,7 @@ class CartController extends GetxController {
     statusRequest = StatusRequest.loading;
     update();
     var response = await cartData.addCart(
-        myServices.sharedPreferences.getString("id")!, itemsid );
+        myServices.sharedPreferences.getString("id")!, "${itemsid}" );
     print("=============================== Controller $response ");
     statusRequest = handlingData(response);
     if (StatusRequest.success == statusRequest) {
@@ -72,7 +72,7 @@ class CartController extends GetxController {
     update();
 
     var response = await cartData.deleteCart(
-        myServices.sharedPreferences.getString("id")!, itemsid);
+        myServices.sharedPreferences.getString("id")!, "${itemsid}");
     print("=============================== Controller $response ");
     statusRequest = handlingData(response);
     if (StatusRequest.success == statusRequest) {

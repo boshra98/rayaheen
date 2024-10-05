@@ -17,7 +17,7 @@ class OrdersDetails extends StatelessWidget {
     OrdersDetailsController controller = Get.put(OrdersDetailsController());
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Orders Details'),
+        title: Text("62".tr),
       ),
       body: Container(
         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
@@ -33,17 +33,17 @@ class OrdersDetails extends StatelessWidget {
                           Table(
                             children: [
                               TableRow(children: [
-                                Text("Item",
+                                Text("59".tr,
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
                                         color: AppColor.primaryColor,
                                         fontWeight: FontWeight.bold)),
-                                Text("QTY",
+                                Text("60".tr,
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
                                         color: AppColor.primaryColor,
                                         fontWeight: FontWeight.bold)),
-                                Text("Price",
+                                Text("61".tr,
                                     textAlign: TextAlign.center,
                                     style: TextStyle(
                                         color: AppColor.primaryColor,
@@ -68,7 +68,7 @@ class OrdersDetails extends StatelessWidget {
                           SizedBox(height: 10),
                           Container(
                             padding: EdgeInsets.symmetric(horizontal: 10),
-                            child:   Text("Total Price : ${controller.ordersModel.ordersTotalprice}\$",
+                            child:   Text("58".tr +"  : ${controller.ordersModel.ordersTotalprice} درهم ",
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
                                     color: AppColor.primaryColor,

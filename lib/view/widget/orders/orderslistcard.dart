@@ -28,7 +28,9 @@ class CardOrdersList extends GetView<OrdersPendingController> {
                   const Spacer(),
                   // Text(listdata.ordersDatetime!)
                   Text(
-                    Jiffy(listdata.ordersDatetime!, "yyyy-MM-dd").fromNow(),
+                      Jiffy(listdata.ordersDatetime!).fromNow(),
+
+                    //  Jiffy(listdata.ordersDatetime!, "yyyy-MM-dd").fromNow(),
                     style: const TextStyle(
                         color: AppColor.primaryColor,
                         fontWeight: FontWeight.bold),
@@ -36,39 +38,39 @@ class CardOrdersList extends GetView<OrdersPendingController> {
                 ],
               ),
               Divider(),
-              Text(
-                  "Order Type : ${controller.printOrderType(listdata.ordersType!)}"),
-              Text("Order Price : ${listdata.ordersPrice} \$"),
-              Text("Delivery Price : ${listdata.ordersPricedelivery} \$ "),
+              // Text(
+              //     "Order Type : ${controller.printOrderType(listdata.ordersType!)}"),
+              Text("Order Price : ${listdata.ordersTotalprice} \$"),
+              // Text("Delivery Price : ${listdata.ordersPricedelivery} \$ "),
               Text(
                   "Payment Method : ${controller.printPaymentMethod(listdata.ordersPaymentmethod!)} "),
               Text(
-                  "Order Status : ${controller.printOrderStatus(listdata.ordersStatus!)} "),
+                  "Order Status : ${listdata.ordersStatus!} "),
               const Divider(),
               Row(
                 children: [
-                  Text("Total Price : ${listdata.ordersId} \$ ",
-                      style: const TextStyle(
-                          color: AppColor.primaryColor,
-                          fontWeight: FontWeight.bold)),
+                  // Text("Total Price : ${listdata.ordersTotalprice}  درهم\ ",
+                  //     style: const TextStyle(
+                  //         color: AppColor.primaryColor,
+                  //         fontWeight: FontWeight.bold)),
                   const Spacer(),
                   MaterialButton(
                     onPressed: () {
                       Get.toNamed(AppRoute.ordersdetails,
                           arguments: {"ordersmodel": listdata});
                     },
-                    color: AppColor.thirdColor,
-                    textColor: AppColor.secondColor,
-                    child: const Text("Details"),
+                    color: AppColor.secondColor,
+                    textColor: AppColor.primaryColor,
+                    child:  Text('56'.tr),
                   ),
-                  SizedBox(width: 10),
-                 if (listdata.ordersStatus! == "0") MaterialButton(
+                  const SizedBox(width: 10),
+                 if (listdata.ordersStatus=="pending") MaterialButton(
                     onPressed: () {
                       controller.deleteOrder(listdata.ordersId!);
                     },
                     color: AppColor.thirdColor,
-                    textColor: AppColor.secondColor,
-                    child: const Text("Delete"),
+                    textColor: AppColor.primaryColor,
+                    child:  Text('57'.tr),
                   )
                 ],
               ),

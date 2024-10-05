@@ -57,8 +57,11 @@ class OrdersArchiveController extends GetxController {
     if (StatusRequest.success == statusRequest) {
       // Start backend
       if (response['status'] == "success") {
+
         List listdata = response['data'];
+
         data.addAll(listdata.map((e) => OrdersModel.fromJson(e)));
+
       } else {
         statusRequest = StatusRequest.failure;
       }

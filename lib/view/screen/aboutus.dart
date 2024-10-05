@@ -53,8 +53,8 @@ class AboutUs extends StatelessWidget {
               child: Text(
               "52".tr, // Assuming translation key (optional)
               textAlign: TextAlign.center,
-              style: Theme.of(context).textTheme.bodyMedium!.copyWith(
-              fontSize: fontSize, // Responsive font size
+              style: Theme.of(context).textTheme.labelSmall!.copyWith(
+              fontSize: 23, // Responsive font size
               fontWeight: FontWeight.bold,
               color: AppColor.primaryColor,
 

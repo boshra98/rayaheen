@@ -29,15 +29,15 @@ class OrdersDetailsController extends GetxController {
 
   intialData() {
     if (ordersModel.ordersType == "0") {
-      cameraPosition = CameraPosition(
-        target: LatLng(double.parse(ordersModel.addressLat!),
-            double.parse(ordersModel.addressLong!)),
-        zoom: 12.4746,
-      );
-      markers.add(Marker(
-          markerId: MarkerId("1"),
-          position: LatLng(double.parse(ordersModel.addressLat!),
-              double.parse(ordersModel.addressLong!))));
+      // cameraPosition = CameraPosition(
+      //   target: LatLng(double.parse(ordersModel.addressLat!),
+      //       double.parse(ordersModel.addressLong!)),
+      //   zoom: 12.4746,
+      // );
+      // markers.add(Marker(
+      //     markerId: MarkerId("1"),
+      //     position: LatLng(double.parse(ordersModel.addressLat!),
+      //         double.parse(ordersModel.addressLong!))));
     }
   }
 
@@ -52,7 +52,7 @@ class OrdersDetailsController extends GetxController {
   getData() async {
     statusRequest = StatusRequest.loading;
 
-    var response = await ordersDetailsData.getData(ordersModel.ordersId!);
+    var response = await ordersDetailsData.getData("${ordersModel.ordersId}");
 
     print("=============================== Controller $response ");
 

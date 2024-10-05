@@ -13,7 +13,8 @@ class CustomAppBar extends StatelessWidget {
       this.onPressedSearch,
       required this.onPressedIconFavorite,
       this.onChanged,
-      required this.mycontroller,   this.iconData =   Icons.favorite_border_outlined, required AppBar appBar})
+      required this.mycontroller,
+        this.iconData =   Icons.favorite_border_outlined, required AppBar appBar})
       : super(key: key);
 
   @override

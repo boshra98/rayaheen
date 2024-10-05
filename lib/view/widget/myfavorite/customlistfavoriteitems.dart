@@ -18,7 +18,7 @@ class CustomListFavoriteItems extends GetView<MyFavoriteController> {
   Widget build(BuildContext context) {
     return InkWell(
         onTap: () {
-          // controller.goToPageProductDetails(itemsModel);
+          //controller.goToPageProductDetails(itemsModel);
         },
         child: Card(
           child: Padding(
@@ -37,11 +37,11 @@ class CustomListFavoriteItems extends GetView<MyFavoriteController> {
                     ),
                   ),
                   const SizedBox(height: 10),
-                  Text(itemsModel.itemsName!
-                    // style: const TextStyle(
-                    //     color: AppColor.black,
-                    //     fontSize: 16,
-                    //     fontWeight: FontWeight.bold)
+                  Text(itemsModel.itemsName! ,
+                    style: const TextStyle(
+                        color: AppColor.black,
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold)
 
 
                   ),
@@ -52,7 +52,7 @@ class CustomListFavoriteItems extends GetView<MyFavoriteController> {
                       Container(
                         alignment: Alignment.bottomCenter,
                         height: 22,
-                        child: Row(
+                        child: const Row(
                           children: [
 
                           ],
@@ -73,7 +73,7 @@ class CustomListFavoriteItems extends GetView<MyFavoriteController> {
                           onPressed: () {
                             controller.deleteFromFavorite(itemsModel.favoriteId!) ;
                           },
-                          icon: Icon(
+                          icon: const Icon(
                             Icons.delete_outline_outlined,
                             color: AppColor.primaryColor,
                           ))

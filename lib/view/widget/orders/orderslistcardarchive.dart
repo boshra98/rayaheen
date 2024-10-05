@@ -30,7 +30,7 @@ class CardOrdersListArchive extends GetView<OrdersArchiveController> {
                   const Spacer(),
                   // Text(listdata.ordersDatetime!)
                   Text(
-                    Jiffy(listdata.ordersDatetime!, "yyyy-MM-dd").fromNow(),
+                    Jiffy(listdata.ordersDatetime!).fromNow(),
                     style: const TextStyle(
                         color: AppColor.primaryColor,
                         fontWeight: FontWeight.bold),
@@ -38,21 +38,21 @@ class CardOrdersListArchive extends GetView<OrdersArchiveController> {
                 ],
               ),
               const Divider(),
-              Text(
-                  "Order Type : ${controller.printOrderType(listdata.ordersType!)}"),
-              Text("Order Price : ${listdata.ordersPrice} \$"),
-              Text("Delivery Price : ${listdata.ordersPricedelivery} \$ "),
+              // Text(
+              //     "Order Type : ${controller.printOrderType(listdata.ordersType!)}"),
+              Text("Order Price : ${listdata.ordersTotalprice}  درهم\  "),
+              // Text("Delivery Price : ${listdata.ordersPricedelivery} درهم\  "),
               Text(
                   "Payment Method : ${controller.printPaymentMethod(listdata.ordersPaymentmethod!)} "),
               Text(
-                  "Order Status : ${controller.printOrderStatus(listdata.ordersStatus!)} "),
+                  "Order Status : ${listdata.ordersStatus} "),
               const Divider(),
               Row(
                 children: [
-                  Text("Total Price : ${listdata.ordersId} \$ ",
-                      style: const TextStyle(
-                          color: AppColor.primaryColor,
-                          fontWeight: FontWeight.bold)),
+                  // Text("Total Price : ${listdata.ordersId} درهم\ ",
+                  //     style: const TextStyle(
+                  //         color: AppColor.primaryColor,
+                  //         fontWeight: FontWeight.bold)),
                   const Spacer(),
                   MaterialButton(
                     onPressed: () {
@@ -61,7 +61,7 @@ class CardOrdersListArchive extends GetView<OrdersArchiveController> {
                     },
                     color: AppColor.thirdColor,
                     textColor: AppColor.secondColor,
-                    child: const Text("Details"),
+                    child:  Text("56".tr),
                   ),
                 ],
               ),

@@ -83,7 +83,9 @@ class Login extends StatelessWidget {
                 ,),
             ) ,
             CustomButtomAuth(text:"15".tr,onPressed:(){
-
+// Simulate login by saving a token
+//               SharedPreferences prefs = await SharedPreferences.getInstance();
+//               await prefs.setString('auth_token', 'user_token');
               controller.login();
             },),
             const  SizedBox(height: 40,),

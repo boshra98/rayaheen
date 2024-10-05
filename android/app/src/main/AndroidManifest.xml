@@ -24,7 +24,7 @@
 
 
     <application
-        android:label="rayaheen_bookstore"
+        android:label="رياحين"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
 

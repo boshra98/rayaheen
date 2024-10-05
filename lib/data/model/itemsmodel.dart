@@ -4,6 +4,12 @@ class ItemsModel {
   String? itemsNameAr;
   String? itemsDesc;
   String? itemsDescAr;
+
+  String? author;
+  int? year;
+
+  String? publisher;
+
   String? itemsImage;
   int? itemsCount;
   String? itemsActive;
@@ -25,6 +31,9 @@ class ItemsModel {
         this.itemsNameAr,
         this.itemsDesc,
         this.itemsDescAr,
+        this.year,
+        this.publisher,
+        this.author,
         this.itemsImage,
         this.itemsCount,
         this.itemsActive,
@@ -44,6 +53,10 @@ class ItemsModel {
   ItemsModel.fromJson(Map<dynamic, dynamic> json) {
     itemsId = json['id'];
     itemsName = json['title'];
+    author = json['author'];
+    year = json['year'];
+    publisher = json['publisher'];
+
     //itemsNameAr = json['items_name_ar'];
     itemsDesc = json['description'];
     //itemsDescAr = json['items_desc_ar'];
@@ -69,6 +82,11 @@ class ItemsModel {
     final Map<String, dynamic> data = new Map<String, dynamic>();
     data['items_id'] = this.itemsId;
     data['items_name'] = this.itemsName;
+     data['author']=this.author;
+    data['publisher']=this.publisher;
+
+    data['year']=this.year;
+
     data['items_name_ar'] = this.itemsNameAr;
     data['items_desc'] = this.itemsDesc;
     data['items_desc_ar'] = this.itemsDescAr;

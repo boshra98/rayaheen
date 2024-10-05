@@ -1,6 +1,12 @@
 class AppRoute {
   static const String login = "/login";
+  static const String language = "/language";
+  static const String language2 = "/language2";
+
+
   static const String homePage = "/homepage";
+  static const String splashScreen = "/splashscreen";
+
 
 
   static const String onBoarding = "/onboarding";
@@ -24,7 +30,7 @@ class AppRoute {
 
 
   static const String productdetails = "/productdetails";
- static const String myfavroite = "/myfavroite";
+  static const String myfavroite = "/myfavroite";
   static const String cart = "/cart";
 
 
@@ -40,6 +46,7 @@ class AppRoute {
   static const String orderspending = "/orderspending";
   static const String ordersarchive = "/ordersarchive";
   static const String ordersdetails = "/ordersdetails";
+
 
 
 

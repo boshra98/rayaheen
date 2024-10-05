@@ -6,6 +6,8 @@ import 'package:rayaheen_bookstore/data/model/itemsmodel.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../core/constant/color.dart';
+
 abstract class ProductDetailsController extends GetxController {}
 
 class ProductDetailsControllerImp extends ProductDetailsController {
@@ -19,7 +21,7 @@ class ProductDetailsControllerImp extends ProductDetailsController {
 
   MyServices myServices = Get.find();
 
-  int countitems = 0;
+  int countitems = 1;
 
   intialData() async {
     statusRequest = StatusRequest.loading;
@@ -33,7 +35,7 @@ class ProductDetailsControllerImp extends ProductDetailsController {
     statusRequest = StatusRequest.loading;
     var response = await cartData.getCountCart(
         myServices.sharedPreferences.getString("id")!, itemsid);
-    print("=============================== Controller $response ");
+    print("=============================== Controller getCountItems  $response ");
     statusRequest = handlingData(response);
     if (StatusRequest.success == statusRequest) {
       // Start backend
@@ -42,8 +44,7 @@ class ProductDetailsControllerImp extends ProductDetailsController {
         countitems = response['data'];
         print("==================================");
         print("$countitems");
-        if(countitems==0)
-          countitems=1;
+
         return countitems;
         // data.addAll(response['data']);
       } else {
@@ -56,16 +57,25 @@ class ProductDetailsControllerImp extends ProductDetailsController {
   addItems(int itemsid) async {
     statusRequest = StatusRequest.loading;
     update();
+    print(countitems);
     var response = await cartData.addCart(
         myServices.sharedPreferences.getString("id")! , "${itemsid}");
-    print("=============================== Controller $response ");
+    print("=============================== Controller addItems $response ");
     statusRequest = handlingData(response);
     if (StatusRequest.success == statusRequest) {
       // Start backend
       if (response['status'] == "success") {
         Get.rawSnackbar(
-            title: "اشعار",
-            messageText: const Text("تم اضافة المنتج الى السلة "));
+            titleText: const Text(
+              textAlign: TextAlign.right,
+                "اشعار",
+                style: TextStyle(
+                  color: AppColor.secondColor2, // Custom title color
+                  fontWeight: FontWeight.bold, // You can add more styling like bold
+                  fontSize: 16, // Custom font size
+                ),),
+            messageText: const Text("تم اضافة المنتج الى السلة ",style:TextStyle(color:AppColor.secondColor2,),textAlign: TextAlign.right, // Aligning description to the left
+            ));
         // data.addAll(response['data']);
       } else {
         statusRequest = StatusRequest.failure;

@@ -32,7 +32,7 @@ class Settings extends StatelessWidget {
                 Positioned(
                     top: Get.width / 3.9,
                     child: Container(
-                      padding: EdgeInsets.all(4),
+                      padding: const EdgeInsets.all(4),
                       decoration: BoxDecoration(
                           color: Colors.white,
                           borderRadius: BorderRadius.circular(100)),
@@ -43,9 +43,9 @@ class Settings extends StatelessWidget {
                       ),
                     )),
               ]),
-          SizedBox(height: 100),
+          const SizedBox(height: 100),
           Container(
-            padding: EdgeInsets.symmetric(horizontal: 10),
+            padding: const EdgeInsets.symmetric(horizontal: 10),
             child: Card(
               child: Column(mainAxisSize: MainAxisSize.min, children: [
                 ListTile(
@@ -64,14 +64,14 @@ class Settings extends StatelessWidget {
                   onTap: () {
                     Get.toNamed(AppRoute.orderspending);
                   },
-                  trailing: Icon(Icons.card_travel),
+                  trailing: const Icon(Icons.card_travel),
                   title: Text('45'.tr),
                 ),
                 ListTile(
                   onTap: () {
                     Get.toNamed(AppRoute.ordersarchive );
                   },
-                  trailing: Icon(Icons.card_travel),
+                  trailing: const Icon(Icons.card_travel),
                   title: Text('46'.tr),
                 ),
                 // ListTile(
@@ -85,7 +85,7 @@ class Settings extends StatelessWidget {
                   onTap: () {
                     Get.toNamed(AppRoute.aboutus);
                   },
-                  trailing: Icon(Icons.help_outline_rounded),
+                  trailing: const Icon(Icons.help_outline_rounded),
                   title: Text('48'.tr),
                 ),
                 ListTile(
@@ -93,14 +93,16 @@ class Settings extends StatelessWidget {
 
                     launchUrl(Uri.parse("https://wa.me/+971528816100"));
                   },
-                  trailing: Icon(Icons.phone_callback_outlined),
+                  trailing: const Icon(Icons.phone_callback_outlined),
                   title: Text('49'.tr),
                 ),
                 ListTile(
                   title:  Text("51".tr),
                   trailing: const Icon(Icons.language),
                   onTap:(){
-                    Navigator.of(context).push(MaterialPageRoute(builder: (context)=> Language()));
+                    //Navigator.of(context).push(MaterialPageRoute(builder: (context)=> Language()));
+                    Get.toNamed(AppRoute.language2);
+
                   },
                 ),
                 ListTile(
@@ -108,7 +110,7 @@ class Settings extends StatelessWidget {
                     controller.logout();
                   },
                   title: Text('50'.tr),
-                  trailing: Icon(Icons.exit_to_app),
+                  trailing: const Icon(Icons.exit_to_app),
                 ),
               ]),
             ),

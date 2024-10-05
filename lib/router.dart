@@ -21,22 +21,31 @@ import 'package:rayaheen_bookstore/view/screen/home.dart';
 import 'package:rayaheen_bookstore/view/screen/homescreen.dart';
 import 'package:rayaheen_bookstore/view/screen/items.dart';
 import 'package:rayaheen_bookstore/view/screen/language.dart';
+import 'package:rayaheen_bookstore/view/screen/language2.dart';
 import 'package:rayaheen_bookstore/view/screen/myfavorite.dart';
 import 'package:rayaheen_bookstore/view/screen/onboarding.dart';
 import 'package:rayaheen_bookstore/view/screen/orders/archive.dart';
 import 'package:rayaheen_bookstore/view/screen/orders/details.dart';
 import 'package:rayaheen_bookstore/view/screen/orders/pending.dart';
 import 'package:rayaheen_bookstore/view/screen/productdetails.dart';
+import 'package:rayaheen_bookstore/view/screen/splashscreen.dart';
 
 import 'core/constant/routes.dart';
 import 'core/middleware/mymiddleware.dart';
 
 List<GetPage<dynamic>>? routes = [
   //GetPage(name: "/", page: () => const Language() ),
-  GetPage(name: "/", page: () => const Language() , middlewares: [
-    MyMiddleWare()
-  ]),
+  // GetPage(name: "/", page: () => const Language() , middlewares: [
+  //   MyMiddleWare()
+  // ]),
+  GetPage(name: '/', page: () => SplashScreen()),
+
   GetPage(name: AppRoute.login, page: () => const Login()),
+  GetPage(name: AppRoute.language, page: () => const Language()),
+  GetPage(name: AppRoute.language2, page: () => const Language2()),
+
+
+
   GetPage(name: AppRoute.onBoarding, page: () => const OnBoarding()),
 
   GetPage(name: AppRoute.signUp, page: () => const SignUp()),

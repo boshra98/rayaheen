@@ -12,7 +12,7 @@ class ListCategoriesItems extends GetView<ItemsControllerImp> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 100,
+      height: 20,
       child: ListView.separated(
         separatorBuilder: (context, index) => const SizedBox(width: 10),
         itemCount: controller.categories.length,
@@ -49,20 +49,20 @@ class Categories extends GetView<ItemsControllerImp> {
           GetBuilder<ItemsControllerImp>(
               builder: (controller) => Container(
                 padding:const  EdgeInsets.only(right: 10, left: 10, bottom: 5),
-                decoration: controller.selectedCat == i
-                    ?const BoxDecoration(
-                    border: Border(
-                        bottom: BorderSide(
-                            width: 3, color: AppColor.primaryColor)))
-                    : null,
-                child: Text(
-                  "${categoriesModel.categoriesName}",
-
-                 // "mm",
-                // "i=$i",
-                  style:
-                  const TextStyle(fontSize: 20, color: AppColor.grey2),
-                ),
+                // decoration: controller.selectedCat == i
+                //     ?const BoxDecoration(
+                //     border: Border(
+                //         bottom: BorderSide(
+                //             width: 3, color: AppColor.primaryColor)))
+                   // : null,
+                // child: Text(
+                //   "${categoriesModel.categoriesName}",
+                //
+                //  // "mm",
+                // // "i=$i",
+                //   style:
+                //   const TextStyle(fontSize: 20, color: AppColor.grey2),
+                // ),
               ))
         ],
       ),

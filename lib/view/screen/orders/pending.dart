@@ -13,7 +13,7 @@ class OrdersPending extends StatelessWidget {
     Get.put(OrdersPendingController());
     return Scaffold(
         appBar: AppBar(
-          title: const Text('Orders'),
+          title:  Text("63".tr),
         ),
         body: Container(
           padding:const  EdgeInsets.all(10),

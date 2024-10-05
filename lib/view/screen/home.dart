@@ -31,12 +31,7 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    const DoubleTapToExit(
-      child: Scaffold(),
-      snackBar: SnackBar(
-        content: Text('Tap again to exit !'),
-      ),
-    );
+
     Get.put(HomeControllerImp());
 
     return GetBuilder<HomeControllerImp>(

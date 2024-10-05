@@ -1,9 +1,10 @@
 class CartModel {
   String? itemsprice;
   String? countitems;
+
   String? cartId;
   String? cartUsersid;
-  String? cartItemsid;
+  String ? cartItemsid;
   String? itemsId;
   String? itemsName;
   String? itemsNameAr;

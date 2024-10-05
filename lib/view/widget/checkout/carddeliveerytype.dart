@@ -17,8 +17,9 @@ class CardDeliveryAddressCheckout extends StatelessWidget {
       child: // Add some space between text and fields
 
           // First TextField
-          TextField(
+          TextFormField(
             keyboardType:isNumber ?TextInputType.numberWithOptions(decimal:true):TextInputType.text,
+            validator: valid ,
             controller: mycontroller,
             decoration: InputDecoration(
               labelText: labeltext,
