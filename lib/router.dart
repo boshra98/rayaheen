@@ -4,9 +4,7 @@
 import 'package:get/get.dart';
 import 'package:rayaheen_bookstore/test_view.dart';
 import 'package:rayaheen_bookstore/view/screen/aboutus.dart';
-import 'package:rayaheen_bookstore/view/screen/address/add.dart';
-import 'package:rayaheen_bookstore/view/screen/address/adddetails.dart';
-import 'package:rayaheen_bookstore/view/screen/address/view.dart';
+
 import 'package:rayaheen_bookstore/view/screen/auth/forgetpassword/forgetpassword.dart';
 import 'package:rayaheen_bookstore/view/screen/auth/forgetpassword/resetpassword.dart';
 import 'package:rayaheen_bookstore/view/screen/auth/forgetpassword/success_resetpassword.dart';
@@ -20,6 +18,7 @@ import 'package:rayaheen_bookstore/view/screen/checkout.dart';
 import 'package:rayaheen_bookstore/view/screen/home.dart';
 import 'package:rayaheen_bookstore/view/screen/homescreen.dart';
 import 'package:rayaheen_bookstore/view/screen/items.dart';
+import 'package:rayaheen_bookstore/view/screen/itemsage.dart';
 import 'package:rayaheen_bookstore/view/screen/language.dart';
 import 'package:rayaheen_bookstore/view/screen/language2.dart';
 import 'package:rayaheen_bookstore/view/screen/myfavorite.dart';
@@ -59,13 +58,12 @@ List<GetPage<dynamic>>? routes = [
 
   GetPage(name: AppRoute.homePage, page: () => const HomeScreen()),
   GetPage(name: AppRoute.items, page: () => const items()),
+  GetPage(name: AppRoute.itemsage, page: () => const itemsage()),
+
+
   GetPage(name: AppRoute.productdetails, page: () => const ProductDetails()),
   GetPage(name: AppRoute.myfavroite, page: () => const MyFavorite()),
 
-  GetPage(name: AppRoute.addressview, page: () => const AddressView()),
-  GetPage(name: AppRoute.addressadd, page: () => const AddressAdd()),
-  GetPage(
-      name: AppRoute.addressadddetails, page: () => const AddressAddDetails()),
 
    GetPage(name: AppRoute.checkout, page: () => const Checkout()),
   GetPage(name: AppRoute.cart, page: () => const Cart()),

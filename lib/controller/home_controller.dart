@@ -12,6 +12,7 @@ abstract class HomeController extends SearchMixController {
   initialData();
   getdata();
   goToItems(List categories, int selectedCat, String categoryid);
+  goToItemsage(List categories, int selectedCat);
 }
 
 class HomeControllerImp extends HomeController {
@@ -26,6 +27,7 @@ class HomeControllerImp extends HomeController {
   // List data = [];
   List categories = [];
   List items = [];
+
   // List items = [];
 
   @override
@@ -74,7 +76,14 @@ class HomeControllerImp extends HomeController {
       "catid": categoryid
     });
   }
+  @override
+  goToItemsage( categories, selectedCat) {
+    Get.toNamed(AppRoute.itemsage, arguments: {
+      "categories": categories,
+      "selectedcat": selectedCat,
 
+    });
+  }
   goToPageProductDetails(itemsModel) {
     Get.toNamed("productdetails", arguments: {"itemsmodel": itemsModel});
   }
@@ -114,9 +123,23 @@ class SearchMixController extends GetxController {
     update();
   }
 
-  onSearchItems() {
+  onSearchItems( search) {
     isSearch = true;
     searchData();
     update();
   }
+
+  // void onSearchItems(String search) {
+  //   if (searchText.isNotEmpty) {
+  //     // Perform search logic here, update listdata accordingly
+  //     print('Searching for: $searchText');
+  //     // Example logic to filter items based on the searchText
+  //     listdata = filterItems(searchText);
+  //     isSearch = true;
+  //   } else {
+  //     isSearch = false;
+  //   }
+  //   update();  // Make sure to call update to refresh UI
+  // }
+
 }

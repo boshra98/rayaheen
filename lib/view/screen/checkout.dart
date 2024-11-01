@@ -26,7 +26,7 @@ class Checkout extends StatelessWidget {
     // CheckoutController controller = Get.put(CheckoutControllerImp());
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Checkout'),
+        title:  Text('73'.tr),
       ),
 
 
@@ -123,7 +123,7 @@ class Checkout extends StatelessWidget {
                                 hinttext: "ادخل اسم الامارة",
                                 labeltext: "الامارة" ,
                                 valid:(val){
-                                  return validInput(val! ,5,30, "username") ;
+                                  return validInput(val! ,3,30, "username") ;
 
                                 },
 
@@ -134,7 +134,7 @@ class Checkout extends StatelessWidget {
                                 hinttext: "ادخل اسم المنطقة".tr,
                                 labeltext: "المنطقة".tr,
                                 valid:(val){
-                                  return validInput(val! ,5,30, "username") ;
+                                  return validInput(val! ,3,30, "username") ;
 
                                 },
                               ),
@@ -144,7 +144,7 @@ class Checkout extends StatelessWidget {
                                 hinttext: "ادخل اسم الشارع".tr,
                                 labeltext: "الشارع".tr,
                                 valid:(val){
-                                  return validInput(val! ,5,30, "username") ;
+                                  return validInput(val! ,3,30, "username") ;
 
                                 },
                               ),
@@ -159,7 +159,7 @@ class Checkout extends StatelessWidget {
                                 labeltext:"الهاتف".tr,
 
                               ),
-                              CustomButtomAuth(text:"17".tr,onPressed:(){
+                              CustomButtomAuth(text:"73".tr,onPressed:(){
                                 if(controller.paymentMethod=='1') {
                                   showDialog(
                                     context: context,
@@ -167,12 +167,12 @@ class Checkout extends StatelessWidget {
 
                                     builder: (BuildContext context) {
                                       return AlertDialog(
-                                        title: const Text("Confirmation"),
-                                        content: const Text(
-                                            "Do you want to proceed to WhatsApp?"),
+                                        title:  Text("75".tr),
+                                        content:  Text(
+                                            "77".tr),
                                         actions: [
                                           TextButton(
-                                            child: const Text("Cancel"),
+                                            child:  Text("76".tr),
                                             onPressed: () {
                                               Navigator.of(context)
                                                   .pop();
@@ -182,7 +182,7 @@ class Checkout extends StatelessWidget {
                                             },
                                           ),
                                           TextButton(
-                                            child: Text("OK"),
+                                            child: Text("86".tr),
                                             onPressed: () {
                                               // Launch WhatsApp when "OK" is pressed
                                               launchUrl(Uri.parse(

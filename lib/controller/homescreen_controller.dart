@@ -5,7 +5,6 @@ import 'package:get/get.dart';
 
 import '../view/screen/home.dart';
 import '../view/screen/notification.dart';
-import '../view/screen/profile.dart';
 import '../view/screen/settings.dart';
 
 abstract class HomeScreenController extends GetxController {
@@ -27,10 +26,10 @@ class HomeScreenControllerImp extends HomeScreenController {
   ];
 
   List bottomappbar = [
-    {"title": "home", "icon": Icons.home},
+    {"title": "81".tr, "icon": Icons.home},
     //{"title": "n", "icon": Icons.notifications_active_outlined},
     //{"title": "profile", "icon": Icons.person_pin_sharp},
-    {"title": "settings", "icon": Icons.settings}
+    {"title": "82".tr, "icon": Icons.settings}
   ];
 
   @override

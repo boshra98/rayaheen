@@ -7,7 +7,7 @@ ThemeData themeEnglish = ThemeData(
     displayMedium:  TextStyle(
         fontWeight: FontWeight.bold, fontSize: 20,color:AppColor.black) ,
     bodyMedium: TextStyle(
-        height:2,color:AppColor.grey,fontWeight: FontWeight.bold,fontSize: 17),
+        height:2,color:AppColor.grey,fontWeight: FontWeight.bold,fontSize: 16),
     bodySmall: TextStyle(
         height:2,color:AppColor.grey,fontSize: 14),
   ),
@@ -18,13 +18,40 @@ ThemeData themeArabic = ThemeData(
     displayMedium:  TextStyle(
         fontWeight: FontWeight.bold, fontSize: 20,color:AppColor.black) ,
     bodyMedium: TextStyle(
-        height:2,color:AppColor.grey,fontWeight: FontWeight.bold,fontSize: 17),
+        height:2,color:AppColor.grey,fontWeight: FontWeight.bold,fontSize: 16),
     bodySmall: TextStyle(
         height:2,color:AppColor.grey,fontSize: 14),
   ),
 );
 ThemeData customDarkTheme = ThemeData.dark().copyWith(
-visualDensity: VisualDensity.adaptivePlatformDensity,);
+visualDensity: VisualDensity.adaptivePlatformDensity,
+  textTheme:  const TextTheme(
+    titleLarge:  TextStyle(
+      fontWeight: FontWeight.bold, fontSize: 18,color:AppColor.primaryColor,fontFamily: "playfairDisplay",
+    ) ,
+    bodyMedium: TextStyle(
+      height:2,color:AppColor.primaryColor,fontWeight: FontWeight.bold,fontSize: 16 , fontFamily: "playfairDisplay",
+    ),
+    displaySmall: TextStyle(
+      height:2,color:AppColor.primaryColor,fontSize: 14 ,fontFamily: "playfairDisplay",
+    ),
+   bodySmall:  TextStyle(
+     height:2,color:AppColor.thirdColor,fontSize: 14 ,fontFamily: "playfairDisplay",
+   ),
+  ),
+   appBarTheme: AppBarTheme(color: AppColor.primaryColor,),
+  bottomAppBarTheme: BottomAppBarTheme(color:AppColor.fourthColor),
+    searchBarTheme:SearchBarThemeData( backgroundColor: MaterialStateColor.resolveWith((Set<MaterialState> states) {
+      if (states.contains(MaterialState.focused)) {
+        return AppColor.secondColor2; // Background color when the search bar is focused
+      }
+      //return Colors.grey.shade300; // Default background color
+      return AppColor.thirdColor; // Default background color
+
+    }),)
+
+
+);
 
 ThemeData customLightTheme = ThemeData.light().copyWith(
 visualDensity: VisualDensity.adaptivePlatformDensity,);

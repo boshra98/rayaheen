@@ -24,7 +24,7 @@ class CardOrdersListArchive extends GetView<OrdersArchiveController> {
             children: [
               Row(
                 children: [
-                  Text("Order Number : #${listdata.ordersId}",
+                  Text("66".tr +" : #${listdata.ordersId}",
                       style: const TextStyle(
                           fontSize: 18, fontWeight: FontWeight.bold)),
                   const Spacer(),
@@ -40,12 +40,12 @@ class CardOrdersListArchive extends GetView<OrdersArchiveController> {
               const Divider(),
               // Text(
               //     "Order Type : ${controller.printOrderType(listdata.ordersType!)}"),
-              Text("Order Price : ${listdata.ordersTotalprice}  درهم\  "),
+              Text("67".tr +": ${listdata.ordersTotalprice}  درهم\  "),
               // Text("Delivery Price : ${listdata.ordersPricedelivery} درهم\  "),
               Text(
-                  "Payment Method : ${controller.printPaymentMethod(listdata.ordersPaymentmethod!)} "),
+                  "68".tr + ": ${controller.printPaymentMethod(listdata.ordersPaymentmethod!)} "),
               Text(
-                  "Order Status : ${listdata.ordersStatus} "),
+                  "69".tr +": ${listdata.ordersStatus} "),
               const Divider(),
               Row(
                 children: [
@@ -59,8 +59,8 @@ class CardOrdersListArchive extends GetView<OrdersArchiveController> {
                       Get.toNamed(AppRoute.ordersdetails,
                           arguments: {"ordersmodel": listdata});
                     },
-                    color: AppColor.thirdColor,
-                    textColor: AppColor.secondColor,
+                    color: AppColor.secondColor,
+                    textColor: AppColor.fourth2Color,
                     child:  Text("56".tr),
                   ),
                 ],

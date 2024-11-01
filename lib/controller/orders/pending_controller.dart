@@ -27,9 +27,9 @@ class OrdersPendingController extends GetxController {
 
   String printPaymentMethod(String val) {
     if (val == "0") {
-      return "Cash On Delivery";
+      return "71".tr;
     } else {
-      return "Payment Card";
+      return "72".tr;
     }
   }
 

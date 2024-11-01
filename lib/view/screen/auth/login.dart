@@ -55,9 +55,9 @@ class Login extends StatelessWidget {
               },
 
               mycontroller: controller.phone,
-              hinttext: "Enter your phone",
+              hinttext: "22".tr,
               iconData: Icons.phone ,
-              labeltext: "phone",
+              labeltext: "21".tr,
 
 
             ) ,

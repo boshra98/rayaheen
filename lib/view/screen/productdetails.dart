@@ -73,8 +73,8 @@ class ProductDetails extends StatelessWidget {
                           .bodyMedium!
                           .copyWith(
                         fontSize: 16,
-                        fontWeight: FontWeight.w300,
-                        color: AppColor.grey2,
+                       // fontWeight: FontWeight.w300,
+                       // color: AppColor.grey2,
                       ),
                     ),
                     const SizedBox(height: 10),
@@ -83,11 +83,11 @@ class ProductDetails extends StatelessWidget {
                       textAlign: TextAlign.left, // Aligning author to the left
                       style: Theme.of(context)
                           .textTheme
-                          .bodyMedium!
+                          .bodySmall!
                           .copyWith(
                         fontSize: 16,
-                        fontWeight: FontWeight.w300,
-                        color: AppColor.grey2,
+                       // fontWeight: FontWeight.w300,
+                       // color: AppColor.grey2,
                       ),
                     ),
                     const SizedBox(height: 10),
@@ -96,11 +96,11 @@ class ProductDetails extends StatelessWidget {
                       textAlign: TextAlign.left, // Aligning publisher to the left
                       style: Theme.of(context)
                           .textTheme
-                          .bodyMedium!
+                          .bodySmall!
                           .copyWith(
                         fontSize: 16,
-                        fontWeight: FontWeight.w300,
-                        color: AppColor.grey2,
+                       // fontWeight: FontWeight.w300,
+                      //  color: AppColor.grey2,
                       ),
                     ),
                     const SizedBox(height: 10),
@@ -109,11 +109,11 @@ class ProductDetails extends StatelessWidget {
                       textAlign: TextAlign.left, // Aligning year to the left
                       style: Theme.of(context)
                           .textTheme
-                          .bodyMedium!
+                          .bodySmall!
                           .copyWith(
                         fontSize: 16,
-                        fontWeight: FontWeight.w300,
-                        color: AppColor.grey2,
+                      //  fontWeight: FontWeight.w300,
+                      //  color: AppColor.grey2,
                       ),
                     ),
                   ],

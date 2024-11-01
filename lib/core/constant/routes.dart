@@ -27,6 +27,7 @@ class AppRoute {
   static const String verifyCodeSignUp = "/verfiycodesignup";
   static const String items = "/items";
 
+  static const String itemsage = "/itemsage";
 
 
   static const String productdetails = "/productdetails";

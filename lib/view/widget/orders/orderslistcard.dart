@@ -22,7 +22,7 @@ class CardOrdersList extends GetView<OrdersPendingController> {
             children: [
               Row(
                 children: [
-                  Text("Order Number : #${listdata.ordersId}",
+                  Text( "66".tr +": #${listdata.ordersId}",
                       style: const TextStyle(
                           fontSize: 18, fontWeight: FontWeight.bold)),
                   const Spacer(),
@@ -40,12 +40,12 @@ class CardOrdersList extends GetView<OrdersPendingController> {
               Divider(),
               // Text(
               //     "Order Type : ${controller.printOrderType(listdata.ordersType!)}"),
-              Text("Order Price : ${listdata.ordersTotalprice} \$"),
+              Text("67".tr +": ${listdata.ordersTotalprice} \ درهم "),
               // Text("Delivery Price : ${listdata.ordersPricedelivery} \$ "),
               Text(
-                  "Payment Method : ${controller.printPaymentMethod(listdata.ordersPaymentmethod!)} "),
+                  "68".tr +": ${controller.printPaymentMethod(listdata.ordersPaymentmethod!)} "),
               Text(
-                  "Order Status : ${listdata.ordersStatus!} "),
+                  "69".tr+" : ${listdata.ordersStatus!} "),
               const Divider(),
               Row(
                 children: [
@@ -60,11 +60,11 @@ class CardOrdersList extends GetView<OrdersPendingController> {
                           arguments: {"ordersmodel": listdata});
                     },
                     color: AppColor.secondColor,
-                    textColor: AppColor.primaryColor,
+                    textColor: AppColor.fourth2Color,
                     child:  Text('56'.tr),
                   ),
                   const SizedBox(width: 10),
-                 if (listdata.ordersStatus=="pending") MaterialButton(
+                 if (listdata.ordersStatus=="pending"||listdata.ordersStatus=="في انتظار الموافقة") MaterialButton(
                     onPressed: () {
                       controller.deleteOrder(listdata.ordersId!);
                     },

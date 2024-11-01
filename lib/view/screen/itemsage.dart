@@ -15,8 +15,8 @@ import '../widget/items/customlistitems.dart';
 import '../widget/items/listcategoriesitems.dart';
 import 'home.dart';
 
-class items extends StatelessWidget {
-  const items({Key? key}) : super(key: key);
+class itemsage extends StatelessWidget {
+  const itemsage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

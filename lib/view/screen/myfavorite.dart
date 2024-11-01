@@ -25,10 +25,10 @@ class MyFavorite extends StatelessWidget {
                   CustomAppBar(
                     mycontroller: controller.search!,
                     titleappbar: "41".tr,
-                    iconData: Icons.arrow_forward,
+                   // iconData: Icons.arrow_forward,
                     // onPressedIcon: () {},
-                    onPressedSearch: () {
-                      controller.onSearchItems();
+                    onPressedSearch: (searchText) {
+                      controller.onSearchItems(searchText);  // Pass search text to controller
                     },
                     onChanged: (val) {
                       controller.checkSearch(val);
@@ -36,7 +36,7 @@ class MyFavorite extends StatelessWidget {
                     onPressedIconFavorite: () {
                       Get.toNamed(AppRoute.myfavroite);
                     },
-                    appBar: AppBar(backgroundColor:AppColor.primaryColor),
+                   // appBar: AppBar(backgroundColor:AppColor.primaryColor),
                     //backgroundColor: AppColor.primaryColor,
                   ),
 

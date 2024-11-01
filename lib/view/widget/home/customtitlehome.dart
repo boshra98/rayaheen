@@ -10,11 +10,17 @@ class CustomTitleHome extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: EdgeInsets.symmetric(vertical: 8),
-      child: Text(title,
+      alignment: Alignment.center, // This centers the text inside the container
+      child:
+      Text(title,
+          textAlign: TextAlign.center,
           style:const  TextStyle(
               fontSize: 20,
               color: AppColor.primaryColor,
-              fontWeight: FontWeight.bold)),
+
+              fontWeight: FontWeight.bold),
+      ),
     );
+
   }
 }

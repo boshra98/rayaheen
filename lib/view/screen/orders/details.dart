@@ -81,7 +81,7 @@ class OrdersDetails extends StatelessWidget {
                 if (controller.ordersModel.ordersType == "0")    Card(
                     child: Container(
                         child: ListTile(
-                      title: const Text("Shipping Address",
+                      title:  Text("65".tr,
                           style: TextStyle(
                               color: AppColor.primaryColor,
                               fontWeight: FontWeight.bold)),
@@ -89,23 +89,23 @@ class OrdersDetails extends StatelessWidget {
                           "${controller.ordersModel.addressCity} ${controller.ordersModel.addressStreet}"),
                     )),
                   ),
-              if (controller.ordersModel.ordersType == "0")    Card(
-                    child: Container(
-                      padding:
-                          EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-                      height: 300,
-                      width: double.infinity,
-                      child: GoogleMap(
-                        mapType: MapType.normal,
-                        markers: controller.markers.toSet(),
-                        initialCameraPosition: controller.cameraPosition!,
-                        onMapCreated: (GoogleMapController controllermap) {
-                          controller.completercontroller!
-                              .complete(controllermap);
-                        },
-                      ),
-                    ),
-                  )
+              // if (controller.ordersModel.ordersType == "0")    Card(
+              //       child: Container(
+              //         padding:
+              //             EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+              //         height: 300,
+              //         width: double.infinity,
+              //         child: GoogleMap(
+              //           mapType: MapType.normal,
+              //           markers: controller.markers.toSet(),
+              //           initialCameraPosition: controller.cameraPosition!,
+              //           onMapCreated: (GoogleMapController controllermap) {
+              //             controller.completercontroller!
+              //                 .complete(controllermap);
+              //           },
+              //         ),
+              //       ),
+              //     )
                 ])))),
       ),
     );

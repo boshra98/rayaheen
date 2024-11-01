@@ -20,7 +20,7 @@ class ForgetPassword extends StatelessWidget {
           centerTitle:true,
           backgroundColor: AppColor.backgroundcolor,
           elevation: 0.0,
-          title: Text('14'.tr, style:Theme.of(context).textTheme.headline1!.copyWith(color: AppColor.grey))
+          title: Text('14'.tr, style:Theme.of(context).textTheme.displayMedium!.copyWith(color: AppColor.grey))
       ),
       body: Container(
         padding: const EdgeInsets.symmetric(vertical: 15 , horizontal: 30),
@@ -39,14 +39,14 @@ class ForgetPassword extends StatelessWidget {
               isNumber: false,
 
               valid:(val){
-                return validInput(val! ,9,100, "email") ;
+                return validInput(val! ,9,9, "phone") ;
 
               },
 
-              mycontroller: controller.email,
-              hinttext: "12".tr,
-              iconData: Icons.lock_outline,
-              labeltext: "18".tr,
+              mycontroller: controller.phone,
+              hinttext: "22".tr,
+              iconData: Icons.phone,
+              labeltext: "21".tr,
               //mycontrller
             ) ,
 
@@ -54,7 +54,7 @@ class ForgetPassword extends StatelessWidget {
 
 
             CustomButtomAuth(text:"30".tr,onPressed:(){
-              controller.goToVerfiyCode();
+              controller.checkphone();
             },),
             const  SizedBox(height: 40,),
 

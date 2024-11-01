@@ -97,22 +97,25 @@ class CheckoutControllerImp extends CheckoutController {
       statusRequest = StatusRequest.loading;
       update() ;
       var response = await checkoutData.postdata(myServices.sharedPreferences.getString("id")!,
-          Imara.text, sharae.text, mantica.text,paymentMethod!);
+          Imara.text, sharae.text, mantica.text,paymentMethod!,phone.text);
       print("=============================== Controller $response ");
       statusRequest = handlingData(response);
       if (StatusRequest.success == statusRequest) {
         if (response['status'] == "success") {
-          Get.offAllNamed(AppRoute.homePage);
-          Get.snackbar("Success", "the order was successfully");
 
+          Get.snackbar("32".tr, "90".tr);
+
+          Get.offAllNamed(AppRoute.homePage);
         } else {
-          statusRequest = StatusRequest.none;
-          Get.snackbar("Error", "try again");
+          // statusRequest = StatusRequest.none;
+          // Get.snackbar("Error", "try again");
+          Get.defaultDialog(title: "78".tr , middleText: "79".tr) ;
+          statusRequest = StatusRequest.failure;
         }
       }
       update();
     } else {
-         return Get.snackbar("Error", "Please select location $sharae");
+        // return Get.snackbar("Error", "Please select location $sharae");
 
     }
   }

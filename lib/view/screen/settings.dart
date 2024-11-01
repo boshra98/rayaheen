@@ -2,7 +2,6 @@
 import 'package:double_tap_to_exit/double_tap_to_exit.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:rayaheen_bookstore/view/screen/address/view.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../controller/settings_controller.dart';

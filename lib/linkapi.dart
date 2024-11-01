@@ -1,12 +1,13 @@
 class AppLink {
 
-  static const String server = "http://192.168.43.34:8000/api";
+  // static const String server = "http://192.168.43.34:8000/api";
+  static const String server = "https://www.rayaheenbooks.com/api";
 
 
 
-  static const String imagestatic = "http://192.168.43.34:8000/storage";
-  static const String imagesCategories = "http://192.168.43.34:8000/storage";
-  static const String imagesItems = "http://192.168.43.34:8000/storage";
+  static const String imagestatic = "https://www.rayaheenbooks.com/storage";
+  static const String imagesCategories = "https://www.rayaheenbooks.com/storage";
+  static const String imagesItems = "https://www.rayaheenbooks.com/storage";
 
 
 
@@ -24,12 +25,13 @@ class AppLink {
 // ================================= ForgetPassword ========================== //
 
 
-  static const String checkEmail = "$server/forgetpassword/checkemail.php";
-  static const String resetPassword = "$server/forgetpassword/resetpassword.php";
-  static const String verifycodeforgetpassword = "$server/forgetpassword/verifycode.php";
+  static const String checkPhone = "$server/requestReset";
+  static const String resetPassword = "$server/Resetpassword";
 
   static const String homepage = "$server/category";
   static const String items = "$server/items";
+  static const String itemsage = "$server/itemsage";
+
   static const String searchitems = "$server/searchitems";
 
   static const String favoriteAdd = "$server/addfavorite";

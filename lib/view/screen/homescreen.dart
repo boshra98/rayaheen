@@ -32,6 +32,7 @@ class HomeScreen extends StatelessWidget {
           ),
           floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
           bottomNavigationBar: const CustomBottomAppBarHome(),
+
           body: controller.listPage.elementAt(controller.currentpage),
         ),
       ),

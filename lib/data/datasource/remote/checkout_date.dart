@@ -5,13 +5,14 @@ import '../../../linkapi.dart';
 class CheckoutData {
   Crud crud;
   CheckoutData(this.crud);
-  postdata(String id ,String city ,String area ,String street ,String paymentMethod) async {
+  postdata(String id ,String city ,String area ,String street ,String paymentMethod,String phone) async {
     var response = await crud.postData(AppLink.checkout, {
       "user_id":id,
       "city":city,
       "area":area,
       "street":street,
       "paymentMethod":paymentMethod,
+      "phone":phone,
 
     }
        );

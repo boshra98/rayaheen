@@ -20,8 +20,8 @@ class ResetPassword extends StatelessWidget {
           centerTitle:true,
           backgroundColor: AppColor.backgroundcolor,
           elevation: 0.0,
-          title: Text(' ResetPassword ',
-              style:Theme.of(context).textTheme.headline1!.copyWith(color: AppColor.grey))
+          title: Text('83'.tr,
+              style:Theme.of(context).textTheme.displayMedium!.copyWith(color: AppColor.grey))
       ),
       body: Container(
         padding: const EdgeInsets.symmetric(vertical: 15 , horizontal: 30),
@@ -39,7 +39,7 @@ class ResetPassword extends StatelessWidget {
             CustomTextFormAuth(
               isNumber: false,
               valid:(val){
-                return validInput(val! ,10,30, "password") ;
+                return validInput(val! ,5,10, "password") ;
 
               },
 
@@ -53,12 +53,12 @@ class ResetPassword extends StatelessWidget {
               isNumber: false,
 
               valid:(val){
-                return validInput(val! ,10,30, "password") ;
+                return validInput(val! ,5,10, "password") ;
 
               },
 
               mycontroller: controller.password,
-              hinttext: "Re " +" "+ "13".tr,
+              hinttext: "84".tr,
               iconData: Icons.lock_outline,
               labeltext: "19".tr,
               //mycontrller
