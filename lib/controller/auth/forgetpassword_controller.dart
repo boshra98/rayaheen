@@ -19,20 +19,24 @@ class ForgetPasswordControllerImp extends ForgetPasswordController{
 
   StatusRequest statusRequest  = StatusRequest.none ;
   late TextEditingController phone ;
+  late TextEditingController code;  // Controller for country code
+
 
   @override
   checkphone()async  {
     if (formstate.currentState!.validate()){
       statusRequest = StatusRequest.loading;
       update() ;
-      var response = await checkphoneData.postdata(phone.text);
+      var response = await checkphoneData.postdata( "${code.text}${phone.text}".substring(1,12));
+      print("${code.text}${phone.text}".substring(1,12));
+
       print("=============================== Controller $response ");
       statusRequest = handlingData(response);
       if (StatusRequest.success == statusRequest) {
         if (response['status'] == "success") {
           // data.addAll(response['data']);
           Get.offNamed(AppRoute.resetPassword , arguments: {
-            "phone" : phone.text
+            "phone" : "${code.text}${phone.text}".substring(1,12)
           });
 
         } else {
@@ -58,12 +62,15 @@ class ForgetPasswordControllerImp extends ForgetPasswordController{
   @override
   void onInit() {
     phone = TextEditingController();
+    code = TextEditingController(text: "+971"); // Set default code
 
     super.onInit();
   }
   @override
   void dispose() {
     phone.dispose();
+    code.dispose();  // Dispose the code controller
+
     super.dispose();
   }
 

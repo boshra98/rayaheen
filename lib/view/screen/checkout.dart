@@ -123,7 +123,7 @@ class Checkout extends StatelessWidget {
                                 hinttext: "ادخل اسم الامارة",
                                 labeltext: "الامارة" ,
                                 valid:(val){
-                                  return validInput(val! ,3,30, "username") ;
+                                  return validInput(val! ,3,30, "address") ;
 
                                 },
 
@@ -131,32 +131,32 @@ class Checkout extends StatelessWidget {
                               CardDeliveryAddressCheckout(
                                 isNumber: false,
                                 mycontroller: controller.mantica,
-                                hinttext: "ادخل اسم المنطقة".tr,
-                                labeltext: "المنطقة".tr,
+                                hinttext: "ادخل اسم المنطقة",
+                                labeltext: "المنطقة",
                                 valid:(val){
-                                  return validInput(val! ,3,30, "username") ;
+                                  return validInput(val! ,3,30, "address") ;
 
                                 },
                               ),
                               CardDeliveryAddressCheckout(
                                 isNumber: false,
                                 mycontroller: controller.sharae,
-                                hinttext: "ادخل اسم الشارع".tr,
-                                labeltext: "الشارع".tr,
+                                hinttext: "ادخل اسم الشارع",
+                                labeltext: "الشارع",
                                 valid:(val){
-                                  return validInput(val! ,3,30, "username") ;
+                                  return validInput(val! ,3,30, "address") ;
 
                                 },
                               ),
                               CardDeliveryAddressCheckout(
                                 isNumber: true,
                                 valid:(val){
-                                  return validInput(val! ,9,9, "phone") ;
+                                  return validInput(val! ,8,12, "phone") ;
 
                                 },
                                 mycontroller: controller.phone,
-                                hinttext: "ادخل رقم الهاتف".tr,
-                                labeltext:"الهاتف".tr,
+                                hinttext: "ادخل رقم الهاتف",
+                                labeltext:"الهاتف",
 
                               ),
                               CustomButtomAuth(text:"73".tr,onPressed:(){

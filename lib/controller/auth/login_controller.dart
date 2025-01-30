@@ -19,6 +19,8 @@ class LoginControllerImp extends LoginController {
   GlobalKey<FormState> formstate = GlobalKey<FormState>();
 
   late TextEditingController phone;
+  late TextEditingController code;  // Controller for country code
+
   late TextEditingController password;
 
   bool isshowpassword = true;
@@ -43,7 +45,9 @@ class LoginControllerImp extends LoginController {
     if (formstate.currentState!.validate()) {
       statusRequest = StatusRequest.loading;
       update();
-      var response = await loginData.postdata(phone.text, password.text);
+      var response = await loginData.postdata( "${code.text}${phone.text}".substring(1,12), password.text);
+      print("${code.text}${phone.text}".substring(1,12));
+
       print("=============================== Controller $response ");
       statusRequest = handlingData(response);
       if (StatusRequest.success == statusRequest) {
@@ -67,7 +71,7 @@ class LoginControllerImp extends LoginController {
       }else {
         print("hhhhho");
         Get.defaultDialog(
-            title: "ُWarning", middleText: "Email Or Password Not Correct");
+            title: "ُWarning", middleText: "Phone Or Password Not Correct");
         statusRequest = StatusRequest.failure;
       }
 
@@ -83,6 +87,8 @@ class LoginControllerImp extends LoginController {
   @override
   void onInit() {
     phone = TextEditingController();
+    code = TextEditingController(text: "+971"); // Set default code
+
     password = TextEditingController();
     super.onInit();
     //   FirebaseMessaging.instance.getToken().then((value) {
@@ -98,6 +104,7 @@ class LoginControllerImp extends LoginController {
   void dispose() {
     phone.dispose();
     password.dispose();
+    code.dispose();  // Dispose the code controller
     super.dispose();
   }
 

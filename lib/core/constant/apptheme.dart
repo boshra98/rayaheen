@@ -5,7 +5,7 @@ ThemeData themeEnglish = ThemeData(
   fontFamily: "playfairDisplay",
   textTheme:  const TextTheme(
     displayMedium:  TextStyle(
-        fontWeight: FontWeight.bold, fontSize: 20,color:AppColor.black) ,
+        fontWeight: FontWeight.bold, fontSize: 16,color:AppColor.black) ,
     bodyMedium: TextStyle(
         height:2,color:AppColor.grey,fontWeight: FontWeight.bold,fontSize: 16),
     bodySmall: TextStyle(
@@ -16,37 +16,41 @@ ThemeData themeArabic = ThemeData(
   fontFamily: "cairo",
   textTheme: const TextTheme(
     displayMedium:  TextStyle(
-        fontWeight: FontWeight.bold, fontSize: 20,color:AppColor.black) ,
+        fontWeight: FontWeight.bold, fontSize: 14,color:AppColor.black) ,
     bodyMedium: TextStyle(
-        height:2,color:AppColor.grey,fontWeight: FontWeight.bold,fontSize: 16),
+        height:2,color:AppColor.grey,fontWeight: FontWeight.bold,fontSize: 14),
     bodySmall: TextStyle(
         height:2,color:AppColor.grey,fontSize: 14),
+    headlineLarge: TextStyle(
+        height:2,fontSize:12),
+      headlineMedium: TextStyle( fontWeight: FontWeight.bold ,fontSize:12),
+
   ),
 );
 ThemeData customDarkTheme = ThemeData.dark().copyWith(
 visualDensity: VisualDensity.adaptivePlatformDensity,
   textTheme:  const TextTheme(
     titleLarge:  TextStyle(
-      fontWeight: FontWeight.bold, fontSize: 18,color:AppColor.primaryColor,fontFamily: "playfairDisplay",
+      fontWeight: FontWeight.bold, fontSize: 18,color:AppColor.primaryColor,fontFamily: "ttf",
     ) ,
     bodyMedium: TextStyle(
-      height:2,color:AppColor.primaryColor,fontWeight: FontWeight.bold,fontSize: 16 , fontFamily: "playfairDisplay",
+      height:2,color:AppColor.primaryColor,fontWeight: FontWeight.bold,fontSize: 16 , fontFamily: "ttf",
     ),
     displaySmall: TextStyle(
-      height:2,color:AppColor.primaryColor,fontSize: 14 ,fontFamily: "playfairDisplay",
+      height:2,color:AppColor.primaryColor,fontSize: 14 ,fontFamily: "ttf",
     ),
    bodySmall:  TextStyle(
-     height:2,color:AppColor.thirdColor,fontSize: 14 ,fontFamily: "playfairDisplay",
+     height:2,color:AppColor.secondColor,fontSize: 14 ,fontFamily: "ttf",
    ),
   ),
    appBarTheme: AppBarTheme(color: AppColor.primaryColor,),
-  bottomAppBarTheme: BottomAppBarTheme(color:AppColor.fourthColor),
+  //bottomAppBarTheme: BottomAppBarTheme(color:AppColor.secondColor),
     searchBarTheme:SearchBarThemeData( backgroundColor: MaterialStateColor.resolveWith((Set<MaterialState> states) {
       if (states.contains(MaterialState.focused)) {
-        return AppColor.secondColor2; // Background color when the search bar is focused
+        return AppColor.black; // Background color when the search bar is focused
       }
       //return Colors.grey.shade300; // Default background color
-      return AppColor.thirdColor; // Default background color
+      return AppColor.secondColor; // Default background color
 
     }),)
 
@@ -54,7 +58,10 @@ visualDensity: VisualDensity.adaptivePlatformDensity,
 );
 
 ThemeData customLightTheme = ThemeData.light().copyWith(
-visualDensity: VisualDensity.adaptivePlatformDensity,);
+visualDensity: VisualDensity.adaptivePlatformDensity,
+
+
+);
 
 // class Themes{
 //   static ThemeData customDarkTheme = ThemeData.dark().copyWith(
@@ -74,7 +81,6 @@ visualDensity: VisualDensity.adaptivePlatformDensity,);
 //
 //     // appBarTheme: AppBarTheme(color: AppColor.fourthColor),
 //     //scaffoldBackgroundColor: AppColor.thirdColor,
-//     // bottomAppBarTheme:  BottomAppBarTheme(color: AppColor.fourthColor),
 //     //primarySwatch: Colors.pink,
 //     //bottomNavigationBar :  AppColor.fourthColor,
 //     // GNav
@@ -96,7 +102,6 @@ visualDensity: VisualDensity.adaptivePlatformDensity,);
 //
 //     appBarTheme: AppBarTheme(color:Colors.white),
 //     //scaffoldBackgroundColor: ScaffoldBackgroundColorTheme(),
-//     bottomAppBarTheme:  BottomAppBarTheme(color:Colors.white),
 //     //bottomNavigationBar:
 //
 //   );

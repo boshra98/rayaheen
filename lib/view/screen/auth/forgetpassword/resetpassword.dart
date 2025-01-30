@@ -39,7 +39,7 @@ class ResetPassword extends StatelessWidget {
             CustomTextFormAuth(
               isNumber: false,
               valid:(val){
-                return validInput(val! ,5,10, "password") ;
+                return validInput(val! ,8,30, "password") ;
 
               },
 
@@ -53,7 +53,7 @@ class ResetPassword extends StatelessWidget {
               isNumber: false,
 
               valid:(val){
-                return validInput(val! ,5,10, "password") ;
+                return validInput(val! ,8,30, "password") ;
 
               },
 

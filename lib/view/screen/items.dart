@@ -27,6 +27,7 @@ class items extends StatelessWidget {
         padding: const EdgeInsets.all(15),
         child: ListView(children: [
           CustomAppBar(
+
             mycontroller: controller.search!,
             titleappbar: "41".tr,
             //iconData: Icons.arrow_forward,
@@ -38,9 +39,9 @@ class items extends StatelessWidget {
             onChanged: (val) {
               controller.checkSearch(val);
             },
-            onPressedIconFavorite: () {
-              Get.toNamed(AppRoute.myfavroite);
-            },
+            // onPressedIconFavorite: () {
+            //   Get.toNamed(AppRoute.myfavroite);
+            // },
             //appBar:AppBar(backgroundColor:AppColor.primaryColor),
 
           ),

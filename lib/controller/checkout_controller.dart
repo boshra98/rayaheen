@@ -90,7 +90,7 @@ class CheckoutControllerImp extends CheckoutController {
    checkout() async {
   update() ;
     if (PaymentMethod() == null) {
-      return Get.snackbar("Error", "Please select a payment method");
+      return Get.snackbar("تنبيه", "اختر وسيلة الدفع أولاً ");
     }
 
     if (formstate.currentState!.validate()) {

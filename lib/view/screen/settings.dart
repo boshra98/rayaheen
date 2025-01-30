@@ -1,4 +1,3 @@
-
 import 'package:double_tap_to_exit/double_tap_to_exit.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -21,8 +20,6 @@ class Settings extends StatelessWidget {
     return Container(
       child: ListView(
         children: [
-
-
           Stack(
               clipBehavior: Clip.none,
               alignment: Alignment.center,
@@ -33,12 +30,12 @@ class Settings extends StatelessWidget {
                     child: Container(
                       padding: const EdgeInsets.all(4),
                       decoration: BoxDecoration(
-                          color: Colors.white,
-                          borderRadius: BorderRadius.circular(100)),
+                          color: AppColor.primaryColor,
+                          borderRadius: BorderRadius.circular(120)),
                       child: CircleAvatar(
                         radius: 60,
                         backgroundColor: Colors.grey[100],
-                       backgroundImage: const AssetImage(ImageAsset.logo),
+                        backgroundImage: const AssetImage(ImageAsset.logo),
                       ),
                     )),
               ]),
@@ -46,10 +43,11 @@ class Settings extends StatelessWidget {
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 10),
             child: Card(
+              color: AppColor.secondColor,
               child: Column(mainAxisSize: MainAxisSize.min, children: [
                 ListTile(
                   // onTap: () {},
-                  trailing: const Icon(Icons.wb_sunny_outlined),
+                  trailing: const Icon(Icons.wb_sunny_outlined,color:AppColor.black),
                   onTap:(){
                     if(Get.isDarkMode){
                       Get.changeTheme(customLightTheme);
@@ -57,21 +55,30 @@ class Settings extends StatelessWidget {
                       Get.changeTheme(customDarkTheme);
                     }
                   },
-                  title: Text('44'.tr),
+                  title: Text(
+                    '44'.tr,
+                    style: const TextStyle(fontSize: 18,color:AppColor.primaryColor,fontFamily:"playfairDisplay"), // Increase font size
+                  ),
                 ),
                 ListTile(
                   onTap: () {
                     Get.toNamed(AppRoute.orderspending);
                   },
-                  trailing: const Icon(Icons.card_travel),
-                  title: Text('45'.tr),
+                  trailing: const Icon(Icons.card_travel,color:AppColor.black),
+                  title: Text(
+                    '45'.tr,
+                    style: const TextStyle(fontSize: 18 , color:AppColor.primaryColor,fontFamily:"playfairDisplay") , // Increase font size
+                  ),
                 ),
                 ListTile(
                   onTap: () {
-                    Get.toNamed(AppRoute.ordersarchive );
+                    Get.toNamed(AppRoute.ordersarchive);
                   },
-                  trailing: const Icon(Icons.card_travel),
-                  title: Text('46'.tr),
+                  trailing: const Icon(Icons.card_travel,color:AppColor.black),
+                  title: Text(
+                    '46'.tr,
+                    style: const TextStyle(fontSize: 18,color:AppColor.primaryColor,fontFamily:"playfairDisplay"), // Increase font size
+                  ),
                 ),
                 // ListTile(
                 //   onTap: () {
@@ -84,32 +91,42 @@ class Settings extends StatelessWidget {
                   onTap: () {
                     Get.toNamed(AppRoute.aboutus);
                   },
-                  trailing: const Icon(Icons.help_outline_rounded),
-                  title: Text('48'.tr),
+                  trailing: const Icon(Icons.help_outline_rounded,color:AppColor.black),
+                  title: Text(
+                    '48'.tr,
+                    style: const TextStyle(fontSize: 18 ,color:AppColor.primaryColor,fontFamily:"playfairDisplay",), // Increase font size
+                  ),
                 ),
                 ListTile(
                   onTap: () {
-
                     launchUrl(Uri.parse("https://wa.me/+971528816100"));
                   },
-                  trailing: const Icon(Icons.phone_callback_outlined),
-                  title: Text('49'.tr),
+                  trailing: const Icon(Icons.phone_callback_outlined,color:AppColor.black),
+                  title: Text(
+                    '49'.tr,
+                    style: const TextStyle(fontSize: 18,color:AppColor.primaryColor,fontFamily:"playfairDisplay"), // Increase font size
+                  ),
                 ),
                 ListTile(
-                  title:  Text("51".tr),
-                  trailing: const Icon(Icons.language),
+                  title: Text(
+                    "51".tr,
+                    style: const TextStyle(fontSize: 18,color:AppColor.primaryColor,fontFamily:"playfairDisplay"), // Increase font size
+                  ),
+                  trailing: const Icon(Icons.language,color:AppColor.black),
                   onTap:(){
                     //Navigator.of(context).push(MaterialPageRoute(builder: (context)=> Language()));
                     Get.toNamed(AppRoute.language2);
-
                   },
                 ),
                 ListTile(
                   onTap: () {
                     controller.logout();
                   },
-                  title: Text('50'.tr),
-                  trailing: const Icon(Icons.exit_to_app),
+                  title: Text(
+                    '50'.tr,
+                    style: const TextStyle(fontSize: 18, color:AppColor.primaryColor,fontFamily:"playfairDisplay"), // Increase font size
+                  ),
+                  trailing: const Icon(Icons.exit_to_app ,color:AppColor.black),
                 ),
               ]),
             ),

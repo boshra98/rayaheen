@@ -4,6 +4,7 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../core/constant/color.dart';
 import '../../core/constant/routes.dart';
 
 class SplashScreen extends StatefulWidget {
@@ -45,17 +46,36 @@ class _SplashScreenState extends State<SplashScreen> {
   }
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
+      backgroundColor: AppColor.secondColor, // Set background color
       body: Center(
-
-        child:
-        CircularProgressIndicator(),
-
-
-        // Loading indicator while checking login status
+        child: Container(
+          width: 180, // Set the desired circle size
+          height: 180,
+          decoration: BoxDecoration(
+            shape: BoxShape.circle, // Circular shape
+            color: Colors.white, // Optional background color
+            border: Border.all(
+              color: Colors.grey.shade300, // Border color
+              width: 3, // Border width
+            ),
+            boxShadow: [ // Optional shadow for a polished look
+              BoxShadow(
+                color: Colors.grey.shade400,
+                blurRadius: 5,
+                spreadRadius: 1,
+                offset: Offset(0, 3),
+              ),
+            ],
+          ),
+          child: ClipOval( // Ensures the logo image is clipped to a circle
+            child: Image.asset(
+              'assets/images/logo.png', // Path to the image
+              fit: BoxFit.cover, // Ensures the image fills the circle
+            ),
+          ),
+        ),
       ),
-
-
     );
   }
 }

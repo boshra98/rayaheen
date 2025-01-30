@@ -9,9 +9,14 @@ import 'package:get/get.dart';
 import '../../controller/home_controller.dart';
 import '../../core/class/handlingdataview.dart';
 import '../../core/constant/color.dart';
+import '../../core/constant/imageasset.dart';
 import '../../core/functions/alartexitapp.dart';
+import '../../data/model/categorymodel.dart';
+import '../../data/model/publisherModel.dart';
+
 import '../../data/model/itemsmodel.dart';
 import '../../linkapi.dart';
+import '../widget/customappbar2.dart';
 import '../widget/home/customcardhome.dart';
 import '../widget/home/customtitlehome.dart';
 import '../widget/home/listagegroup.dart';
@@ -25,170 +30,293 @@ import 'package:rayaheen_bookstore/view/widget/customappbar.dart';
 
 import 'package:rayaheen_bookstore/view/widget/home/listitemshome.dart';
 
-
-
-
-// class HomePage extends StatelessWidget {
-//   const HomePage({Key? key}) : super(key: key);
-//
-//   @override
-//   Widget build(BuildContext context) {
-//
-//     Get.put(HomeControllerImp());
-//
-//     return GetBuilder<HomeControllerImp>(
-//         builder: (controller) => Container(
-//             padding: const EdgeInsets.symmetric(horizontal: 15),
-//
-//             child: ListView(
-//               children: [
-//
-//                 CustomAppBar(
-//                   mycontroller: controller.search!,
-//                   titleappbar:  "41".tr,
-//                 //onPressedSearch(mycontroller.text);
-//                  // iconData: Icons.arrow_forward,
-//
-//                   // onPressedIcon: () {},
-//                   // onPressedSearch: () {
-//                   //   controller.onSearchItems();
-//                   //   //onPressedSearch(mycontroller.text);
-//                   // },
-//                   onPressedSearch: (search) {
-//                     controller.onSearchItems(search);
-//                     //onPressedSearch!(mycontroller.text); // Pass search text here
-// // Pass search text to controller
-//                   },
-//
-//                   onChanged: (val) {
-//                     controller.checkSearch(val);
-//                   },
-//                   onPressedIconFavorite: () {
-//                     Get.toNamed(AppRoute.myfavroite);
-//                   },
-//                   //appBar:AppBar(backgroundColor:AppColor.primaryColor),
-//                 ),
-//
-//                 HandlingDataView(
-//                     statusRequest: controller.statusRequest,
-//                     widget: !controller.isSearch
-//                         ?  Column(
-//                       crossAxisAlignment: CrossAxisAlignment.start,
-//                       children: [
-//                         const CustomCardHome(
-//                         ),
-//                         CustomTitleHome(title: '43'.tr),
-//                         const ListItemsHome(),
-//                         CustomTitleHome(title: '42'.tr),
-//                         const ListAgeGroup(),
-//                         CustomTitleHome(title: '74'.tr),
-//                         const ListCategoriesHome(),
-//
-//
-//                         // const DoubleTapToExit(
-//                         //   child: Scaffold(),
-//                         //   snackBar: SnackBar(
-//                         //     content: Text('Tap again to exit !'),
-//                         //   ),
-//                         // ),
-//                       ],
-//                     )
-//                         : ListItemsSearch(listdatamodel: controller.listdata)
-//                     ,
-//
-//
-//                 )
-//
-//                 // const CustomTitleHome(title: "Offer"),
-//                 // const ListItemsHome()
-//               ],
-//             )));
-//   }
-// }
-
+import 'allbooks.dart';
+import 'newitems.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    final GlobalKey<ScaffoldState> _scaffoldKey = GlobalKey<ScaffoldState>();
+   // final CategoriesModel categoriesModel;
+    final List<String> ageGroups = [
+      "0-3  سنوات",
+      "9-12 سنوات",
+      " 3-6 سنوات",
+      "12+ سنوات",
+      "6-9  سنوات",
+      "للأهل والمربين",
+    ];
+    final List<String> Groups = [
+      "ذكر وأنثى",
+      "أبطال الإسلام",
+
+    ];
+    int i=0;
     Get.put(HomeControllerImp());
 
     return GetBuilder<HomeControllerImp>(
-      builder: (controller) => Container(
-        padding: const EdgeInsets.symmetric(horizontal: 15),
-        child: ListView(
-          children: [
-            CustomAppBar(
-              mycontroller: controller.search!,
-              titleappbar: "41".tr,
-              onPressedSearch: (search) {
-                controller.onSearchItems(search); // Trigger search on "Enter" or button press
-              },
-              onChanged: (val) {
-                controller.checkSearch(val); // Optional: handles real-time input changes
-              },
-              onPressedIconFavorite: () {
-                Get.toNamed(AppRoute.myfavroite); // Go to favorite page
-              },
-            ),
-
-            HandlingDataView(
-              statusRequest: controller.statusRequest,
-              widget: !controller.isSearch
-                  ? Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children:  [
-                  const CustomCardHome(),
-                  const Dash(
-                      direction: Axis.horizontal,
-                      length: 350,
-                      dashLength: 8,
-                      dashColor: AppColor.secondColor2,
-                      dashBorderRadius:4,
-                      dashGap:3,
-                      dashThickness:8,
+      builder: (controller) => Scaffold(
+        key: _scaffoldKey, // Attach the key to the Scaffold
+        endDrawer: Drawer( // Use endDrawer for the drawer to appear on the right side
+          child: ListView(
+            padding: EdgeInsets.zero,
+            children: [
+              DrawerHeader(
+                decoration: BoxDecoration(color: AppColor.primaryColor2),
+                child: Center( // Center the content within the DrawerHeader
+                  child: Container(
+                    width: 100, // Set the desired circle size
+                    height: 100,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle, // Circular shape
+                      color: Colors.white, // Optional background color
+                      border: Border.all(
+                        color: Colors.grey.shade300, // Border color
+                        width: 3, // Border width
+                      ),
+                      boxShadow: [ // Optional shadow for a polished look
+                        BoxShadow(
+                          color: Colors.grey.shade400,
+                          blurRadius: 5,
+                          spreadRadius: 1,
+                          offset: Offset(0, 3),
+                        ),
+                      ],
+                    ),
+                    child: ClipOval( // Ensures the logo image is clipped to a circle
+                      child: Image.asset(
+                        'assets/images/logo.png', // Path to the image
+                        fit: BoxFit.cover, // Ensures the image fills the circle
+                      ),
+                    ),
                   ),
-                  CustomTitleHome(title: '43'.tr,),
-                  const ListItemsHome(),
-                  const Dash(
-                    direction: Axis.horizontal,
-                    length: 350,
-                    dashLength: 8,
-                    dashColor: AppColor.secondColor2,
-                    dashBorderRadius:4,
-                    dashGap:3,
-                    dashThickness:8,
+                ),
+              ),
+
+
+
+        Theme(
+          data: Theme.of(context).copyWith(dividerColor: Colors.transparent),
+          child:
+
+          ExpansionTile(
+            title: Text("43".tr, style: const TextStyle(color: AppColor.primaryColor2),),
+
+            children: [
+              ListTile(
+                title:  Text("97".tr, style: TextStyle(color: AppColor.primaryColor2)),
+                  onTap: () async {
+                    // Ensure data is fetched before navigating
+                    if (controller.newitems.isEmpty) {
+                      // Optionally, show a loading indicator or a message if the data is still loading
+                      Get.snackbar("Loading", "Please wait while the items are being loaded.");
+                      return; // Prevent navigation if newitems is empty
+                    }
+
+                    // Proceed with navigation once newitems is not empty
+                    Get.to(() => NewItemsPage(items: controller.newitems));
+                  },
+
+              ),
+            ],
+          ),
+
+        ),
+              ExpansionTile(
+                title:  Text('92'.tr ,style:const TextStyle(color:AppColor.primaryColor2)),
+               // leading: const Icon(Icons.numbers_rounded,color:AppColor.primaryColor2), // Optional: Add an icon if needed
+                children: [
+                  ListTile(
+                    title:  Text(ageGroups[0]),
+
+                    onTap: () {
+                      controller.goToItemsage(controller.categories, 0);
+
+                      // Handle tap for the first child
+                     // Get.back();
+                    },
 
                   ),
-                  CustomTitleHome(title: '42'.tr),
-                  const ListAgeGroup(),
-                  const Dash(
-                    direction: Axis.horizontal,
-                    length: 350,
-                    dashLength: 8,
-                    dashColor: AppColor.secondColor2,
-                    dashBorderRadius:4,
-                    dashGap:3,
-                    dashThickness:8,
 
+                  ListTile(
+                    title:  Text(ageGroups[2]),
+                    onTap: () {
+                      controller.goToItemsage(controller.categories, 2);
+
+                      // Handle tap for the second child
+                     // Get.back();
+                    },
                   ),
-                  CustomTitleHome(title: '74'.tr),
+                  ListTile(
+                    title:  Text(ageGroups[4]),
+                    onTap: () {
+                      controller.goToItemsage(controller.categories,4);
 
-                  const ListCategoriesHome(),
+                      // Handle tap for the third child
+                      //Get.back();
+                    },
+                  ),
+                  ListTile(
+                    title:  Text(ageGroups[1]),
+                    onTap: () {
+                      // Handle tap for the third child
+                      controller.goToItemsage(controller.categories, 1);
+
+                    },
+                  ),
+                  ListTile(
+                    title:  Text(ageGroups[3]),
+                    onTap: () {
+                      controller.goToItemsage(controller.categories, 3);
+
+                      // Handle tap for the third child
+                     // Get.back();
+                    },
+                  ),
+                  ListTile(
+                    title:  Text(ageGroups[5]),
+                    onTap: () {
+                      controller.goToItemsage(controller.categories, 5);
+
+                      // Handle tap for the third child
+                    //  Get.back();
+                    },
+                  ),
+
+
+            ],
+          ),
+              ExpansionTile(
+                title:  Text('93'.tr,style:const TextStyle(color:AppColor.primaryColor2)),
+                //leading: const Icon(Icons.category,color:AppColor.primaryColor2),
+                children: controller.categories.isNotEmpty
+                    ? controller.categories.map<Widget>((category) {
+                  final categoryModel = CategoriesModel.fromJson(category);
+                  return ListTile(
+                    title: Text(categoryModel.categoriesName ?? 'No Name'),
+                    onTap: () {
+                      controller.goToItems(
+                        controller.categories,
+                        controller.categories.indexOf(category),
+                        categoryModel.categoriesId!.toString()
+                       // categoryModel.categoriesId! as String ,
+                      );
+                    },
+                  );
+                }).toList()
+                    : [
+                  const Center(
+                    child: CircularProgressIndicator(),
+                  ),
                 ],
-              )
-                  : ListItemsSearch(listdatamodel: controller.listdata),
-            ),
-          ],
+              ),
+           //select by publisher/////////////////////////////////////////////////////
+              ExpansionTile(
+                title:  Text('91'.tr,style:const TextStyle(color:AppColor.primaryColor2,)),
+                //leading: const Icon(Icons.book,color:AppColor.primaryColor2),
+                children: controller.publishers.isNotEmpty
+                    ? controller.publishers.map<Widget>((publisher) {
+                  return ListTile(
+                    title: Text(publisher),
+                    onTap: () {
+                      print("Selected publisher: $publisher");
+
+                      controller.goToItemsByPublisher(publisher,controller.categories);
+                      // controller.goToItems(
+                      //     controller.publishers,
+                      //     controller.publishers.indexOf(category),
+                      //     PublisherModel.publisherName!.toString();
+                      //   // categoryModel.categoriesId! as String ,
+                      // );
+                    },
+                  );
+                }).toList()
+                    : [
+                  const Center(
+                    child: CircularProgressIndicator(),
+                  ),
+                ],
+              ),
+
+          //all books//////////////////////////////////////////////////////////////////////
+              ExpansionTile(
+                title: Text("94".tr, style: const TextStyle(color: AppColor.primaryColor2)),
+                children: [
+                  ListTile(
+                    title:  Text("95".tr, style: TextStyle(color: AppColor.primaryColor2)),
+                    onTap: () {
+                      Get.to(() => BooksListPage(items: controller.books));
+                    },
+
+                  ),
+                ],
+              ),
+
+              // ExpansionTile(
+              //   title: const Text('اختر حسب دور النشر'),
+              //   leading: const Icon(Icons.book),
+              //   children: controller.publishers.isNotEmpty
+              //       ? controller.publishers.map<Widget>((publisher) {
+              //     // Assuming publisher JSON has "name" and "id" fields
+              //     return ListTile(
+              //       title: Text(publisher['name'] ?? 'No Name'),
+              //       onTap: () {
+              //         // Add navigation logic if necessary
+              //       //  controller.goToItemsByPublisher(publisher['id']);
+              //       },
+              //     );
+              //   }).toList()
+              //       : [
+              //     // const Center(
+              //     //   child: CircularProgressIndicator(),
+              //     // ),
+              //   ],
+              // ),
+//here)
+
+            ],
+          ),
+        ),
+        body: Container(
+          //padding: const EdgeInsets.symmetric(horizontal: 15),
+          child: ListView(
+            children: [
+              CustomAppBar2(
+                onPressedMenu: () {
+                  // Open the end drawer when the menu button is pressed
+                  _scaffoldKey.currentState?.openEndDrawer();
+                },
+                onPressedSearch: () {
+                  // Handle search button press
+                },
+                logoPath: 'assets/images/logo.png', // Replace with your logo path
+              ),
+              HandlingDataView(
+                statusRequest: controller.statusRequest,
+                widget: !controller.isSearch
+                    ? Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    const CustomCardHome(),
+                    CustomTitleHome(title: '43'.tr),
+                    const ListItemsHome(),
+                    // CustomTitleHome(title: '42'.tr,),
+                    const ListAgeGroup(),
+                    CustomTitleHome(title: '74'.tr),
+                    const ListCategoriesHome(),
+                  ],
+                )
+                    : ListItemsSearch(listdatamodel: controller.listdata),
+              ),
+            ],
+          ),
         ),
       ),
     );
   }
 }
-
-
-
 
 class ListItemsSearch extends GetView<HomeControllerImp> {
   final List<ItemsModel> listdatamodel;
@@ -221,7 +349,7 @@ class ListItemsSearch extends GetView<HomeControllerImp> {
                             flex: 2,
                             child: ListTile(
                               title: Text(listdatamodel[index].itemsName!),
-                              subtitle: Text(listdatamodel[index].itemsPrice!),
+                              subtitle: Text(listdatamodel[index].itemsPrice! ),
                             )),
                       ],
                     ),

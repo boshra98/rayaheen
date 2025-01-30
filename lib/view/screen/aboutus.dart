@@ -13,7 +13,7 @@ class AboutUs extends StatelessWidget {
     double fontSize = MediaQuery.of(context).size.width * 0.06; // 6% of screen width
 
     return Container(
-      color: AppColor.thirdColor,
+      color: AppColor.secondColor,
       child: ListView(
           children: [
           Stack(
@@ -51,12 +51,16 @@ class AboutUs extends StatelessWidget {
               Container(
               alignment: Alignment.center,
               child: Text(
-              "52".tr, // Assuming translation key (optional)
-              textAlign: TextAlign.center,
-              style: Theme.of(context).textTheme.labelSmall!.copyWith(
+
+                "52".tr, // Assuming translation key (optional)
+              textAlign: TextAlign.right,
+              style:
+
+              Theme.of(context).textTheme.labelSmall!.copyWith(
               fontSize: 23, // Responsive font size
-              fontWeight: FontWeight.bold,
-              color: AppColor.primaryColor,
+              //fontWeight: FontWeight.bold,
+                fontFamily: "playfairDisplay",
+              color: AppColor.primaryColor2,
 
               //letterSpacing: 1.2,
               ),

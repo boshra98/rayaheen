@@ -15,21 +15,21 @@ class ProductDetails extends StatelessWidget {
     ProductDetailsControllerImp controller = Get.put(ProductDetailsControllerImp());
 
     return Scaffold(
-      bottomNavigationBar: Container(
-        margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
-        height: 40,
-        child: MaterialButton(
-          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-          color: AppColor.secondColor,
-          onPressed: () {
-            Get.toNamed(AppRoute.cart);
-          },
-          child:  Text(
-            "64".tr,
-            style: TextStyle(color: AppColor.primaryColor, fontWeight: FontWeight.bold),
-          ),
-        ),
-      ),
+      // bottomNavigationBar: Container(
+      //   margin: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+      //   height: 40,
+      //   child: MaterialButton(
+      //     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+      //     color: AppColor.primaryColor2,
+      //     onPressed: () {
+      //       Get.toNamed(AppRoute.cart);
+      //     },
+      //     child:  Text(
+      //       "64".tr,
+      //       style: const TextStyle(color: AppColor.secondColor, fontWeight: FontWeight.bold),
+      //     ),
+      //   ),
+      // ),
       body: GetBuilder<ProductDetailsControllerImp>(
         builder: (controller) => ListView(
           children: [
@@ -39,31 +39,75 @@ class ProductDetails extends StatelessWidget {
               statusRequest: controller.statusRequest,
               widget: Container(
                 padding: const EdgeInsets.all(20),
+                child: Directionality( // Wrap the Column with Directionality
+                  textDirection: TextDirection.rtl,
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.center, // Centering the item name
+
+                  crossAxisAlignment: CrossAxisAlignment.start, // Centering the item name
                   children: [
                     Text(
                       "${controller.itemsModel.itemsName}",
-                      textAlign: TextAlign.center, // Centering the text
+                      textAlign: TextAlign.right, // Centering the text
                       style: Theme.of(context)
                           .textTheme
-                          .headlineLarge!
+                          .displayLarge!
                           .copyWith(
-                        color: AppColor.fourthColor,
+                        color: AppColor.primaryColor2,
+                        fontFamily:"ttf",
+                         fontSize:33,
                       ),
                     ),
-                    const SizedBox(height: 10),
-                    PriceAndCountItems(
-                      onAdd: () {
-                        controller.add();
-                      },
-                      onRemove: () {
-                        controller.remove();
-                      },
-                      price: "${controller.itemsModel.itemsPrice}",
-                      count: "${controller.countitems}",
+                    const SizedBox(height: 20),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        // Count and Price Widget
+                        Expanded(
+                          flex: 2, // Allocate 2 parts of the row space
+                          child: PriceAndCountItems(
+                            onAdd: controller.add,
+                            onRemove: controller.remove,
+                            price: "${controller.itemsModel.itemsPrice}",
+                            count: "${controller.countitems}",
+                          ),
+                        ),
+                        const SizedBox(width: 0), // Space between widgets
+
+                        // Expanded Material Button
+
+                        Expanded(
+
+                          flex: 2, // Allocate 1 part of the row space
+                          child: Padding(
+                            padding: const EdgeInsets.only(top: 40.0), // Adjust the top padding value as needed
+                            child: ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                minimumSize: const Size(400, 40), // Adjust width and height as needed
+
+                                elevation: 5,
+                                backgroundColor: AppColor.primaryColor2,
+                                shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                              ),
+                              onPressed: () {
+                                Get.toNamed(AppRoute.cart);
+                              },
+                              child: Text(
+                                "64".tr,
+                                style: const TextStyle(
+                                  color: AppColor.secondColor,
+                                  fontWeight: FontWeight.bold,
+                                  fontSize: 15,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+                      ],
                     ),
-                    const SizedBox(height: 10),
+
+                    const SizedBox(height: 15),
                     // Description for items, aligned from left to right
                     Text(
                       "${controller.itemsModel.itemsDesc}",
@@ -73,8 +117,10 @@ class ProductDetails extends StatelessWidget {
                           .bodyMedium!
                           .copyWith(
                         fontSize: 16,
-                       // fontWeight: FontWeight.w300,
-                       // color: AppColor.grey2,
+                        fontWeight: FontWeight.w500,
+                       color: AppColor.primaryColor,
+                          fontFamily:"ttf",
+
                       ),
                     ),
                     const SizedBox(height: 10),
@@ -83,11 +129,13 @@ class ProductDetails extends StatelessWidget {
                       textAlign: TextAlign.left, // Aligning author to the left
                       style: Theme.of(context)
                           .textTheme
-                          .bodySmall!
+                          .titleSmall!
                           .copyWith(
-                        fontSize: 16,
+                       // fontSize: 20,
                        // fontWeight: FontWeight.w300,
-                       // color: AppColor.grey2,
+                        color: AppColor.primaryColor2,
+                          fontFamily:"ttf"
+
                       ),
                     ),
                     const SizedBox(height: 10),
@@ -96,28 +144,30 @@ class ProductDetails extends StatelessWidget {
                       textAlign: TextAlign.left, // Aligning publisher to the left
                       style: Theme.of(context)
                           .textTheme
-                          .bodySmall!
+                          .titleSmall!
                           .copyWith(
-                        fontSize: 16,
+                       // fontSize: 20,
                        // fontWeight: FontWeight.w300,
-                      //  color: AppColor.grey2,
+                        color: AppColor.primaryColor2,
+                        fontFamily:"ttf",
                       ),
                     ),
                     const SizedBox(height: 10),
-                    Text(
-                      "سنة النشر : ${controller.itemsModel.year}",
-                      textAlign: TextAlign.left, // Aligning year to the left
-                      style: Theme.of(context)
-                          .textTheme
-                          .bodySmall!
-                          .copyWith(
-                        fontSize: 16,
-                      //  fontWeight: FontWeight.w300,
-                      //  color: AppColor.grey2,
-                      ),
-                    ),
+                    // Text(
+                    //   "سنة النشر : ${controller.itemsModel.year}",
+                    //   textAlign: TextAlign.left, // Aligning year to the left
+                    //   style: Theme.of(context)
+                    //       .textTheme
+                    //       .titleSmall!
+                    //       .copyWith(
+                    //   // fontSize: 20,
+                    //   //  fontWeight: FontWeight.w300,
+                    //    color: AppColor.grey2,
+                    //   ),
+                    // ),
                   ],
                 ),
+              )
               ),
             ),
           ],

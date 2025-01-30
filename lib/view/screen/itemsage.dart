@@ -38,9 +38,9 @@ class itemsage extends StatelessWidget {
             onChanged: (val) {
               controller.checkSearch(val);
             },
-            onPressedIconFavorite: () {
-              Get.toNamed(AppRoute.myfavroite);
-            },
+           // onPressedIconFavorite: () {
+           //   Get.toNamed(AppRoute.myfavroite);
+          //  },
             //appBar:AppBar(backgroundColor:AppColor.primaryColor),
 
           ),

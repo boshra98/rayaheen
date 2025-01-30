@@ -8,6 +8,7 @@ class AppColor {
   static const Color backgroundcolor = Color(0xffF8F9FD) ;
   //COLOR PREFEERED FOR THIS APP
   static const Color primaryColor = Color(0xff529A9B);
+  static const Color primaryColor2 = Color(0xff0c5a5a);
   static const Color primaryyColor = Color(0xffB8C895);
   static const Color secondColor = Color(0xffefe1d3);
   static const Color secondColor2 = Color(0xffef963c);
@@ -16,6 +17,8 @@ class AppColor {
   static const Color fourth2Color = Color(0xfc4c8d8e);
   static const Color thirdColor = Color(0xffeecec9);
   static const Color extraColor = Color(0xffe6bd71);
+  static const Color beigeColor = Color(0xffeedabc); // Standard beige
+
 
 
 

@@ -20,11 +20,11 @@ class ItemsControllerImp extends SearchMixController {
   List categories = [];
   String? catid;
   int? selectedCat;
-
+String? publisher;
   ItemsData testData = ItemsData(Get.find());
 
   List data = [];
-
+String? ispublisher;
   late StatusRequest statusRequest;
 
   MyServices myServices = Get.find();
@@ -42,14 +42,19 @@ class ItemsControllerImp extends SearchMixController {
     categories = Get.arguments['categories'];
     selectedCat = Get.arguments['selectedcat'];
     catid = Get.arguments['catid'];
-    if(catid==null)
+    ispublisher = Get.arguments['publisher'];
+
+    if(catid==null&& selectedCat!=null )
       {
         getItemsage(selectedCat!);
       }
+   else if(ispublisher !=null)
+    {
+      getItemspublisher(ispublisher!);
+    }
+
     else
-    getItems(catid!);
-
-
+      getItems(catid!);
   }
 
   @override
@@ -59,7 +64,6 @@ class ItemsControllerImp extends SearchMixController {
     catid = catval;
     getItems(catid!);
     getItemsage(catid!);
-
     update();
   }
 
@@ -121,7 +125,35 @@ class ItemsControllerImp extends SearchMixController {
     }
     update();
   }
+  @override
+  getItemspublisher(publishername) async {
+    data.clear();
+    statusRequest = StatusRequest.loading;
+    var response = await testData.getDatapubliher(
 
+        publishername);
+print(publishername);
+    print("=============================== Controller $response ");
+    statusRequest = handlingData(response);
+    if (StatusRequest.success == statusRequest) {
+      // Start backend
+      print("hhhhhh");
+      if (response['status'] == "success") {
+
+// Check if dataresponse is a List or a Map
+        // It's a list, process as a List
+        //data.clear();
+        data.addAll(response['data']);
+
+
+
+      } else {
+        statusRequest = StatusRequest.failure;
+      }
+      // End
+    }
+    update();
+  }
   @override
   goToPageProductDetails(itemsModel) {
     Get.toNamed("productdetails", arguments: {"itemsmodel": itemsModel});

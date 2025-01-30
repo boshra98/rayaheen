@@ -1,4 +1,4 @@
-package com.example.rayaheen_bookstore
+package com.rayaheen_bookstore
 
 import io.flutter.embedding.android.FlutterActivity
 

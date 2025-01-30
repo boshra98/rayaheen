@@ -7,19 +7,39 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../core/constant/color.dart';
+import '../core/services/cartservices.dart';
 
 abstract class ProductDetailsController extends GetxController {}
+late ScrollController scrollController;
+// @override
+// void onInit() {
+//   scrollController = ScrollController();
+//   super.onInit();
+//
+// }
+
+// @override
+// void onClose() {
+//   scrollController.dispose();
+//   super.onClose();
+// }
+
 
 class ProductDetailsControllerImp extends ProductDetailsController {
   // CartController cartController = Get.put(CartController());
+  final CartService cartService = Get.find(); // Get the CartService instance
 
   late ItemsModel itemsModel;
+  // late ScrollController scrollController;
+
 
   CartData cartData = CartData(Get.find());
 
   late StatusRequest statusRequest;
 
   MyServices myServices = Get.find();
+  ScrollController scrollController = ScrollController();
+
 
   int countitems = 1;
 
@@ -119,6 +139,8 @@ class ProductDetailsControllerImp extends ProductDetailsController {
   add() {
     addItems(itemsModel.itemsId! );
     countitems++;
+    cartService.increment(); // Increment the cart item count
+
     update();
   }
 
@@ -126,6 +148,8 @@ class ProductDetailsControllerImp extends ProductDetailsController {
     if (countitems > 0) {
       deleteitems(itemsModel.itemsId! );
       countitems--;
+      cartService.decrement(); // Decrement the cart item count
+
       update();
     }
   }
@@ -133,6 +157,15 @@ class ProductDetailsControllerImp extends ProductDetailsController {
   @override
   void onInit() {
     intialData();
+    scrollController = ScrollController();
     super.onInit();
+
   }
+
+
+  @override
+ void onClose() {
+  scrollController.dispose();
+  super.onClose();
+}
 }

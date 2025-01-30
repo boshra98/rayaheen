@@ -8,7 +8,6 @@ class AppRoute {
   static const String splashScreen = "/splashscreen";
 
 
-
   static const String onBoarding = "/onboarding";
 
   static const String signUp = "/signup";
@@ -28,6 +27,7 @@ class AppRoute {
   static const String items = "/items";
 
   static const String itemsage = "/itemsage";
+  static const String itemspublisher = "/itemspublisher";
 
 
   static const String productdetails = "/productdetails";

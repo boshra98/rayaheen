@@ -1,3 +1,5 @@
+import 'imageinfomodel.dart';
+
 class ItemsModel {
   int? itemsId;
   String? itemsName;
@@ -7,8 +9,9 @@ class ItemsModel {
 
   String? author;
   int? year;
-
   String? publisher;
+
+  List<ImageInfo>? itemsImages; // Updated field
 
   String? itemsImage;
   int? itemsCount;
@@ -22,33 +25,30 @@ class ItemsModel {
   String? categoriesNamaAr;
   String? categoriesImage;
   String? categoriesDatetime;
-  //String? favorite;
- // String? itemsPriceDiscount ;
 
-  ItemsModel(
-      {this.itemsId,
-        this.itemsName,
-        this.itemsNameAr,
-        this.itemsDesc,
-        this.itemsDescAr,
-        this.year,
-        this.publisher,
-        this.author,
-        this.itemsImage,
-        this.itemsCount,
-        this.itemsActive,
-        this.itemsPrice,
-        this.itemsDiscount,
-        this.itemsDate,
-        this.itemsCat,
-        //this.itemsPriceDiscount ,
-        this.categoriesId,
-        this.categoriesName,
-        this.categoriesNamaAr,
-        this.categoriesImage,
-        this.categoriesDatetime,
-        //this.favorite
-      });
+  ItemsModel({
+    this.itemsId,
+    this.itemsName,
+    this.itemsNameAr,
+    this.itemsDesc,
+    this.itemsDescAr,
+    this.year,
+    this.publisher,
+    this.author,
+    this.itemsImages, // Updated field
+    this.itemsImage,
+    this.itemsCount,
+    this.itemsActive,
+    this.itemsPrice,
+    this.itemsDiscount,
+    this.itemsDate,
+    this.itemsCat,
+    this.categoriesId,
+    this.categoriesName,
+    this.categoriesNamaAr,
+    this.categoriesImage,
+    this.categoriesDatetime,
+  });
 
   ItemsModel.fromJson(Map<dynamic, dynamic> json) {
     itemsId = json['id'];
@@ -57,51 +57,52 @@ class ItemsModel {
     year = json['year'];
     publisher = json['publisher'];
 
-    //itemsNameAr = json['items_name_ar'];
     itemsDesc = json['description'];
-    //itemsDescAr = json['items_desc_ar'];
+
+    // Parse itemsImages as a List<ImageInfo>
+    if (json['images'] != null) {
+      itemsImages = (json['images'] as List)
+          .map((imageJson) => ImageInfo.fromJson(imageJson))
+          .toList();
+    }
+
     itemsImage = json['cover_image'];
     itemsCount = json['count'];
-    //itemsActive = json['items_active'];
     itemsPrice = json['price'];
-    //itemsPriceDiscount = json['itemspricedisount'];
-
-    //itemsDiscount = json['items_discount'];
-    //itemsDate = json['items_date'];
     itemsCat = json['category_id'];
     categoriesId = json['categories_id'];
     categoriesName = json['categories_name'];
-   // categoriesNamaAr = json['categories_nama_ar'];
     categoriesImage = json['categories_image'];
-    //favorite = json['favorite'];
-
-    //categoriesDatetime = json['categories_datetime'];
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['items_id'] = this.itemsId;
-    data['items_name'] = this.itemsName;
-     data['author']=this.author;
-    data['publisher']=this.publisher;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['items_id'] = itemsId;
+    data['items_name'] = itemsName;
+    data['author'] = author;
+    data['publisher'] = publisher;
+    data['year'] = year;
+    data['items_name_ar'] = itemsNameAr;
+    data['items_desc'] = itemsDesc;
+    data['items_desc_ar'] = itemsDescAr;
 
-    data['year']=this.year;
+    // Convert itemsImages to JSON
+    if (itemsImages != null) {
+      data['images'] = itemsImages!.map((image) => image.toJson()).toList();
+    }
+    data['items_image'] = itemsImage;
+    data['items_count'] = itemsCount;
+    data['items_active'] = itemsActive;
+    data['items_price'] = itemsPrice;
+    data['items_discount'] = itemsDiscount;
+    data['items_date'] = itemsDate;
+    data['items_cat'] = itemsCat;
+    data['categories_id'] = categoriesId;
+    data['categories_name'] = categoriesName;
+    data['categories_nama_ar'] = categoriesNamaAr;
+    data['categories_image'] = categoriesImage;
+    data['categories_datetime'] = categoriesDatetime;
 
-    data['items_name_ar'] = this.itemsNameAr;
-    data['items_desc'] = this.itemsDesc;
-    data['items_desc_ar'] = this.itemsDescAr;
-    data['items_image'] = this.itemsImage;
-    data['items_count'] = this.itemsCount;
-    data['items_active'] = this.itemsActive;
-    data['items_price'] = this.itemsPrice;
-    data['items_discount'] = this.itemsDiscount;
-    data['items_date'] = this.itemsDate;
-    data['items_cat'] = this.itemsCat;
-    data['categories_id'] = this.categoriesId;
-    data['categories_name'] = this.categoriesName;
-    data['categories_nama_ar'] = this.categoriesNamaAr;
-    data['categories_image'] = this.categoriesImage;
-    data['categories_datetime'] = this.categoriesDatetime;
     return data;
   }
 }

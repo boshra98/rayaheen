@@ -8,6 +8,7 @@ class AppLink {
   static const String imagestatic = "https://www.rayaheenbooks.com/storage";
   static const String imagesCategories = "https://www.rayaheenbooks.com/storage";
   static const String imagesItems = "https://www.rayaheenbooks.com/storage";
+  // static const String imagesItems2 = "https://www.rayaheenbooks.com/storage";
 
 
 
@@ -31,6 +32,10 @@ class AppLink {
   static const String homepage = "$server/category";
   static const String items = "$server/items";
   static const String itemsage = "$server/itemsage";
+  static const String publishers = "$server/publishers";//add
+  static const String itemspublisher = "$server/itemspublisher";//add
+  static const String allbooks = "$server/allitems";
+  static const String newitems = "$server/newitems";
 
   static const String searchitems = "$server/searchitems";
 

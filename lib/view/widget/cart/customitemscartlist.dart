@@ -36,10 +36,10 @@ class CustomItemsCartList extends StatelessWidget {
           Expanded(
               flex: 3,
               child: ListTile(
-                title: Text(name, style: TextStyle(fontSize: 15)),
+                title: Text(name, style: TextStyle(fontSize: 18)),
                 subtitle: Text(price,
                     style:
-                        TextStyle(color: AppColor.primaryColor, fontSize: 17)),
+                        TextStyle(color: AppColor.primaryColor, fontSize: 12)),
               )),
           Expanded(
               child: Column(

@@ -14,4 +14,8 @@ class ItemsData {
     var response = await crud.postData(AppLink.itemsage, {"id" : "${id}" , "user_id" : userid});
     return response.fold((l) => l, (r) => r);
   }
+  getDatapubliher( String publisher) async {
+    var response = await crud.postData(AppLink.itemspublisher, {"publisher" : publisher});
+    return response.fold((l) => l, (r) => r);
+  }
 }

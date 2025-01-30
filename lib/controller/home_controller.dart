@@ -7,12 +7,15 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 
 import '../core/functions/handlingdatacontroller.dart';
+import '../data/model/categorymodel.dart';
+import '../linkapi.dart';
 
 abstract class HomeController extends SearchMixController {
   initialData();
   getdata();
   goToItems(List categories, int selectedCat, String categoryid);
-  goToItemsage(List categories, int selectedCat);
+  goToItemsage(List  categories, int selectedCat);
+  goToItemsByPublisher(String publisher,List  categories);
 }
 
 class HomeControllerImp extends HomeController {
@@ -24,9 +27,15 @@ class HomeControllerImp extends HomeController {
 
   HomeData homedata = HomeData(Get.find());
 
-  // List data = [];
+  //List data = [];
   List categories = [];
+  List publishers = [];
+  List books = [];
   List items = [];
+  List newitems = [];
+
+  // CategoriesModel categoriesModel = controller.categories[index];
+
 
   // List items = [];
 
@@ -43,9 +52,93 @@ class HomeControllerImp extends HomeController {
     search = TextEditingController();
     getdata();
     initialData();
+    fetchPublishers();
+    fetchAll();
+    fetchnew();// Fetch publishers when the controller initializes
     super.onInit();
   }
 
+
+
+  @override
+  fetchAll() async {
+    //statusRequest = StatusRequest.loading;
+    var response = await homedata.getallitems();
+    print("fetch");
+    print("=============================== Controller $response ");
+    statusRequest = handlingData(response);
+    if (StatusRequest.success == statusRequest) {
+      print("fetch coreect");
+
+      if (response['status'] == "success") {
+        // print("heloo2");
+        print("fetch coreect1");
+
+        books.addAll(response['data']);
+        // items.addAll(response['items']['data']);
+        //categories.addAll(response['data']);
+        //items.addAll(response[3]['data']);
+
+        //print(items[1]);
+      } else {
+        statusRequest = StatusRequest.failure;
+      }
+    }
+    update();
+
+  }
+  @override
+  fetchnew() async {
+    //statusRequest = StatusRequest.loading;
+    var response = await homedata.getnewitems();
+    print("fetch");
+    print("=============================== Controller $response ");
+    statusRequest = handlingData(response);
+    if (StatusRequest.success == statusRequest) {
+      print("fetch coreect");
+
+      if (response['status'] == "success") {
+        // print("heloo2");
+        print("fetch coreect1");
+
+        newitems.addAll(response['data']);
+        // items.addAll(response['items']['data']);
+        //categories.addAll(response['data']);
+        //items.addAll(response[3]['data']);
+
+        //print(items[1]);
+      } else {
+        statusRequest = StatusRequest.failure;
+      }
+    }
+    update();
+  }
+  @override
+  fetchPublishers() async {
+    //statusRequest = StatusRequest.loading;
+    var response = await homedata.fetchPublishers();
+    print("fetch");
+    print("=============================== Controller $response ");
+    statusRequest = handlingData(response);
+    if (StatusRequest.success == statusRequest) {
+      print("fetch coreect");
+
+      if (response['status'] == "success") {
+        // print("heloo2");
+        print("fetch coreect1");
+
+        publishers.addAll(response['data']);
+       // items.addAll(response['items']['data']);
+        //categories.addAll(response['data']);
+        //items.addAll(response[3]['data']);
+
+        //print(items[1]);
+      } else {
+        statusRequest = StatusRequest.failure;
+      }
+    }
+    update();
+  }
   @override
   getdata() async {
     statusRequest = StatusRequest.loading;
@@ -54,7 +147,7 @@ class HomeControllerImp extends HomeController {
     statusRequest = handlingData(response);
     if (StatusRequest.success == statusRequest) {
       if (response['status'] == "success") {
-       // print("heloo2");
+        // print("heloo2");
         categories.addAll(response['categories']['data']);
         items.addAll(response['items']['data']);
         //categories.addAll(response['data']);
@@ -67,6 +160,14 @@ class HomeControllerImp extends HomeController {
     }
     update();
   }
+
+
+
+
+
+
+
+
 
   @override
   goToItems(categories, selectedCat, categoryid) {
@@ -84,9 +185,25 @@ class HomeControllerImp extends HomeController {
 
     });
   }
+  @override
+  goToItemsByPublisher( publisher,categories) {
+    Get.toNamed(AppRoute.itemspublisher, arguments: {
+      "publisher": publisher,
+      "categories": categories,
+
+
+    });
+  }
+
   goToPageProductDetails(itemsModel) {
+    //print("hhhheeew");
+    //print(itemsModel);
     Get.toNamed("productdetails", arguments: {"itemsmodel": itemsModel});
   }
+
+
+
+
 }
 
 class SearchMixController extends GetxController {
@@ -119,6 +236,8 @@ class SearchMixController extends GetxController {
     if (val == "") {
       statusRequest = StatusRequest.none;
       isSearch = false;
+      listdata.clear(); // Clear the list if input is empty
+
     }
     update();
   }
@@ -128,18 +247,24 @@ class SearchMixController extends GetxController {
     searchData();
     update();
   }
-
-  // void onSearchItems(String search) {
-  //   if (searchText.isNotEmpty) {
-  //     // Perform search logic here, update listdata accordingly
-  //     print('Searching for: $searchText');
-  //     // Example logic to filter items based on the searchText
-  //     listdata = filterItems(searchText);
-  //     isSearch = true;
-  //   } else {
-  //     isSearch = false;
-  //   }
-  //   update();  // Make sure to call update to refresh UI
-  // }
+// Method to clear the search text and results
+  void clearSearch() {
+    search?.clear(); // Clear the search text
+    listdata.clear(); // Clear the search results
+    statusRequest = StatusRequest.none; // Reset the status
+    update(); // Notify the UI
+  }
+// void onSearchItems(String search) {
+//   if (searchText.isNotEmpty) {
+//     // Perform search logic here, update listdata accordingly
+//     print('Searching for: $searchText');
+//     // Example logic to filter items based on the searchText
+//     listdata = filterItems(searchText);
+//     isSearch = true;
+//   } else {
+//     isSearch = false;
+//   }
+//   update();  // Make sure to call update to refresh UI
+// }
 
 }

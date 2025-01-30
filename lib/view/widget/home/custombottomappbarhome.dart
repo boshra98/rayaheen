@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../controller/homescreen_controller.dart';
+import '../../../core/constant/color.dart';
 import 'custombuttonappbar.dart';
 
 class CustomBottomAppBarHome extends StatelessWidget {
@@ -11,6 +12,8 @@ class CustomBottomAppBarHome extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetBuilder<HomeScreenControllerImp>(
         builder: (controller) => BottomAppBar(
+         color: AppColor.beigeColor.withOpacity(0.7),
+
             shape: const CircularNotchedRectangle(),
             notchMargin: 20,
             child: Row(
@@ -22,6 +25,7 @@ class CustomBottomAppBarHome extends StatelessWidget {
                       : CustomButtonAppBar(
                           textbutton: controller.bottomappbar[i]['title'],
                           icondata: controller.bottomappbar[i]['icon'],
+
                           onPressed: () {
                             controller.changePage(i);
                           },

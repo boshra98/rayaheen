@@ -18,13 +18,19 @@ class CardDeliveryAddressCheckout extends StatelessWidget {
 
           // First TextField
           TextFormField(
+            style: const TextStyle(
+              fontSize: 14.0,
+              color: Colors.black,
+              fontFamily: "cairo",
+            ),
             keyboardType:isNumber ?TextInputType.numberWithOptions(decimal:true):TextInputType.text,
             validator: valid ,
             controller: mycontroller,
             decoration: InputDecoration(
               labelText: labeltext,
+              labelStyle:  const TextStyle(fontSize: 14,fontFamily:"cairo"),
               hintText: hinttext,
-              hintStyle:const  TextStyle(fontSize: 14),
+              hintStyle:const  TextStyle(fontSize: 14,fontFamily:"cairo"),
               floatingLabelBehavior: FloatingLabelBehavior.always,
               contentPadding: const EdgeInsets.symmetric(vertical:5 , horizontal: 30)
 

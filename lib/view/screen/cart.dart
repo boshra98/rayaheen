@@ -16,6 +16,7 @@ class Cart extends StatelessWidget {
   Widget build(BuildContext context) {
     CartController cartController = Get.put(CartController());
     return Scaffold(
+
         appBar: AppBar(
           title: Text("87".tr),
         ),

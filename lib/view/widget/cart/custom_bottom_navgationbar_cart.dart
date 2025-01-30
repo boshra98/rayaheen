@@ -67,16 +67,29 @@ class BottomNavgationBarCart extends GetView<CartController> {
               borderRadius: BorderRadius.circular(10)),
           child: Column(children: [
             Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              mainAxisAlignment: MainAxisAlignment.start,
               children: [
-                Container(
-                    padding: EdgeInsets.symmetric(horizontal: 20),
-                    child: Text("السعر", style: TextStyle(fontSize: 16))),
-                Container(
-                    padding: EdgeInsets.symmetric(horizontal: 20),
-                    child: Text("$priceدرهم \ ", style: TextStyle(fontSize: 16)))
+                Expanded(
+                  child: Container(
+                    padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
+                    child: Text(
+                      "حصريا في الامارات رسوم التوصيل 20 درهم و مجاني في حال تجاوزت قيمة الشراء 350 درهم",
+                      textAlign: TextAlign.center, // Justify text for neat alignment
+                      style: TextStyle(
+                        fontSize: MediaQuery.of(context).size.width * 0.04, // Responsive font size
+                        fontWeight: FontWeight.bold,
+                        color: AppColor.secondColor2,
+                        height: 1.5, // Line height for better readability
+                      ),
+                      softWrap: true, // Wraps text within the container
+                      maxLines: 3, // Limits text to 3 lines
+                      overflow: TextOverflow.ellipsis, // Adds ellipsis if text overflows
+                    ),
+                  ),
+                ),
               ],
             ),
+
             // Row(
             //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
             //   children: [
@@ -88,17 +101,17 @@ class BottomNavgationBarCart extends GetView<CartController> {
             //         child: Text("$discount ", style: TextStyle(fontSize: 16)))
             //   ],
             // ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Container(
-                    padding: EdgeInsets.symmetric(horizontal: 20),
-                    child: Text("التوصيل", style: TextStyle(fontSize: 16))),
-                Container(
-                    padding: EdgeInsets.symmetric(horizontal: 20),
-                    child: Text("$shipping ", style: TextStyle(fontSize: 16)))
-              ],
-            ),
+            // Row(
+            //   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            //   children: [
+            //     Container(
+            //         padding: EdgeInsets.symmetric(horizontal: 20),
+            //         child: Text("التوصيل", style: TextStyle(fontSize: 16))),
+            //     Container(
+            //         padding: EdgeInsets.symmetric(horizontal: 20),
+            //         child: Text("$shipping ", style: TextStyle(fontSize: 16)))
+            //   ],
+            // ),
             Divider(),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,

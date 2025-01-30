@@ -19,6 +19,7 @@ import 'package:rayaheen_bookstore/view/screen/home.dart';
 import 'package:rayaheen_bookstore/view/screen/homescreen.dart';
 import 'package:rayaheen_bookstore/view/screen/items.dart';
 import 'package:rayaheen_bookstore/view/screen/itemsage.dart';
+import 'package:rayaheen_bookstore/view/screen/itemspublishers.dart';
 import 'package:rayaheen_bookstore/view/screen/language.dart';
 import 'package:rayaheen_bookstore/view/screen/language2.dart';
 import 'package:rayaheen_bookstore/view/screen/myfavorite.dart';
@@ -59,10 +60,11 @@ List<GetPage<dynamic>>? routes = [
   GetPage(name: AppRoute.homePage, page: () => const HomeScreen()),
   GetPage(name: AppRoute.items, page: () => const items()),
   GetPage(name: AppRoute.itemsage, page: () => const itemsage()),
+  GetPage(name: AppRoute.itemspublisher, page: () => const itemspublishers()),
 
 
   GetPage(name: AppRoute.productdetails, page: () => const ProductDetails()),
-  GetPage(name: AppRoute.myfavroite, page: () => const MyFavorite()),
+ // GetPage(name: AppRoute.myfavroite, page: () => const MyFavorite()),
 
 
    GetPage(name: AppRoute.checkout, page: () => const Checkout()),
