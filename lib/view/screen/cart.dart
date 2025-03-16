@@ -30,44 +30,45 @@ class Cart extends StatelessWidget {
                 price: "${cartController.priceorders}",
                 discount: "${controller.discountcoupon}%",
                 totalprice: "${controller.getTotalPrice()}")),
-        body: GetBuilder<CartController>(
-            builder: ((controller) => HandlingDataView(
-                statusRequest: controller.statusRequest,
-                widget: ListView(
+      body: Obx(() {
+        final cartController = Get.find<CartController>(); // ✅ Get the correct controller
+
+        return HandlingDataView(
+          statusRequest: cartController.statusRequest, // ✅ Use the correct controller
+          widget: ListView(
+            children: [
+              SizedBox(height: 10),
+              TopCardCart(
+                message: "88".tr + "${cartController.cartService.cartItemCount.value}" + "89".tr,
+              ),
+              Container(
+                padding: EdgeInsets.all(10),
+                child: Column(
                   children: [
-                    SizedBox(height: 10),
-                    TopCardCart(
-                        message:
-                        "88".tr + "${cartController.totalcountitems}" + "89".tr ),
-                    Container(
-                      padding: EdgeInsets.all(10),
-                      child: Column(
-                        children: [
-                          ...List.generate(
-                            cartController.data.length,
-                                (index) => CustomItemsCartList(
-                                onAdd: () async {
-                                  await cartController
-                                      .add(cartController.data[index].itemsId!);
-                                  cartController.refreshPage();
-                                },
-                                onRemove: () async {
-                                  await cartController.delete(
-                                      cartController.data[index].itemsId!);
-                                  cartController.refreshPage();
-                                },
-                                imagename:
-                                "${cartController.data[index].itemsImage}",
-                                name: "${cartController.data[index].itemsName}",
-                                price:
-                                "${cartController.data[index].itemsprice}  درهم \ ",
-                                count:
-                                "${cartController.data[index].countitems}"),
-                          )
-                        ],
+                    ...List.generate(
+                      cartController.data.length,
+                          (index) => CustomItemsCartList(
+                        onAdd: () async {
+                          await cartController.add(cartController.data[index].itemsId!);
+                        },
+                        onRemove: () async {
+                          await cartController.delete(cartController.data[index].itemsId!);
+                          // cartController.refreshPage();
+                        },
+                        imagename: "${cartController.data[index].itemsImage}",
+                        name: "${cartController.data[index].itemsName}",
+                        price: "${cartController.data[index].itemsprice} درهم",
+                        count: "${cartController.data[index].countitems}",
                       ),
-                    )
+                    ),
                   ],
-                )))));
+                ),
+              ),
+            ],
+          ),
+        );
+      }),
+
+    );
   }
 }

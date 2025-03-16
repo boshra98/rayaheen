@@ -146,7 +146,7 @@ class CustomListItems extends GetView<ItemsControllerImp> {
                               imageUrl: AppLink.imagesItems + "/" + itemsModel.itemsImage!,
                               height: 100,
                               width:100,
-                              fit: BoxFit.cover,
+                              fit: BoxFit.fill,
                             ),
                           ),
                         ],
@@ -157,33 +157,34 @@ class CustomListItems extends GetView<ItemsControllerImp> {
                     Positioned(
                       bottom: 0,
                       left: 1,
-                    child: Container(
-                      width: 33,
-                    height:33,
-                    decoration: BoxDecoration(
-                    color: AppColor.primaryColor2,
-
-                    borderRadius: BorderRadius.circular(30),
-                    ),
-                    padding: const EdgeInsets.all(3),
-                      child: IconButton(
-                        onPressed: () {
-                          // Handle adding to cart
-                          controller.goToPageProductDetails(itemsModel);
-                        },
-                        icon: const Icon(
-                          Icons.shopping_cart_outlined,
-                          size: 18, // Smaller icon size
-                          color: AppColor.secondColor,
+                      child: Container(
+                        width: 33,
+                        height: 33,
+                        decoration: BoxDecoration(
+                          color: AppColor.primaryColor2,
+                          shape: BoxShape.circle, // ✅ جعل الحاوية دائرية تمامًا
                         ),
-                        // constraints: const BoxConstraints(
-                        //   maxHeight: 20,
-                        //   maxWidth: 20,
-                        // ),
-                        padding:const  EdgeInsets.only(right: 10, left: 4, bottom: 5),
+                        child: Center( // ✅ توسيط `IconButton` داخل الدائرة
+                          child: IconButton(
+                            onPressed: () {
+                              final CartController cartController = Get.find<CartController>(); // ✅ استرجاع `CartController`
+
+                              if (itemsModel!.itemsId != null) {
+                                cartController.add(itemsModel!.itemsId!.toString()); // ✅ تحويل `int` إلى `String`
+                              }
+                            },
+                            icon: const Icon(
+                              Icons.shopping_cart_outlined,
+                              size: 18,
+                              color: AppColor.secondColor,
+                            ),
+                            padding: EdgeInsets.zero, // ✅ إزالة أي هوامش داخل `IconButton`
+                            constraints: BoxConstraints(), // ✅ التأكد من عدم وجود حدود إضافية
+                          ),
+                        ),
                       ),
-                    )
                     ),
+
                   ],
                 ),
               ),
@@ -207,7 +208,7 @@ class CustomListItems extends GetView<ItemsControllerImp> {
                 textAlign: TextAlign.center,
                 style: const TextStyle(
                   color: AppColor.primaryColor,
-                  fontSize: 15,
+                  fontSize: 13,
                   fontFamily: "ttf",
                   fontWeight: FontWeight.w500, // Optional styling
 

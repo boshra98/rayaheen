@@ -1,3 +1,4 @@
+import 'discountmodel.dart';
 import 'imageinfomodel.dart';
 
 class ItemsModel {
@@ -17,7 +18,7 @@ class ItemsModel {
   int? itemsCount;
   String? itemsActive;
   String? itemsPrice;
-  String? itemsDiscount;
+  // String? itemsDiscount;
   String? itemsDate;
   int? itemsCat;
   int? categoriesId;
@@ -25,6 +26,8 @@ class ItemsModel {
   String? categoriesNamaAr;
   String? categoriesImage;
   String? categoriesDatetime;
+
+  DiscountModel? discount; // ✅ إضافة متغير الحسومات
 
   ItemsModel({
     this.itemsId,
@@ -35,12 +38,12 @@ class ItemsModel {
     this.year,
     this.publisher,
     this.author,
-    this.itemsImages, // Updated field
+    this.itemsImages,
     this.itemsImage,
     this.itemsCount,
     this.itemsActive,
     this.itemsPrice,
-    this.itemsDiscount,
+    // this.itemsDiscount,
     this.itemsDate,
     this.itemsCat,
     this.categoriesId,
@@ -48,6 +51,7 @@ class ItemsModel {
     this.categoriesNamaAr,
     this.categoriesImage,
     this.categoriesDatetime,
+    this.discount, // ✅ إضافة الحسومات هنا
   });
 
   ItemsModel.fromJson(Map<dynamic, dynamic> json) {
@@ -56,10 +60,9 @@ class ItemsModel {
     author = json['author'];
     year = json['year'];
     publisher = json['publisher'];
-
     itemsDesc = json['description'];
 
-    // Parse itemsImages as a List<ImageInfo>
+    // ✅ التحقق مما إذا كانت هناك صور
     if (json['images'] != null) {
       itemsImages = (json['images'] as List)
           .map((imageJson) => ImageInfo.fromJson(imageJson))
@@ -73,6 +76,17 @@ class ItemsModel {
     categoriesId = json['categories_id'];
     categoriesName = json['categories_name'];
     categoriesImage = json['categories_image'];
+
+    // ✅ التحقق من وجود بيانات الخصم وإضافتها
+    if (json['discount'] != null) {
+      print("📢 بيانات الحسم القادمة من الباكند: ${json['discount']}"); // ✅ طباعة بيانات الحسم للتحقق
+      discount = DiscountModel.fromJson(json['discount']);
+    } else {
+      print("⚠️ لا يوجد بيانات للحسم في الاستجابة");
+    }
+
+
+
   }
 
   Map<String, dynamic> toJson() {
@@ -86,15 +100,16 @@ class ItemsModel {
     data['items_desc'] = itemsDesc;
     data['items_desc_ar'] = itemsDescAr;
 
-    // Convert itemsImages to JSON
+    // ✅ تحويل الصور إلى JSON
     if (itemsImages != null) {
       data['images'] = itemsImages!.map((image) => image.toJson()).toList();
     }
+
     data['items_image'] = itemsImage;
     data['items_count'] = itemsCount;
     data['items_active'] = itemsActive;
     data['items_price'] = itemsPrice;
-    data['items_discount'] = itemsDiscount;
+    // data['items_discount'] = itemsDiscount;
     data['items_date'] = itemsDate;
     data['items_cat'] = itemsCat;
     data['categories_id'] = categoriesId;
@@ -102,6 +117,11 @@ class ItemsModel {
     data['categories_nama_ar'] = categoriesNamaAr;
     data['categories_image'] = categoriesImage;
     data['categories_datetime'] = categoriesDatetime;
+
+    // ✅ إضافة بيانات الخصم إذا كانت موجودة
+    if (discount != null) {
+      data['discount'] = discount!.toJson();
+    }
 
     return data;
   }

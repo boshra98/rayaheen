@@ -12,7 +12,9 @@ import '../data/model/cartmodel.dart';
 import '../data/model/couponmodel.dart';
 
 class CartController extends GetxController {
-  late final CartService cartService;
+  //late final CartService cartService;
+  final CartService cartService = Get.find<CartService>();
+
   //late final CartData cartData;
 
   TextEditingController? controllercoupon;
@@ -33,7 +35,7 @@ class CartController extends GetxController {
 
   MyServices myServices = Get.find();
 
-  List<CartModel> data = [];
+  var data = <CartModel>[].obs; // ✅ استخدم `RxList` لتحديث الواجهة تلقائيًا
 
   double priceorders = 0.0;
 
@@ -52,7 +54,16 @@ class CartController extends GetxController {
 
       // Start backend
       if (response['status'] == "success") {
-        cartService.increment(); // Increment the cart item count
+        cartService.increment();
+
+        // Increment the cart item count
+       // update();
+        view();
+        // ✅ تمرير `itemsid` بشكل صحيح إلى `addToCart()`
+       // await cartService.addToCart(int.parse(itemsid));
+
+        // ✅ تحديث السلة مباشرة بعد الإضافة
+       // await fetchCartItems();
 
        // cartItemCount++; // Increment the cart item count
 
@@ -96,6 +107,10 @@ class CartController extends GetxController {
         //   cartItemCount--; // Decrement the cart item count
         // }
         cartService.decrement(); // Decrement the cart item count
+       // update();
+
+        view(); // ✅ تحديث السلة مباشرة بعد الإضافة
+
 
         Get.rawSnackbar(
             title: "اشعار",
@@ -143,52 +158,64 @@ class CartController extends GetxController {
   }
 
   refreshPage() {
-    resetVarCart();
+    //resetVarCart();
     view();
+    update(); // ✅ إجبار الواجهة على التحديث
+
   }
 
-  view() async {
+  void view() async {
     statusRequest = StatusRequest.loading;
     update();
-    var response =
-        await cartData.viewCart(myServices.sharedPreferences.getString("id")!);
+
+    var response = await cartData.viewCart(myServices.sharedPreferences.getString("id")!);
     print("=============================== Controller $response ");
     statusRequest = handlingData(response);
+
     if (StatusRequest.success == statusRequest) {
-      // Start backend
       if (response['status'] == "success") {
         if (response['datacart']['status'] == 'success') {
           List dataresponse = response['datacart']['data'];
           Map dataresponsecountprice = response['countprice'];
-          data.clear();
-          data.addAll(dataresponse.map((e) => CartModel.fromJson(e)));
-          totalcountitems = (dataresponsecountprice['totalcount']);
-          // Initialize the cart item count
-      //    cartItemCount = totalcountitems;
-          cartService.setCount(totalcountitems); // Sync cart item count on load
 
+          // ✅ Correct way to update RxList
+          data.assignAll(dataresponse.map((e) => CartModel.fromJson(e)).toList());
 
-          priceorders = (dataresponsecountprice['totalprice'])-0.1;
-          priceorders = double.parse(priceorders.toStringAsFixed(1));
+          totalcountitems = dataresponsecountprice['totalcount'];
+          cartService.setCount(totalcountitems);
+
+          priceorders = double.parse((dataresponsecountprice['totalprice'] - 0.1).toStringAsFixed(1));
 
           print(priceorders);
         }
       } else {
         statusRequest = StatusRequest.failure;
       }
-      // End
     }
     update();
+
   }
+
+
 
   @override
   void onInit() {
     controllercoupon = TextEditingController();
     view();
-    cartService = Get.find<CartService>();
-    cartData = CartData(cartService); // Pass the CartService instance to CartData
+    //fetchCartItems(); // ✅ تحميل العناصر عند فتح الصفحة
+    //cartService.getCartItemCount(); // ✅ تحميل عدد المنتجات في البداية
+
+    //cartData = CartData(cartService); // Pass the CartService instance to CartData
     super.onInit();
   }
+
+
+  /// ✅ **جلب المنتجات في السلة**
+  // Future<void> fetchCartItems() async {
+  //   List<CartModel> newData = await cartService.getCartItems();
+  //   data.assignAll(newData); // ✅ تحديث القائمة مباشرة
+  // }
+
 }
 
 // class CartController extends GetxController {

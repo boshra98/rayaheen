@@ -9,6 +9,8 @@ import '../core/services/services.dart';
 import '../data/datasource/remote/address_data.dart';
 import '../data/datasource/remote/checkout_date.dart';
 import '../data/model/addressmodel.dart';
+import 'package:url_launcher/url_launcher.dart';
+
 
 
 
@@ -86,37 +88,52 @@ class CheckoutControllerImp extends CheckoutController {
 
     //update();
 
-@override
-   checkout() async {
-  update() ;
+
+  @override
+  checkout() async {
+    update();
     if (PaymentMethod() == null) {
       return Get.snackbar("تنبيه", "اختر وسيلة الدفع أولاً ");
     }
 
     if (formstate.currentState!.validate()) {
       statusRequest = StatusRequest.loading;
-      update() ;
-      var response = await checkoutData.postdata(myServices.sharedPreferences.getString("id")!,
-          Imara.text, sharae.text, mantica.text,paymentMethod!,phone.text);
+      update();
+
+      var response = await checkoutData.postdata(
+          myServices.sharedPreferences.getString("id")!,
+          Imara.text, sharae.text, mantica.text, paymentMethod!, phone.text
+      );
+
       print("=============================== Controller $response ");
       statusRequest = handlingData(response);
+
       if (StatusRequest.success == statusRequest) {
         if (response['status'] == "success") {
-
           Get.snackbar("32".tr, "90".tr);
+
+          // استدعاء دالة إرسال رسالة WhatsApp
+          sendWhatsAppMessage();
 
           Get.offAllNamed(AppRoute.homePage);
         } else {
-          // statusRequest = StatusRequest.none;
-          // Get.snackbar("Error", "try again");
-          Get.defaultDialog(title: "78".tr , middleText: "79".tr) ;
+          Get.defaultDialog(title: "78".tr, middleText: "79".tr);
           statusRequest = StatusRequest.failure;
         }
       }
       update();
-    } else {
-        // return Get.snackbar("Error", "Please select location $sharae");
+    }
+  }
 
+  void sendWhatsAppMessage() async {
+    String adminPhone = "+971528816100"; // ضع هنا رقم مدير المتجر
+    String message = Uri.encodeFull("🚀 طلب جديد تم بنجاح!\nرقم الهاتف: ${phone.text}\nالعنوان: ${Imara.text}, ${sharae.text}, ${mantica.text}\nطريقة الدفع: $paymentMethod");
+    String url = "https://wa.me/$adminPhone?text=$message";
+
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      Get.snackbar("خطأ", "لا يمكن فتح WhatsApp");
     }
   }
 

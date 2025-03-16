@@ -199,6 +199,7 @@ class HomeControllerImp extends HomeController {
     //print("hhhheeew");
     //print(itemsModel);
     Get.toNamed("productdetails", arguments: {"itemsmodel": itemsModel});
+
   }
 
 
@@ -217,6 +218,9 @@ class SearchMixController extends GetxController {
   searchData() async {
     statusRequest = StatusRequest.loading;
     var response = await homedata.searchData(search!.text);
+    //print(response);
+    print("🔍 Search Response: $response"); // Print full response
+
     print("=============================== Controller $response ");
     statusRequest = handlingData(response);
     if (StatusRequest.success == statusRequest) {

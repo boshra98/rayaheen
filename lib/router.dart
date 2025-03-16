@@ -57,7 +57,7 @@ List<GetPage<dynamic>>? routes = [
  // GetPage(name: AppRoute.verifyCodeSignUp, page: () => const VerifyCodeSignUp()),
 
 
-  GetPage(name: AppRoute.homePage, page: () => const HomeScreen()),
+  GetPage(name: AppRoute.homePage, page: () =>  HomeScreen()),
   GetPage(name: AppRoute.items, page: () => const items()),
   GetPage(name: AppRoute.itemsage, page: () => const itemsage()),
   GetPage(name: AppRoute.itemspublisher, page: () => const itemspublishers()),

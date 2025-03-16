@@ -53,50 +53,26 @@ class Checkout extends StatelessWidget {
                         onTap: () {
                           print(controller.paymentMethod);
 
-                          controller.choosePaymentMethod("0");
+                          controller.choosePaymentMethod("كاش");
                           print(controller.paymentMethod);
 
                         },
                         child: CardPaymentMethodCheckout(
                             title: "كاش",
 
-                            isActive: controller.paymentMethod == "0" // cash
+                            isActive: controller.paymentMethod == "كاش" // cash
                                 ? true
                                 : false),
                       ),
                       const SizedBox(height: 10),
                       InkWell(
                         onTap: () {
-                          controller.choosePaymentMethod("1");
-                          // showDialog(
-                          //   context: context,
-                          //   builder: (BuildContext context) {
-                          //     return AlertDialog(
-                          //       title: Text("Confirmation"),
-                          //       content: Text("Do you want to proceed to WhatsApp?"),
-                          //       actions: [
-                          //         TextButton(
-                          //           child: Text("Cancel"),
-                          //           onPressed: () {
-                          //             Navigator.of(context).pop(); // Close the dialog
-                          //           },
-                          //         ),
-                          //         TextButton(
-                          //           child: Text("OK"),
-                          //           onPressed: () {
-                          //             // Launch WhatsApp when "OK" is pressed
-                          //             launchUrl(Uri.parse("https://wa.me/+971528816100"));
-                          //             Navigator.of(context).pop(); // Close the dialog
-                          //           },
-                          //         ),
-                          //       ],
-                          //     );
-                          //   },
-                          // );
+                          controller.choosePaymentMethod("تحويل");
+
                         },
                         child: CardPaymentMethodCheckout(
                             title: "تحويل",
-                            isActive: controller.paymentMethod == "1" // Card
+                            isActive: controller.paymentMethod == "تحويل" // Card
                                 ? true
                                 : false),
                       ),
@@ -160,46 +136,46 @@ class Checkout extends StatelessWidget {
 
                               ),
                               CustomButtomAuth(text:"73".tr,onPressed:(){
-                                if(controller.paymentMethod=='1') {
-                                  showDialog(
-                                    context: context,
-                                    barrierDismissible: false, // Prevent dialog from closing if clicked outside
-
-                                    builder: (BuildContext context) {
-                                      return AlertDialog(
-                                        title:  Text("75".tr),
-                                        content:  Text(
-                                            "77".tr),
-                                        actions: [
-                                          TextButton(
-                                            child:  Text("76".tr),
-                                            onPressed: () {
-                                              Navigator.of(context)
-                                                  .pop();
-                                              //controller.checkout() ;
-
-                                              // Close the dialog
-                                            },
-                                          ),
-                                          TextButton(
-                                            child: Text("86".tr),
-                                            onPressed: () {
-                                              // Launch WhatsApp when "OK" is pressed
-                                              launchUrl(Uri.parse(
-                                                  "https://wa.me/+971528816100"));
-                                              Navigator.of(context)
-                                                  .pop();
-
-                                              controller.checkout() ;
-// Close the dialog
-                                            },
-                                          ),
-                                        ],
-                                      );
-                                    },
-                                  );
-                                }
-                                else
+//                                 if(controller.paymentMethod=='1') {
+//                                   showDialog(
+//                                     context: context,
+//                                     barrierDismissible: false, // Prevent dialog from closing if clicked outside
+//
+//                                     builder: (BuildContext context) {
+//                                       return AlertDialog(
+//                                         title:  Text("75".tr),
+//                                         content:  Text(
+//                                             "77".tr),
+//                                         actions: [
+//                                           TextButton(
+//                                             child:  Text("76".tr),
+//                                             onPressed: () {
+//                                               Navigator.of(context)
+//                                                   .pop();
+//                                               //controller.checkout() ;
+//
+//                                               // Close the dialog
+//                                             },
+//                                           ),
+//                                           TextButton(
+//                                             child: Text("86".tr),
+//                                             onPressed: () {
+//                                               // Launch WhatsApp when "OK" is pressed
+//                                               launchUrl(Uri.parse(
+//                                                   "https://wa.me/+971528816100"));
+//                                               Navigator.of(context)
+//                                                   .pop();
+//
+//                                               controller.checkout() ;
+// // Close the dialog
+//                                             },
+//                                           ),
+//                                         ],
+//                                       );
+//                                     },
+//                                   );
+//                                 }
+                               // else
                                 controller.checkout() ;
                               },
 

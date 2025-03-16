@@ -1,10 +1,15 @@
+
 import 'package:get/get.dart';
+
 
 import '../class/crud.dart';
 
+
 class CartService extends Crud {
-  var cartItemCount = 0.obs; // Observable variable for real-time updates
-CartService? cartService;
+
+  var cartItemCount = 0.obs; // ✅ متغير `Observable` لتحديث UI تلقائيًا
+
+
 
   void increment() {
     cartItemCount++;
@@ -19,4 +24,6 @@ CartService? cartService;
   void setCount(int count) {
     cartItemCount.value = count;
   }
+
+
 }

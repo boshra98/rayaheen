@@ -8,6 +8,8 @@ import 'package:get/get.dart';
 
 import '../core/constant/color.dart';
 import '../core/services/cartservices.dart';
+import '../data/model/cartmodel.dart';
+import 'cart_controller.dart';
 
 abstract class ProductDetailsController extends GetxController {}
 late ScrollController scrollController;
@@ -32,8 +34,10 @@ class ProductDetailsControllerImp extends ProductDetailsController {
   late ItemsModel itemsModel;
   // late ScrollController scrollController;
 
+  PageController pageController = PageController();
 
   CartData cartData = CartData(Get.find());
+  var data = <CartModel>[].obs; // ✅ استخدم `RxList` لتحديث الواجهة تلقائيًا
 
   late StatusRequest statusRequest;
 
@@ -74,33 +78,90 @@ class ProductDetailsControllerImp extends ProductDetailsController {
     }
   }
 
+  // addItems(int itemsid) async {
+  //   statusRequest = StatusRequest.loading;
+  //   update();
+  //   print(countitems);
+  //   var response = await cartData.addCart(
+  //       myServices.sharedPreferences.getString("id")! , "${itemsid}");
+  //   print("=============================== Controller addItems $response ");
+  //   statusRequest = handlingData(response);
+  //   if (StatusRequest.success == statusRequest) {
+  //     // Start backend
+  //     if (response['status'] == "success") {
+  //       Get.rawSnackbar(
+  //           titleText: const Text(
+  //             textAlign: TextAlign.right,
+  //               "اشعار",
+  //               style: TextStyle(
+  //                 color: AppColor.secondColor2, // Custom title color
+  //                 fontWeight: FontWeight.bold, // You can add more styling like bold
+  //                 fontSize: 16, // Custom font size
+  //               ),),
+  //           messageText: const Text("تم اضافة المنتج الى السلة ",style:TextStyle(color:AppColor.secondColor2,),textAlign: TextAlign.right, // Aligning description to the left
+  //           ));
+  //       // data.addAll(response['data']);
+  //     } else {
+  //       statusRequest = StatusRequest.failure;
+  //     }
+  //     // End
+  //   }
+  //   update();
+  // }
   addItems(int itemsid) async {
+    // if (itemsModel.itemsCount == 0) {
+    //   Get.rawSnackbar(
+    //     titleText: const Text(
+    //       "إشعار",
+    //       style: TextStyle(
+    //         color: AppColor.secondColor2,
+    //         fontWeight: FontWeight.bold,
+    //         fontSize: 16,
+    //       ),
+    //       textAlign: TextAlign.right,
+    //     ),
+    //     messageText: const Text(
+    //       "نفذت الكمية، لا يمكنك إضافة هذا المنتج",
+    //       style: TextStyle(color: AppColor.secondColor2),
+    //       textAlign: TextAlign.right,
+    //     ),
+    //   );
+    //   return;
+    // }
+
     statusRequest = StatusRequest.loading;
     update();
-    print(countitems);
+
     var response = await cartData.addCart(
-        myServices.sharedPreferences.getString("id")! , "${itemsid}");
-    print("=============================== Controller addItems $response ");
+      myServices.sharedPreferences.getString("id")!,
+      "$itemsid",
+    );
+
     statusRequest = handlingData(response);
     if (StatusRequest.success == statusRequest) {
-      // Start backend
       if (response['status'] == "success") {
         Get.rawSnackbar(
-            titleText: const Text(
-              textAlign: TextAlign.right,
-                "اشعار",
-                style: TextStyle(
-                  color: AppColor.secondColor2, // Custom title color
-                  fontWeight: FontWeight.bold, // You can add more styling like bold
-                  fontSize: 16, // Custom font size
-                ),),
-            messageText: const Text("تم اضافة المنتج الى السلة ",style:TextStyle(color:AppColor.secondColor2,),textAlign: TextAlign.right, // Aligning description to the left
-            ));
-        // data.addAll(response['data']);
+          titleText: const Text(
+            "إشعار",
+            style: TextStyle(
+              color: AppColor.secondColor2,
+              fontWeight: FontWeight.bold,
+              fontSize: 16,
+            ),
+            textAlign: TextAlign.right,
+          ),
+          messageText: const Text(
+            "تم إضافة المنتج إلى السلة",
+            style: TextStyle(color: AppColor.secondColor2),
+            textAlign: TextAlign.right,
+          ),
+        );// ✅ تحديث `CartController` بعد الإضافة
+        if (Get.isRegistered<CartController>()) {
+          Get.find<CartController>().view(); // تحديث بيانات السلة فورًا
+        }
       } else {
         statusRequest = StatusRequest.failure;
       }
-      // End
     }
     update();
   }
@@ -118,18 +179,19 @@ class ProductDetailsControllerImp extends ProductDetailsController {
       if (response['status'] == "success") {
         Get.rawSnackbar(
             title: "اشعار",
-            messageText: const Text("تم ازالة المنتج من السلة "));
+            messageText: const Text("تم ازالة المنتج من السلة ")
+        );
         // data.addAll(response['data']);
-      } else {
-        statusRequest = StatusRequest.failure;
+      } // ✅ تحديث `CartController` بعد الحذف
+      if (Get.isRegistered<CartController>()) {
+        Get.find<CartController>().view(); // تحديث بيانات السلة فورًا
       }
-      // End
-    }}
-
-
+    } else {
+      statusRequest = StatusRequest.failure;
+    }
+    }
     update();
   }
-
   List subitems = [
     {"name": "red", "id": 1, "active": '0'},
     {"name": "yallow", "id": 2, "active": '0'},
@@ -140,6 +202,9 @@ class ProductDetailsControllerImp extends ProductDetailsController {
     addItems(itemsModel.itemsId! );
     countitems++;
     cartService.increment(); // Increment the cart item count
+    if (Get.isRegistered<CartController>()) {
+      Get.find<CartController>().view(); // ✅ تحديث السلة فورًا بعد الإضافة
+    }
 
     update();
   }
@@ -149,7 +214,9 @@ class ProductDetailsControllerImp extends ProductDetailsController {
       deleteitems(itemsModel.itemsId! );
       countitems--;
       cartService.decrement(); // Decrement the cart item count
-
+      if (Get.isRegistered<CartController>()) {
+        Get.find<CartController>().view(); // ✅ تحديث السلة فورًا بعد الحذف
+      }
       update();
     }
   }
@@ -158,6 +225,7 @@ class ProductDetailsControllerImp extends ProductDetailsController {
   void onInit() {
     intialData();
     scrollController = ScrollController();
+
     super.onInit();
 
   }
@@ -168,4 +236,6 @@ class ProductDetailsControllerImp extends ProductDetailsController {
   scrollController.dispose();
   super.onClose();
 }
+
+
 }

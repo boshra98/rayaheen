@@ -39,27 +39,27 @@ class Settings extends StatelessWidget {
                       ),
                     )),
               ]),
-          const SizedBox(height: 100),
+          const SizedBox(height: 155),
           Container(
             padding: const EdgeInsets.symmetric(horizontal: 10),
             child: Card(
               color: AppColor.secondColor,
               child: Column(mainAxisSize: MainAxisSize.min, children: [
-                ListTile(
-                  // onTap: () {},
-                  trailing: const Icon(Icons.wb_sunny_outlined,color:AppColor.black),
-                  onTap:(){
-                    if(Get.isDarkMode){
-                      Get.changeTheme(customLightTheme);
-                    } else{
-                      Get.changeTheme(customDarkTheme);
-                    }
-                  },
-                  title: Text(
-                    '44'.tr,
-                    style: const TextStyle(fontSize: 18,color:AppColor.primaryColor,fontFamily:"playfairDisplay"), // Increase font size
-                  ),
-                ),
+                // ListTile(
+                //   // onTap: () {},
+                //   trailing: const Icon(Icons.wb_sunny_outlined,color:AppColor.black),
+                //   onTap:(){
+                //     if(Get.isDarkMode){
+                //       Get.changeTheme(customLightTheme);
+                //     } else{
+                //       Get.changeTheme(customDarkTheme);
+                //     }
+                //   },
+                //   title: Text(
+                //     '44'.tr,
+                //     style: const TextStyle(fontSize: 18,color:AppColor.primaryColor,fontFamily:"playfairDisplay"), // Increase font size
+                //   ),
+                // ),
                 ListTile(
                   onTap: () {
                     Get.toNamed(AppRoute.orderspending);
@@ -120,14 +120,42 @@ class Settings extends StatelessWidget {
                 ),
                 ListTile(
                   onTap: () {
-                    controller.logout();
+                    showDialog(
+                      context: context,
+                      builder: (BuildContext context) {
+                        return AlertDialog(
+                          title: Text("99".tr),
+                          content: Text("100".tr),
+                          actions: [
+                            TextButton(
+                              onPressed: () {
+                                Navigator.of(context).pop(); // Close the dialog
+                              },
+                              child: Text("101".tr),
+                            ),
+                            TextButton(
+                              onPressed: () {
+                                Navigator.of(context).pop(); // Close the dialog
+                                controller.logout(); // Perform logout action
+                              },
+                              child: Text("102".tr),
+                            ),
+                          ],
+                        );
+                      },
+                    );
                   },
                   title: Text(
                     '50'.tr,
-                    style: const TextStyle(fontSize: 18, color:AppColor.primaryColor,fontFamily:"playfairDisplay"), // Increase font size
+                    style: const TextStyle(
+                      fontSize: 18,
+                      color: AppColor.primaryColor,
+                      fontFamily: "playfairDisplay",
+                    ),
                   ),
-                  trailing: const Icon(Icons.exit_to_app ,color:AppColor.black),
+                  trailing: const Icon(Icons.exit_to_app, color: AppColor.black),
                 ),
+
               ]),
             ),
           )

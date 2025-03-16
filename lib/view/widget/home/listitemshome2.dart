@@ -9,41 +9,7 @@ import '../../../linkapi.dart';
 
 
 
-// class ListItemsHome extends GetView<HomeControllerImp> {
-//   const ListItemsHome({Key? key}) : super(key: key);
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     // Ensure the controller is available
-//     Get.put(HomeControllerImp());
-//
-//     return GetBuilder<HomeControllerImp>(
-//       builder: (controller) {
-//         // Check if items are still loading
-//         if (controller.items.isEmpty) {
-//           return const Center(
-//             child: CircularProgressIndicator(),
-//           );
-//         }
-//
-//         return SizedBox(
-//           height: 130,
-//           child: ListView.builder(
-//             itemCount: controller.items.length,
-//             scrollDirection: Axis.horizontal,
-//             itemBuilder: (context, i) {
-//               final itemsModel = ItemsModel.fromJson(controller.items[i]);
-//
-//               return ItemsHome(
-//                 itemsModel: itemsModel,
-//               );
-//             },
-//           ),
-//         );
-//       },
-//     );
-//   }
-// }
+
 
 class ListItemsHome2 extends GetView<HomeControllerImp> {
   const ListItemsHome2({Key? key}) : super(key: key);
@@ -84,18 +50,27 @@ class ListItemsHome2 extends GetView<HomeControllerImp> {
 }
 
 class ItemsHome2 extends StatelessWidget {
-  final ItemsModel itemsModel;
+  final ItemsModel? itemsModel; // اجعلها nullable
 
   const ItemsHome2({Key? key, required this.itemsModel}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    if (itemsModel == null) {
+      return const Center(
+        child: Text(
+          "خطأ: لا يوجد بيانات للعنصر",
+          style: TextStyle(color: Colors.red),
+        ),
+      );
+    }
+
     return InkWell(
       onTap: () {
-        print(itemsModel.itemsId);
-        // Call the function to navigate to product details page
-        Get.find<HomeControllerImp>().goToPageProductDetails(itemsModel);
-
+        if (itemsModel!.itemsId != null) {
+          print(itemsModel!.itemsId);
+          Get.find<HomeControllerImp>().goToPageProductDetails(itemsModel!);
+        }
       },
       child: Column(
         children: [
@@ -107,11 +82,10 @@ class ItemsHome2 extends StatelessWidget {
                 margin: const EdgeInsets.symmetric(horizontal: 10),
                 decoration: BoxDecoration(
                   color: AppColor.secondColor.withOpacity(1),
-                  //thirdColor.withOpacity(0.3),
-                  borderRadius: BorderRadius.circular(15), // Adjust radius if needed
+                  borderRadius: BorderRadius.circular(15),
                 ),
-                height: 120, // Reduced height
-                width: 130, // Reduced width for proportional scaling
+                height: 120,
+                width: 130,
               ),
 
               // Image Positioned at the Center
@@ -120,72 +94,62 @@ class ItemsHome2 extends StatelessWidget {
                 left: 5,
                 right: 5,
                 child: CachedNetworkImage(
-                  imageUrl: "${AppLink.imagesItems}/${itemsModel.itemsImage!}",
-                  height: 90, // Reduced height
-                  width: 90,  // Reduced width
-                  fit: BoxFit.contain, // Use BoxFit.contain to show the full image
+                  imageUrl: itemsModel!.itemsImage != null
+                      ? "${AppLink.imagesItems}/${itemsModel!.itemsImage}"
+                      : "https://via.placeholder.com/90", // صورة افتراضية إذا كانت الصورة فارغة
+                  height: 90,
+                  width: 90,
+                  fit: BoxFit.contain,
                   placeholder: (context, url) => const Center(
                     child: CircularProgressIndicator(),
                   ),
                   errorWidget: (context, url, error) => const Icon(Icons.error),
                 ),
-
-
               ),
               Positioned(
-                  bottom: 0,
-                  left: 0,
-                  child: Container(
-                    width: 30,
-                    height:30,
-                    decoration: BoxDecoration(
-                      color: AppColor.primaryColor2,
-
-                      borderRadius: BorderRadius.circular(20),
+                bottom: 0,
+                left: 0,
+                child: Container(
+                  width: 30,
+                  height: 30,
+                  decoration: BoxDecoration(
+                    color: AppColor.primaryColor2,
+                    borderRadius: BorderRadius.circular(20),
+                  ),
+                  padding: const EdgeInsets.all(1),
+                  child: IconButton(
+                    onPressed: () {
+                      // Handle adding to cart
+                    },
+                    icon: const Icon(
+                      Icons.shopping_cart_outlined,
+                      size: 14,
+                      color: AppColor.secondColor,
                     ),
-                    padding: const EdgeInsets.all(1),
-                    child: IconButton(
-                      onPressed: () {
-                        // Handle adding to cart
-                        //controller.goToPageProductDetails(itemsModel);
-                      },
-                      icon: const Icon(
-                        Icons.shopping_cart_outlined,
-                        size: 14, // Smaller icon size
-                        color: AppColor.secondColor,
-                      ),
-                      // constraints: const BoxConstraints(
-                      //   maxHeight: 20,
-                      //   maxWidth: 20,
-                      // ),
-                      padding:const  EdgeInsets.only(right: 10, left: 8, bottom: 2),
-                    ),
-                  )
+                    padding: const EdgeInsets.only(right: 10, left: 8, bottom: 2),
+                  ),
+                ),
               ),
-
             ],
           ),
 
           // Text Below the Stack
           Text(
-            "${itemsModel.itemsName}",
+            itemsModel!.itemsName ?? "اسم غير معروف",
             style: const TextStyle(
               color: AppColor.primaryColor,
-              //fontWeight: FontWeight.bold,
-              fontSize: 12, // Slightly smaller font size
+              fontSize: 12,
             ),
             textAlign: TextAlign.center,
           ),
           Text(
-            "${itemsModel.itemsPrice} درهم ",
+            "${itemsModel!.itemsPrice ?? "غير متوفر"} درهم",
             style: const TextStyle(
               color: AppColor.primaryColor2,
-              //fontWeight: FontWeight.bold,
-              fontSize: 10, // Slightly smaller font size
+              fontSize: 10,
             ),
             textAlign: TextAlign.center,
           ),
-
         ],
       ),
     );

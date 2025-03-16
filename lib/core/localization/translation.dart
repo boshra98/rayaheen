@@ -80,7 +80,7 @@ class MyTranslation extends Translations {
           "70": "في انتظار الموافقة" ,
           "71":"الدفع عند الاستلام" ,
           "72": "تحويل" ,
-          "73": "فحص الطلب",
+          "73": " تأكيد الطلب",
           "74":"اختر حسب التصنيفات" ,
           "75": "تثبيت الطلب" ,
           "76":"الغاء" ,
@@ -104,7 +104,15 @@ class MyTranslation extends Translations {
           "95":"عرض جميع الكتب",
           "96":" جميع الكتب" ,
           "97":"عرض أحدث الكتب ",
-          "98":"جديدنا"
+          "98":"جديدنا" ,
+          "99": "تأكيد",
+          "100":"هل أنت متأكد من تسجيل الخروج؟؟",
+          "101": "إلغاء" ,
+          "102":"تسجيل خروج" ,
+          "103": "تنبيه",
+          "104":"سيتم اضافة الكتاب إلى السلة مع عدد النسخ المختارة" ,
+          "105":"تم تحديد العدد" ,
+          "106":"اعادة تعيين"
         },
         "en": {
           "1": "Choose Language",
@@ -205,7 +213,13 @@ class MyTranslation extends Translations {
           "95":"View All Books",
           "96":"all books",
           "97":"View Top  Books",
-          "98":"new Items"
+          "98":"new Items" ,
+          "99":"Confirm Logout",
+          "100":"Are you sure you want to sign out?",
+          "101":"Cancel",
+          "102":"Sign Out",
+          "103":"Notice",
+          "104":"The book will be added to the cart with the selected number of copies.!"
 
         }
       };
