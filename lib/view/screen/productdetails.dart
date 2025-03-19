@@ -261,7 +261,7 @@ class ProductDetails extends StatelessWidget {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           /// **تعطيل زر الإضافة إذا نفذت الكمية**
-                          Expanded(
+                          Flexible(
                             flex: 2,
                             child: PriceAndCountItems(
                               onAdd: controller.itemsModel.itemsCount! > 0
@@ -270,6 +270,7 @@ class ProductDetails extends StatelessWidget {
                               onRemove: controller.remove,
                               price: "${controller.itemsModel.itemsPrice}",
                               discountPercentage: controller.itemsModel.discount?.discountPercentage, // ✅ تمرير نسبة الخصم مباشرة من البيانات المرجعة من الباكند
+                              expiresAt: controller.itemsModel.discount?.expiresAt,
 
                               count: "${controller.countitems}",
 
@@ -310,7 +311,7 @@ class ProductDetails extends StatelessWidget {
                                   style: const TextStyle(
                                     color: AppColor.secondColor,
                                     fontWeight: FontWeight.bold,
-                                    fontSize: 15,
+                                    fontSize: 14,
                                   ),
                                 ),
                               ),

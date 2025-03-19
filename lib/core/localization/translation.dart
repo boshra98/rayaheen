@@ -112,7 +112,10 @@ class MyTranslation extends Translations {
           "103": "تنبيه",
           "104":"سيتم اضافة الكتاب إلى السلة مع عدد النسخ المختارة" ,
           "105":"تم تحديد العدد" ,
-          "106":"اعادة تعيين"
+          "106":"اعادة تعيين" ,
+          "107":"الخصومات والعروض",
+          "108":"عرض الخصومات المتاحة" ,
+          "109":"الخصومات",
         },
         "en": {
           "1": "Choose Language",
@@ -219,7 +222,10 @@ class MyTranslation extends Translations {
           "101":"Cancel",
           "102":"Sign Out",
           "103":"Notice",
-          "104":"The book will be added to the cart with the selected number of copies.!"
+          "104":"The book will be added to the cart with the selected number of copies.!",
+          "107":"Discount",
+          "108":"all Discount Available",
+          "109":"Discount",
 
         }
       };

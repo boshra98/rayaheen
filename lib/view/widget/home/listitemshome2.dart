@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../../controller/cart_controller.dart';
 import '../../../controller/home_controller.dart';
 import '../../../core/constant/color.dart';
 import '../../../data/model/itemsmodel.dart';
@@ -50,7 +51,7 @@ class ListItemsHome2 extends GetView<HomeControllerImp> {
 }
 
 class ItemsHome2 extends StatelessWidget {
-  final ItemsModel? itemsModel; // اجعلها nullable
+  final ItemsModel? itemsModel;
 
   const ItemsHome2({Key? key, required this.itemsModel}) : super(key: key);
 
@@ -64,6 +65,12 @@ class ItemsHome2 extends StatelessWidget {
         ),
       );
     }
+
+    // ✅ التحقق من وجود خصم
+    double discount = double.tryParse(itemsModel!.discount?.discountPercentage ?? "0") ?? 0.0;
+    bool hasDiscount = discount > 0;
+    double originalPrice = double.tryParse(itemsModel!.itemsPrice ?? "0") ?? 0.0;
+    double discountedPrice = originalPrice - (originalPrice * (discount / 100));
 
     return InkWell(
       onTap: () {
@@ -106,6 +113,29 @@ class ItemsHome2 extends StatelessWidget {
                   errorWidget: (context, url, error) => const Icon(Icons.error),
                 ),
               ),
+
+              // ✅ إظهار نسبة الخصم إذا كان هناك خصم
+              if (hasDiscount)
+                Positioned(
+                  top: 5,
+                  right: 5,
+                  child: Container(
+                    padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 3),
+                    decoration: BoxDecoration(
+                      color: Colors.red,
+                      borderRadius: BorderRadius.circular(5),
+                    ),
+                    child: Text(
+                      "-${discount.toInt()}%", // ✅ حذف الأرقام العشرية
+                      style: const TextStyle(
+                        color: Colors.white,
+                        fontSize: 12,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    ),
+                  ),
+                ),
+
               Positioned(
                 bottom: 0,
                 left: 0,
@@ -119,7 +149,10 @@ class ItemsHome2 extends StatelessWidget {
                   padding: const EdgeInsets.all(1),
                   child: IconButton(
                     onPressed: () {
-                      // Handle adding to cart
+                      final CartController cartController = Get.find<CartController>();
+                      if (itemsModel?.itemsId != null) {
+                        cartController.add(itemsModel!.itemsId!.toString());
+                      }
                     },
                     icon: const Icon(
                       Icons.shopping_cart_outlined,
@@ -142,16 +175,41 @@ class ItemsHome2 extends StatelessWidget {
             ),
             textAlign: TextAlign.center,
           ),
-          Text(
-            "${itemsModel!.itemsPrice ?? "غير متوفر"} درهم",
-            style: const TextStyle(
-              color: AppColor.primaryColor2,
-              fontSize: 10,
+
+          // ✅ إذا كان هناك خصم، عرض السعر الجديد والسعر الأصلي مشطوبًا
+          if (hasDiscount) ...[
+            Text(
+              "${discountedPrice.toStringAsFixed(2)} درهم",
+              style: const TextStyle(
+                color: AppColor.primaryColor2,
+                fontSize: 12,
+                fontWeight: FontWeight.bold,
+              ),
+              textAlign: TextAlign.center,
             ),
-            textAlign: TextAlign.center,
-          ),
+            Text(
+              "${itemsModel!.itemsPrice} درهم",
+              style: const TextStyle(
+                color: Colors.orange,
+                fontSize: 10,
+                fontWeight: FontWeight.bold,
+                decoration: TextDecoration.lineThrough,
+              ),
+              textAlign: TextAlign.center,
+            ),
+          ] else
+          // ✅ إذا لم يكن هناك خصم، عرض السعر العادي فقط
+            Text(
+              "${itemsModel!.itemsPrice} درهم",
+              style: const TextStyle(
+                color: AppColor.primaryColor2,
+                fontSize: 10,
+              ),
+              textAlign: TextAlign.center,
+            ),
         ],
       ),
     );
   }
 }
+

@@ -30,8 +30,11 @@ class HomeControllerImp extends HomeController {
   //List data = [];
   List categories = [];
   List publishers = [];
-  List books = [];
-  List items = [];
+  // List books = [];
+  // List items = [];
+  List<ItemsModel> books = []; // ✅ قائمة تحتوي على جميع الكتب
+  List<ItemsModel> items = []; // ✅ قائمة تحتوي على الكتب المصنفة حسب الفئات
+
   List newitems = [];
 
   // CategoriesModel categoriesModel = controller.categories[index];
@@ -60,33 +63,88 @@ class HomeControllerImp extends HomeController {
 
 
 
+
+  // @override
+  // fetchAll() async {
+  //   var response = await homedata.getallitems();
+  //   print("fetch");
+  //   print("=============================== Controller $response ");
+  //   statusRequest = handlingData(response);
+  //
+  //   if (StatusRequest.success == statusRequest) {
+  //     print("fetch correct");
+  //
+  //     if (response['status'] == "success") {
+  //       print("fetch correct1");
+  //
+  //       // ✅ تحويل البيانات إلى List<ItemsModel> بدلاً من Map<String, dynamic>
+  //       books = (response['data'] as List)
+  //           .map((json) => ItemsModel.fromJson(json as Map<String, dynamic>))
+  //           .toList();
+  //
+  //       print("📢 عدد الكتب المحملة: ${books.length}");
+  //     } else {
+  //       statusRequest = StatusRequest.failure;
+  //     }
+  //   }
+  //   update();
+  // }
+
+  // @override
+  // fetchAll() async {
+  //   //statusRequest = StatusRequest.loading;
+  //   var response = await homedata.getallitems();
+  //   print("fetch");
+  //   print("=============================== Controller $response ");
+  //   statusRequest = handlingData(response);
+  //   if (StatusRequest.success == statusRequest) {
+  //     print("fetch coreect");
+  //
+  //     if (response['status'] == "success") {
+  //       // print("heloo2");
+  //       print("fetch coreect1");
+  //
+  //       books.addAll(response['data']);
+  //       // items.addAll(response['items']['data']);
+  //       //categories.addAll(response['data']);
+  //       //items.addAll(response[3]['data']);
+  //
+  //       //print(items[1]);
+  //     } else {
+  //       statusRequest = StatusRequest.failure;
+  //     }
+  //   }
+  //   update();
+  //
+  // }
+
   @override
   fetchAll() async {
-    //statusRequest = StatusRequest.loading;
+    print("🔄 جاري جلب جميع الكتب...");
+
     var response = await homedata.getallitems();
-    print("fetch");
-    print("=============================== Controller $response ");
     statusRequest = handlingData(response);
+
     if (StatusRequest.success == statusRequest) {
-      print("fetch coreect");
+      print("✅ تم جلب البيانات بنجاح");
 
       if (response['status'] == "success") {
-        // print("heloo2");
-        print("fetch coreect1");
+        print("📢 عدد الكتب قبل التحديث: ${books.length}");
 
-        books.addAll(response['data']);
-        // items.addAll(response['items']['data']);
-        //categories.addAll(response['data']);
-        //items.addAll(response[3]['data']);
+        // ✅ تحديث `books` وتحويل البيانات إلى `ItemsModel`
+        books = (response['data'] as List)
+            .map((json) => ItemsModel.fromJson(json as Map<String, dynamic>))
+            .toList();
 
-        //print(items[1]);
+        print("📢 عدد الكتب بعد التحديث: ${books.length}");
       } else {
         statusRequest = StatusRequest.failure;
       }
     }
     update();
-
   }
+
+
   @override
   fetchnew() async {
     //statusRequest = StatusRequest.loading;
@@ -139,29 +197,100 @@ class HomeControllerImp extends HomeController {
     }
     update();
   }
+  // @override
+  // getdata() async {
+  //   statusRequest = StatusRequest.loading;
+  //   var response = await homedata.getData();
+  //   print("=============================== Controller $response ");
+  //   statusRequest = handlingData(response);
+  //   if (StatusRequest.success == statusRequest) {
+  //     if (response['status'] == "success") {
+  //       // print("heloo2");
+  //       categories.addAll(response['categories']['data']);
+  //       items.addAll(response['items']['data']);
+  //       //categories.addAll(response['data']);
+  //       //items.addAll(response[3]['data']);
+  //
+  //       //print(items[1]);
+  //     } else {
+  //       statusRequest = StatusRequest.failure;
+  //     }
+  //   }
+  //   update();
+  // }
   @override
   getdata() async {
+    print("🔄 جاري جلب بيانات الفئات والكتب...");
+
     statusRequest = StatusRequest.loading;
     var response = await homedata.getData();
-    print("=============================== Controller $response ");
     statusRequest = handlingData(response);
+
     if (StatusRequest.success == statusRequest) {
       if (response['status'] == "success") {
-        // print("heloo2");
-        categories.addAll(response['categories']['data']);
-        items.addAll(response['items']['data']);
-        //categories.addAll(response['data']);
-        //items.addAll(response[3]['data']);
+        categories.clear();
+        items.clear();
 
-        //print(items[1]);
+        categories.addAll(response['categories']['data']);
+
+        // ✅ تحويل البيانات إلى `List<ItemsModel>` بدلاً من `Map<String, dynamic>`
+        items = (response['items']['data'] as List)
+            .map((json) => ItemsModel.fromJson(json as Map<String, dynamic>))
+            .toList();
+
+        print("📢 عدد الفئات المحملة: ${categories.length}");
+        print("📢 عدد الكتب المحملة داخل items: ${items.length}");
       } else {
         statusRequest = StatusRequest.failure;
       }
     }
     update();
   }
+  List<ItemsModel> getDiscountedBooks() {
+    return books.where((book) {
+      if (book.discount == null) return false;
+
+      double discount = double.tryParse(book.discount!.discountPercentage ?? "0") ?? 0.0;
+      if (discount <= 0) return false;
+
+      DateTime? expiryDate;
+      if (book.discount!.expiresAt != null) {
+        try {
+          expiryDate = DateTime.parse(book.discount!.expiresAt!);
+        } catch (e) {
+          print("❌ خطأ في تحليل expiresAt للكتاب ${book.itemsId}: $e");
+          return false;
+        }
+      }
+
+      return expiryDate != null && DateTime.now().isBefore(expiryDate);
+    }).toList();
+  }
 
 
+  // @override
+  // getdata() async {
+  //   statusRequest = StatusRequest.loading;
+  //   var response = await homedata.getData();
+  //   print("=============================== Controller $response ");
+  //   statusRequest = handlingData(response);
+  //
+  //   if (StatusRequest.success == statusRequest) {
+  //     if (response['status'] == "success") {
+  //       categories.addAll(response['categories']['data']);
+  //
+  //       // ✅ تحويل البيانات إلى List<ItemsModel> بدلاً من Map<String, dynamic>
+  //       items = (response['items']['data'] as List)
+  //           .map((json) => ItemsModel.fromJson(json as Map<String, dynamic>))
+  //           .toList();
+  //
+  //       print("📢 عدد الكتب المحملة داخل items: ${items.length}");
+  //     } else {
+  //       statusRequest = StatusRequest.failure;
+  //     }
+  //   }
+  //   update();
+  // }
 
 
 
@@ -258,6 +387,8 @@ class SearchMixController extends GetxController {
     statusRequest = StatusRequest.none; // Reset the status
     update(); // Notify the UI
   }
+
+
 // void onSearchItems(String search) {
 //   if (searchText.isNotEmpty) {
 //     // Perform search logic here, update listdata accordingly

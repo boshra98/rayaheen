@@ -80,6 +80,7 @@ class PriceAndCountItems extends StatelessWidget {
   final String price;
   final String count;
   final String? discountPercentage; // ✅ نسبة الخصم الجديدة
+  final String? expiresAt; // ✅ تاريخ انتهاء الحسم
 
   const PriceAndCountItems({
     Key? key,
@@ -88,6 +89,7 @@ class PriceAndCountItems extends StatelessWidget {
     required this.price,
     required this.count,
     this.discountPercentage, // ✅ اجعلها اختيارية
+    this.expiresAt, // ✅ إضافة تاريخ انتهاء الحسم
   }) : super(key: key);
 
   @override
@@ -95,65 +97,135 @@ class PriceAndCountItems extends StatelessWidget {
     // ✅ تحويل السعر ونسبة الخصم إلى أرقام
     double originalPrice = double.tryParse(price) ?? 0.0;
     double discount = double.tryParse(discountPercentage ?? "0") ?? 0.0;
-
-    // ✅ حساب السعر بعد الخصم
     double discountedPrice = originalPrice - (originalPrice * (discount / 100));
 
+    // ✅ التحقق من `expiresAt`
+    DateTime? expiryDate;
+    if (expiresAt != null && expiresAt!.isNotEmpty) {
+      try {
+        expiryDate = DateTime.parse(expiresAt!);
+      } catch (e) {
+        print("❌ خطأ في تحليل تاريخ الحسم: $e");
+      }
+    }
+
+    bool isDiscountActive = expiryDate != null &&
+        DateTime.now().isBefore(expiryDate);
+
+    print("✅ السعر الأصلي: $originalPrice درهم");
+    print("✅ نسبة الخصم: $discount%");
+    print("✅ السعر بعد الخصم: $discountedPrice درهم");
+    print("✅ تاريخ انتهاء الحسم: $expiresAt");
+    print("✅ الحسم نشط؟ $isDiscountActive");
+
     return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.start, // ✅ جعل العناصر تبدأ من اليسار دائمًا
       children: [
-        // ✅ عند وجود خصم، عرض السعر الأصلي مشطوب والسعر الجديد
-        if (discount > 0)
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+        if (isDiscountActive && discount > 0)
+          Row(
+            mainAxisAlignment: MainAxisAlignment.start, // ✅ التأكد من أن العناصر تبدأ من اليسار
+            crossAxisAlignment: CrossAxisAlignment.center,
+            mainAxisSize: MainAxisSize.min, // ✅ منع `Row` من إجبار العناصر على التمدد
             children: [
-              // ✅ السعر الأصلي مشطوب
-              Text(
-                "$originalPrice درهم",
-                style: const TextStyle(
+
+              // ✅ السعر بعد الحسم مع كلمة "درهم" بجانبه مباشرة
+              Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    "$discountedPrice",
+                    style: const TextStyle(
+                      color: AppColor.primaryColor2,
+                      fontSize: 16,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  const SizedBox(width: 2), // ✅ مسافة صغيرة بين السعر وكلمة "درهم"
+                  const Text(
+                    "درهم",
+                    style: TextStyle(
+                      color: AppColor.primaryColor2,
+                      fontSize: 8,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(width: 8),
+
+              // ✅ السعر الأصلي (مشطوب) مع "درهم" بجانبه
+              Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text(
+                    "$originalPrice",
+                    style: const TextStyle(
+                      color: Colors.orange,
+                      fontSize: 13,
+                      fontWeight: FontWeight.bold,
+                      decoration: TextDecoration.lineThrough,
+                    ),
+                  ),
+                  const SizedBox(width: 2), // ✅ مسافة صغيرة بين السعر وكلمة "درهم"
+                  // const Text(
+                  //   "درهم",
+                  //   style: TextStyle(
+                  //     color: Colors.orange,
+                  //     fontSize: 8,
+                  //     fontWeight: FontWeight.bold,
+                  //   ),
+                  // ),
+                ],
+              ),
+              const SizedBox(width: 8),
+
+              // ✅ نسبة الخصم داخل صندوق أحمر
+              Container(
+                padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 3),
+                decoration: BoxDecoration(
                   color: Colors.red,
-                  fontSize: 14,
-                  fontWeight: FontWeight.bold,
-                  decoration: TextDecoration.lineThrough, // ❌ شطب السعر القديم
+                  borderRadius: BorderRadius.circular(5),
                 ),
-              ),
-              const SizedBox(height: 4),
-
-              // ✅ السعر بعد الخصم
-              Text(
-                "$discountedPrice درهم", // ✅ عرض السعر الجديد بعد الخصم
-                style: const TextStyle(
-                  color: Colors.green,
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold,
-                ),
-              ),
-
-              // ✅ نسبة الخصم
-              Text(
-                "خصم $discountPercentage%",
-                style: const TextStyle(
-                  color: Colors.orange,
-                  fontSize: 12,
-                  fontWeight: FontWeight.bold,
+                child: Text(
+                  "-${double.parse(discountPercentage!).toInt()}%", // ✅ حذف الفاصلة العشرية والأصفار
+                  style: const TextStyle(
+                    color: Colors.white,
+                    fontSize: 12,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ),
             ],
           )
         else
-        // ✅ عرض السعر العادي إذا لم يكن هناك خصم
-          Text(
-            "$originalPrice درهم",
-            style: const TextStyle(
-              color: AppColor.primaryColor2,
-              fontSize: 16,
-              fontWeight: FontWeight.w300,
+          Align(
+            alignment: AlignmentDirectional.centerStart, // ✅ التأكد من أن السعر يظهر من البداية
+            child: Row(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  "$originalPrice",
+                  style: const TextStyle(
+                    color: AppColor.primaryColor2,
+                    fontSize: 17,
+                    fontWeight: FontWeight.w300,
+                  ),
+                ),
+                const SizedBox(width: 4), // ✅ مسافة صغيرة بين السعر وكلمة "درهم"
+                const Text(
+                  "درهم",
+                  style: TextStyle(
+                    color: AppColor.primaryColor2,
+                    fontSize: 17,
+                    fontWeight: FontWeight.w300,
+                  ),
+                ),
+              ],
             ),
           ),
 
         const SizedBox(height: 15),
 
-        // ✅ أزرار الإضافة والإزالة
         Row(
           children: [
             IconButton(
@@ -179,7 +251,16 @@ class PriceAndCountItems extends StatelessWidget {
         ),
       ],
     );
+
+
+
+
+
+
+
   }
+}
+
 
 
 // ✅ دالة لحساب السعر بعد الحسم
@@ -190,4 +271,4 @@ class PriceAndCountItems extends StatelessWidget {
 //   }
 
 
-}
+//}

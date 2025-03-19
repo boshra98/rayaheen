@@ -37,11 +37,13 @@ class BooksListPage extends StatelessWidget {
         ),
         itemCount: items.length,
         itemBuilder: (context, index) {
-          final itemsModel = ItemsModel.fromJson(items[index]);
-          return ItemsHome2(itemsModel: itemsModel);// Assuming your grid item widget
+          final itemsModel = items[index]; // ✅ استخدم العنصر مباشرةً دون `fromJson()`
+          return ItemsHome2(itemsModel: itemsModel);
         },
       )
           : const Center(child: CircularProgressIndicator()),
     );
   }
 }
+
+

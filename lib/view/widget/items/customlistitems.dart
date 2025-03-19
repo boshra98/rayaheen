@@ -108,6 +108,134 @@ import '../../screen/productdetails.dart';
 // }
 
 
+// class CustomListItems extends GetView<ItemsControllerImp> {
+//   final ItemsModel itemsModel;
+//
+//   const CustomListItems({Key? key, required this.itemsModel}) : super(key: key);
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return Column(
+//       //mainAxisAlignment: MainAxisAlignment.center,
+//       //crossAxisAlignment: CrossAxisAlignment.center,
+//
+//       children: [
+//         // The card
+//         InkWell(
+//           onTap: () {
+//             controller.goToPageProductDetails(itemsModel);
+//           },
+//           child: Padding(
+//             padding: const EdgeInsets.symmetric(horizontal: 6), // Adjust spacing as needed
+//             child: Card(
+//               color: AppColor.secondColor,
+//               child: Padding(
+//                 padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 10),
+//                 child: Stack(
+//                   children: [
+//                     // Main Column for Image and Details
+//                     Center(
+//                       child: Column(
+//                         mainAxisAlignment: MainAxisAlignment.center,
+//                         crossAxisAlignment: CrossAxisAlignment.center,
+//                         children: [
+//                           // Main Image
+//                           Hero(
+//                             tag: "${itemsModel.itemsId}",
+//                             child: CachedNetworkImage(
+//                               imageUrl: AppLink.imagesItems + "/" + itemsModel.itemsImage!,
+//                               height: 100,
+//                               width:100,
+//                               fit: BoxFit.fill,
+//                             ),
+//                           ),
+//                         ],
+//                       ),
+//                     ),
+//                     // Cart Icon Positioned at Bottom-Left of the Card
+//
+//                     Positioned(
+//                       bottom: 0,
+//                       left: 1,
+//                       child: Container(
+//                         width: 33,
+//                         height: 33,
+//                         decoration: BoxDecoration(
+//                           color: AppColor.primaryColor2,
+//                           shape: BoxShape.circle, // ✅ جعل الحاوية دائرية تمامًا
+//                         ),
+//                         child: Center( // ✅ توسيط `IconButton` داخل الدائرة
+//                           child: IconButton(
+//                             onPressed: () {
+//                               final CartController cartController = Get.find<CartController>(); // ✅ استرجاع `CartController`
+//
+//                               if (itemsModel!.itemsId != null) {
+//                                 cartController.add(itemsModel!.itemsId!.toString()); // ✅ تحويل `int` إلى `String`
+//                               }
+//                             },
+//                             icon: const Icon(
+//                               Icons.shopping_cart_outlined,
+//                               size: 18,
+//                               color: AppColor.secondColor,
+//                             ),
+//                             padding: EdgeInsets.zero, // ✅ إزالة أي هوامش داخل `IconButton`
+//                             constraints: BoxConstraints(), // ✅ التأكد من عدم وجود حدود إضافية
+//                           ),
+//                         ),
+//                       ),
+//                     ),
+//
+//                   ],
+//                 ),
+//               ),
+//             ),
+//           ),
+//
+//
+//
+//         ),
+//
+//         // Item name outside the card and centered below
+//         Padding(
+//           padding: const EdgeInsets.only(top: 5),
+//           child: Column(
+//             mainAxisSize: MainAxisSize.min, // Ensures the column wraps its content
+//             crossAxisAlignment: CrossAxisAlignment.center, // Centers the text
+//             children: [
+//               // Item Name
+//               Text(
+//                 "${itemsModel.itemsName}",
+//                 textAlign: TextAlign.center,
+//                 style: const TextStyle(
+//                   color: AppColor.primaryColor,
+//                   fontSize: 13,
+//                   fontFamily: "ttf",
+//                   fontWeight: FontWeight.w500, // Optional styling
+//
+//                 ),
+//                 overflow: TextOverflow.ellipsis,
+//                 maxLines: 2,
+//               ),
+//               // Item Price
+//               Text(
+//                 "${itemsModel.itemsPrice } درهم " ,
+//                 textAlign: TextAlign.center,
+//                 style: const TextStyle(
+//                   color: AppColor.primaryColor2, // Use a different color for the price
+//                   fontSize: 14,       // Slightly smaller font size for the price
+//                   fontWeight: FontWeight.w500, // Optional styling
+//                 ),
+//               ),
+//             ],
+//           ),
+//         ),
+//
+//       ],
+//     );
+//   }
+// }
+
+
 class CustomListItems extends GetView<ItemsControllerImp> {
   final ItemsModel itemsModel;
 
@@ -115,10 +243,13 @@ class CustomListItems extends GetView<ItemsControllerImp> {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      //mainAxisAlignment: MainAxisAlignment.center,
-      //crossAxisAlignment: CrossAxisAlignment.center,
+    // ✅ التحقق من وجود خصم
+    double discount = double.tryParse(itemsModel.discount?.discountPercentage ?? "0") ?? 0.0;
+    bool hasDiscount = discount > 0;
+    double originalPrice = double.tryParse(itemsModel.itemsPrice ?? "0") ?? 0.0;
+    double discountedPrice = originalPrice - (originalPrice * (discount / 100));
 
+    return Column(
       children: [
         // The card
         InkWell(
@@ -126,7 +257,7 @@ class CustomListItems extends GetView<ItemsControllerImp> {
             controller.goToPageProductDetails(itemsModel);
           },
           child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 6), // Adjust spacing as needed
+            padding: const EdgeInsets.symmetric(horizontal: 6),
             child: Card(
               color: AppColor.secondColor,
               child: Padding(
@@ -143,34 +274,53 @@ class CustomListItems extends GetView<ItemsControllerImp> {
                           Hero(
                             tag: "${itemsModel.itemsId}",
                             child: CachedNetworkImage(
-                              imageUrl: AppLink.imagesItems + "/" + itemsModel.itemsImage!,
+                              imageUrl: "${AppLink.imagesItems}/${itemsModel.itemsImage}",
                               height: 100,
-                              width:100,
+                              width: 100,
                               fit: BoxFit.fill,
                             ),
                           ),
                         ],
                       ),
                     ),
+                    // ✅ عرض نسبة الخصم على الصورة إذا كان هناك خصم
+                    if (hasDiscount)
+                      Positioned(
+                        top: -5,
+                        right: -5,
+                        child: Container(
+                          padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 3),
+                          decoration: BoxDecoration(
+                            color: Colors.red,
+                            borderRadius: BorderRadius.circular(5),
+                          ),
+                          child: Text(
+                            "-${discount.toInt()}%", // ✅ حذف الأرقام العشرية
+                            style: const TextStyle(
+                              color: Colors.white,
+                              fontSize: 12,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      ),
                     // Cart Icon Positioned at Bottom-Left of the Card
-
                     Positioned(
                       bottom: 0,
                       left: 1,
                       child: Container(
                         width: 33,
                         height: 33,
-                        decoration: BoxDecoration(
+                        decoration: const BoxDecoration(
                           color: AppColor.primaryColor2,
-                          shape: BoxShape.circle, // ✅ جعل الحاوية دائرية تمامًا
+                          shape: BoxShape.circle,
                         ),
-                        child: Center( // ✅ توسيط `IconButton` داخل الدائرة
+                        child: Center(
                           child: IconButton(
                             onPressed: () {
-                              final CartController cartController = Get.find<CartController>(); // ✅ استرجاع `CartController`
-
-                              if (itemsModel!.itemsId != null) {
-                                cartController.add(itemsModel!.itemsId!.toString()); // ✅ تحويل `int` إلى `String`
+                              final CartController cartController = Get.find<CartController>();
+                              if (itemsModel.itemsId != null) {
+                                cartController.add(itemsModel.itemsId!.toString());
                               }
                             },
                             icon: const Icon(
@@ -178,31 +328,26 @@ class CustomListItems extends GetView<ItemsControllerImp> {
                               size: 18,
                               color: AppColor.secondColor,
                             ),
-                            padding: EdgeInsets.zero, // ✅ إزالة أي هوامش داخل `IconButton`
-                            constraints: BoxConstraints(), // ✅ التأكد من عدم وجود حدود إضافية
+                            padding: EdgeInsets.zero,
+                            constraints: const BoxConstraints(),
                           ),
                         ),
                       ),
                     ),
-
                   ],
                 ),
               ),
             ),
           ),
-
-
-
         ),
 
-        // Item name outside the card and centered below
+        // Item name and price outside the card
         Padding(
           padding: const EdgeInsets.only(top: 5),
           child: Column(
-            mainAxisSize: MainAxisSize.min, // Ensures the column wraps its content
-            crossAxisAlignment: CrossAxisAlignment.center, // Centers the text
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              // Item Name
+              // ✅ اسم المنتج
               Text(
                 "${itemsModel.itemsName}",
                 textAlign: TextAlign.center,
@@ -210,27 +355,51 @@ class CustomListItems extends GetView<ItemsControllerImp> {
                   color: AppColor.primaryColor,
                   fontSize: 13,
                   fontFamily: "ttf",
-                  fontWeight: FontWeight.w500, // Optional styling
-
+                  fontWeight: FontWeight.w500,
                 ),
                 overflow: TextOverflow.ellipsis,
                 maxLines: 2,
               ),
-              // Item Price
-              Text(
-                "${itemsModel.itemsPrice } درهم " ,
-                textAlign: TextAlign.center,
-                style: const TextStyle(
-                  color: AppColor.primaryColor2, // Use a different color for the price
-                  fontSize: 14,       // Slightly smaller font size for the price
-                  fontWeight: FontWeight.w500, // Optional styling
+
+              // ✅ إذا كان هناك خصم، يتم عرض السعر بعد الحسم والسعر الأصلي
+              if (hasDiscount) ...[
+                // ✅ السعر بعد الحسم
+                Text(
+                  "${discountedPrice.toStringAsFixed(2)} درهم",
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(
+                    color: Colors.orange,
+                    fontSize: 14,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
-              ),
+                // ✅ السعر الأصلي (مشطوب)
+                // Text(
+                //   "${itemsModel.itemsPrice} درهم",
+                //   textAlign: TextAlign.center,
+                //   style: const TextStyle(
+                //     color: Colors.orange,
+                //     fontSize: 12,
+                //     fontWeight: FontWeight.bold,
+                //     decoration: TextDecoration.lineThrough,
+                //   ),
+                // ),
+              ] else
+              // ✅ إذا لم يكن هناك خصم، يتم عرض السعر العادي فقط
+                Text(
+                  "${itemsModel.itemsPrice} درهم",
+                  textAlign: TextAlign.center,
+                  style: const TextStyle(
+                    color: AppColor.primaryColor2,
+                    fontSize: 14,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
             ],
           ),
         ),
-
       ],
     );
   }
 }
+

@@ -30,6 +30,7 @@ import 'package:rayaheen_bookstore/view/widget/customappbar.dart';
 import 'package:rayaheen_bookstore/view/widget/home/listitemshome.dart';
 
 import 'allbooks.dart';
+import 'allbooksdiscount.dart';
 import 'newitems.dart';
 
 class HomePage extends StatelessWidget {
@@ -254,6 +255,23 @@ class HomePage extends StatelessWidget {
                     onTap: () {
                       Get.to(() => BooksListPage(items: controller.books));
                     },
+                  ),
+                ],
+              ),
+              ExpansionTile(
+                title: Text("107".tr,
+                    style: const TextStyle(color: AppColor.primaryColor2)),
+                children: [
+                  ListTile(
+                    title: Text("108".tr,
+                        style: TextStyle(color: AppColor.primaryColor2)),
+                      onTap: () {
+                        List<ItemsModel> discountedBooks = controller.getDiscountedBooks();
+                        print("📢 عدد الكتب المتاحة بخصومات: ${discountedBooks.length}");
+                        Get.to(() => BooksListPageDisc(items: discountedBooks));
+                      }
+
+
                   ),
                 ],
               ),
