@@ -38,9 +38,9 @@ class SignUpControllerImp extends SignUpController {
         username.text,
         password.text,
         email.text,
-        "${code.text}${phone.text}".substring(1,12),  // Combine code and phone
+        "${code.text}${phone.text}".substring(1),  // Combine code and phone
       );
-      print("${code.text}${phone.text}".substring(1,12));
+      print("${code.text}${phone.text}".substring(1));
       print("=============================== Controller $response ");
       statusRequest = handlingData(response);
       if (StatusRequest.success == statusRequest) {

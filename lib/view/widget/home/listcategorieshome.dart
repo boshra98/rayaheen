@@ -131,8 +131,8 @@ class Categories extends GetView<HomeControllerImp> {
               //color: AppColor.primaryColor, // You can set a background color or remove this line
               shape: BoxShape.circle, // Makes the container a circle
             ),
-            height: 76,
-            width: 76,
+            height: 73,
+            width: 73,
             alignment: Alignment.center, // Centers the image inside the circle
       child: ClipOval( // Clips the image into a circular shape
         child:

@@ -38,24 +38,20 @@ class CartModel {
       this.itemsCat});
 
   CartModel.fromJson(Map<String, dynamic> json) {
-    itemsprice = json['price'];
-    countitems = json['quantity'];
-    cartId = json['cart_id'];
-    cartUsersid = json['user_id'];
-    cartItemsid = json['book_id'];
-    itemsId = json['id'];
+    itemsprice = json['price']?.toString();
+    countitems = json['quantity']?.toString();
+    cartId = json['cart_id']?.toString();
+    cartUsersid = json['user_id']?.toString();
+    cartItemsid = json['book_id']?.toString();
+    itemsId = json['id']?.toString();
     itemsName = json['title'];
-    //itemsNameAr = json['items_name_ar'];
     itemsDesc = json['description'];
-    //itemsDescAr = json['items_desc_ar'];
     itemsImage = json['cover_image'];
-    itemsCount = json['count'];
-    //itemsActive = json['items_active'];
-    itemsPrice = json['price'];
-    //itemsDiscount = json['items_discount'];
-   // itemsDate = json['items_date'];
-    itemsCat = json['category_id'];
+    itemsCount = json['count']?.toString();
+    itemsPrice = json['price']?.toString();
+    itemsCat = json['category_id']?.toString();
   }
+
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();

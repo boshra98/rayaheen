@@ -1,12 +1,13 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../../controller/cart_controller.dart'; // ✅ استيراد `CartController`
 import '../../core/constant/color.dart';
-import '../../data/model/itemsmodel.dart'; // ✅ تأكد من استيراد `ItemsModel`
-import '../../linkapi.dart'; // ✅ مكتبة لحساب الوقت المتبقي
+import '../../data/model/itemsmodel.dart';
+import '../../linkapi.dart';
 
 class BooksListPageDisc extends StatelessWidget {
-  final List<ItemsModel> items; // ✅ تأكد من أن `List<ItemsModel>` صحيح
+  final List<ItemsModel> items;
 
   const BooksListPageDisc({Key? key, required this.items}) : super(key: key);
 
@@ -31,55 +32,56 @@ class BooksListPageDisc extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(title: Text("109".tr)),
       body: items.isEmpty
-          ? Center(child: Text("لا توجد كتب بخصومات"))
+          ? const Center(child: Text("لا توجد كتب بخصومات"))
           : Padding(
         padding: const EdgeInsets.all(10.0),
         child: GridView.builder(
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2, // ✅ عدد الأعمدة
+            crossAxisCount: 2,
             crossAxisSpacing: 10,
             mainAxisSpacing: 10,
-            childAspectRatio: 0.62, // ✅ التحكم في شكل العنصر
+            childAspectRatio: 0.62,
           ),
           itemCount: items.length,
           itemBuilder: (context, index) {
-            final book = items[index]; // ✅ الحصول على بيانات الكتاب
+            final book = items[index];
+            final CartController cartController = Get.find<CartController>(); // ✅ استدعاء `CartController`
 
             return GestureDetector(
               onTap: () {
                 Get.toNamed("productdetails", arguments: {"itemsmodel": book});
               },
               child: Card(
-                  elevation: 5,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: Column(
-                      mainAxisSize: MainAxisSize.min, // ✅ تجنب التمدد غير الضروري
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                  // ✅ صورة المنتج باستخدام CachedNetworkImage
-                  Expanded(
-                  child: ClipRRect(
-                  borderRadius: const BorderRadius.vertical(top: Radius.circular(10)),
-              child: CachedNetworkImage(
-                imageUrl: "${AppLink.imagesItems}/${book.itemsImage}",
-                width: double.infinity,
-                fit: BoxFit.fill,
-                placeholder: (context, url) => Center(
-                  child: CircularProgressIndicator(),
+                color:AppColor.secondColor,
+                elevation: 5,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(10),
                 ),
-                errorWidget: (context, url, error) => Image.asset(
-                  'assets/images/placeholder.jpg',
-                  width: double.infinity,
-                  fit: BoxFit.cover,
-                ),
-              ),
-            ),
-            ),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    // ✅ صورة المنتج
+                    Expanded(
+                      child: ClipRRect(
+                        borderRadius: const BorderRadius.vertical(top: Radius.circular(10)),
+                        child: CachedNetworkImage(
+                          imageUrl: "${AppLink.imagesItems}/${book.itemsImage}",
+                          width: double.infinity,
+                          height: 100,
+                          //width: 100,
+                          fit: BoxFit.fitHeight,
+                          placeholder: (context, url) => const Center(child: CircularProgressIndicator()),
+                          errorWidget: (context, url, error) => Image.asset(
+                            'assets/images/placeholder.jpg',
+                            width: double.infinity,
+                            fit: BoxFit.fitHeight,
+                          ),
+                        ),
+                      ),
+                    ),
 
-
-
+                    // ✅ معلومات المنتج
                     Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Column(
@@ -88,46 +90,43 @@ class BooksListPageDisc extends StatelessWidget {
                           // ✅ اسم الكتاب
                           Text(
                             book.itemsName ?? "بدون اسم",
-                            style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+                            style: const TextStyle(fontSize: 15,color:AppColor.primaryColor2,fontWeight: FontWeight.w500,  fontFamily: "ttf",
+
+                            ),
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
+
                           ),
+                          const SizedBox(height: 5),
+
+                          // ✅ السعر الجديد بعد الخصم
                           Text(
-                            "${(double.parse(book.itemsPrice!) * (1 - (double.parse(book.discount!.discountPercentage!) / 100))).toStringAsFixed(2)} درهم",
+                            "${(double.parse(book.itemsPrice!) * (1 - (double.parse(book.discount!.discountPercentage!) / 100))).round()} درهم",
                             style: const TextStyle(
-                              fontSize: 11,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.green,
+                              fontWeight: FontWeight.w500,
+                              fontFamily:"cairo",
+                              color: AppColor.primaryColor2,
                             ),
                           ),
 
-                          const SizedBox(height: 5),
-
-                          // ✅ السعر قبل الحسم بجانب السعر بعد الحسم ونسبة الحسم
+                          // ✅ السعر قبل الحسم ونسبة الخصم
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              // ✅ السعر بعد الحسم
-                              // Text(
-                              //   "${(double.parse(book.itemsPrice!) * (1 - (double.parse(book.discount!.discountPercentage!) / 100))).toStringAsFixed(2)} درهم",
-                              //   style: const TextStyle(
-                              //     fontSize: 11,
-                              //     fontWeight: FontWeight.bold,
-                              //     color: Colors.green,
-                              //   ),
-                              // ),
-
-                              // ✅ السعر قبل الحسم (مشطوب)
+                              // ✅ السعر الأصلي (مشطوب)
                               Text(
-                                "${book.itemsPrice} درهم",
+                                "${double.parse(book.itemsPrice!).toInt()} درهم", // ✅ تحويل السعر إلى عدد صحيح فقط
                                 style: const TextStyle(
-                                  fontSize: 8,
+                                  fontSize: 10,
                                   decoration: TextDecoration.lineThrough,
-                                  color: AppColor.primaryColor2,
+                                  color: Colors.orange,
+                                  fontFamily:"cairo",
+
                                 ),
                               ),
 
-                             // ✅ نسبة الحسم (بدون فواصل)
+
+                              // ✅ نسبة الخصم
                               Container(
                                 padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 3),
                                 decoration: BoxDecoration(
@@ -135,32 +134,43 @@ class BooksListPageDisc extends StatelessWidget {
                                   borderRadius: BorderRadius.circular(5),
                                 ),
                                 child: Text(
-                                  "-${double.parse(book.discount!.discountPercentage!).toInt()}%", // ✅ حذف الفاصلة العشرية والأصفار
-                                  style: const TextStyle(color: Colors.white, fontSize: 10, fontWeight: FontWeight.bold),
+                                  "-${double.parse(book.discount!.discountPercentage!).toInt()}%", // ✅ حذف الفاصلة العشرية
+                                  style: const TextStyle(color: Colors.white, fontSize: 10, fontWeight: FontWeight.bold,   fontFamily:"cairo",
+                                  ),
                                 ),
                               ),
-
                             ],
                           ),
 
                           const SizedBox(height: 5),
 
-                          // ✅ الوقت المتبقي للخصم
-                          Container(
-                            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-                            // decoration: BoxDecoration(
-                            //   color: Colors.grey[300], // ✅ لون رمادي
-                            //   borderRadius: BorderRadius.circular(5),
-                            // ),
-                            child: Center(
-                              child: Text(
-                                getRemainingTime(book.discount!.expiresAt!),
-                                style: const TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 8,
+                          // ✅ الوقت المتبقي للحسم وأيقونة السلة
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              // ✅ الوقت المتبقي
+                              Container(
+                                padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+                                child: Text(
+                                  getRemainingTime(book.discount!.expiresAt!),
+                                  style: const TextStyle(
+                                    color: Colors.black,
+                                    fontSize: 10,
+                                  ),
                                 ),
                               ),
-                            ),
+
+                              // ✅ أيقونة السلة لإضافة المنتج مباشرة
+                              IconButton(
+                                onPressed: () {
+
+                                  cartController.add(book.itemsId!.toString());
+                                },
+                                icon: const Icon(Icons.shopping_cart),
+                                iconSize: 20,
+                                color: AppColor.primaryColor2,
+                              ),
+                            ],
                           ),
                         ],
                       ),

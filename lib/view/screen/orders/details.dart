@@ -14,13 +14,16 @@ class OrdersDetails extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     OrdersDetailsController controller = Get.put(OrdersDetailsController());
+
     return Scaffold(
+
       appBar: AppBar(
         title: Text("62".tr),
       ),
       body: Container(
         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
         child: GetBuilder<OrdersDetailsController>(
+
             builder: ((controller) => HandlingDataView(
                 statusRequest: controller.statusRequest,
                 widget: ListView(children: [
@@ -61,16 +64,22 @@ class OrdersDetails extends StatelessWidget {
                                         Text("${controller.data[index].countitems}", textAlign: TextAlign.center),
                                         Text("${controller.data[index].itemsprice}",
                                             textAlign: TextAlign.center),
-                                      ]))
+
+
+        ]))
                             ],
                           ),
                           SizedBox(height: 10),
                           Container(
                             padding: EdgeInsets.symmetric(horizontal: 10),
-                            child:   Text("58".tr +"  : ${controller.ordersModel.ordersTotalprice} درهم ",
+                           // child:   Text("58".tr +"  : ${controller.ordersModel.ordersTotalprice} درهم ",
+                                child: Text("58".tr +"  : ${(double.parse(controller.ordersModel.ordersTotalprice ?? '0')).round()} درهم " ,
+
                                 textAlign: TextAlign.center,
                                 style: TextStyle(
                                     color: AppColor.primaryColor,
+                                    fontFamily:"cairo",
+
                                     fontWeight: FontWeight.bold)),
                           ),
                         ],

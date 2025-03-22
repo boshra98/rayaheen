@@ -118,23 +118,26 @@ class ItemsHome2 extends StatelessWidget {
               if (hasDiscount)
                 Positioned(
                   top: 5,
-                  right: 5,
+                  right: 10,
                   child: Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 3),
+                    padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 3), // ✅ تقليل التباعد الداخلي
                     decoration: BoxDecoration(
                       color: Colors.red,
-                      borderRadius: BorderRadius.circular(5),
+                      borderRadius: BorderRadius.circular(4), // ✅ تقليل استدارة الزوايا
                     ),
                     child: Text(
                       "-${discount.toInt()}%", // ✅ حذف الأرقام العشرية
                       style: const TextStyle(
                         color: Colors.white,
-                        fontSize: 12,
-                        fontWeight: FontWeight.bold,
+                        fontSize: 8,
+                        fontFamily:"cairo",
+// ✅ تصغير حجم النص
+                        fontWeight: FontWeight.w600, // ✅ جعل الخط متناسقًا ولكن ليس سميكًا جدًا
                       ),
                     ),
                   ),
                 ),
+
 
               Positioned(
                 bottom: 0,
@@ -171,7 +174,9 @@ class ItemsHome2 extends StatelessWidget {
             itemsModel!.itemsName ?? "اسم غير معروف",
             style: const TextStyle(
               color: AppColor.primaryColor,
-              fontSize: 12,
+              fontSize: 13,
+              fontFamily: "ttf",
+              fontWeight: FontWeight.w500,
             ),
             textAlign: TextAlign.center,
           ),
@@ -179,34 +184,43 @@ class ItemsHome2 extends StatelessWidget {
           // ✅ إذا كان هناك خصم، عرض السعر الجديد والسعر الأصلي مشطوبًا
           if (hasDiscount) ...[
             Text(
-              "${discountedPrice.toStringAsFixed(2)} درهم",
+              "${discountedPrice.round()} درهم", // ✅ تحويل السعر إلى عدد صحيح فقط
               style: const TextStyle(
                 color: AppColor.primaryColor2,
                 fontSize: 12,
-                fontWeight: FontWeight.bold,
+                fontFamily:"cairo",
+
+                //fontWeight: FontWeight.bold,
               ),
               textAlign: TextAlign.center,
             ),
+
             Text(
-              "${itemsModel!.itemsPrice} درهم",
+              "${double.parse(itemsModel!.itemsPrice!).round()} درهم", // ✅ تحويل السعر إلى عدد صحيح فقط
               style: const TextStyle(
                 color: Colors.orange,
                 fontSize: 10,
                 fontWeight: FontWeight.bold,
+                fontFamily:"cairo",
+
                 decoration: TextDecoration.lineThrough,
               ),
               textAlign: TextAlign.center,
             ),
+
           ] else
           // ✅ إذا لم يكن هناك خصم، عرض السعر العادي فقط
             Text(
-              "${itemsModel!.itemsPrice} درهم",
+              "${double.parse(itemsModel!.itemsPrice!).round()} درهم", // ✅ تحويل السعر إلى عدد صحيح فقط
               style: const TextStyle(
                 color: AppColor.primaryColor2,
-                fontSize: 10,
+                  fontSize: 14,
+                  fontWeight: FontWeight.w500,
+                  fontFamily:"cairo"
               ),
               textAlign: TextAlign.center,
             ),
+
         ],
       ),
     );

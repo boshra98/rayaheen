@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:rayaheen_bookstore/core/class/crud.dart';
 
 import '../core/class/statusrequest.dart';
+import '../core/constant/color.dart';
 import '../core/constant/routes.dart';
 import '../core/functions/handlingdatacontroller.dart';
 import '../core/services/cartservices.dart';
@@ -69,7 +70,10 @@ class CartController extends GetxController {
 
         Get.rawSnackbar(
             title: "اشعار",
-            messageText: const Text("تم اضافة المنتج الى السلة "));
+            messageText: const Text("تم اضافة المنتج الى السلة ",style: TextStyle(color: AppColor.secondColor2),
+              textAlign: TextAlign.right,
+            )
+        );
         // data.addAll(response['data']);
       } else {
         statusRequest = StatusRequest.failure;

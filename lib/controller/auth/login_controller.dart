@@ -45,8 +45,8 @@ class LoginControllerImp extends LoginController {
     if (formstate.currentState!.validate()) {
       statusRequest = StatusRequest.loading;
       update();
-      var response = await loginData.postdata( "${code.text}${phone.text}".substring(1,12), password.text);
-      print("${code.text}${phone.text}".substring(1,12));
+      var response = await loginData.postdata( "${code.text}${phone.text}".substring(1), password.text);
+      print("${code.text}${phone.text}".substring(1));
 
       print("=============================== Controller $response ");
       statusRequest = handlingData(response);

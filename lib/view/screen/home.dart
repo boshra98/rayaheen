@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_dash/flutter_dash.dart';
 import 'package:get/get.dart';
 
+import '../../controller/cart_controller.dart';
 import '../../controller/home_controller.dart';
 import '../../core/class/handlingdataview.dart';
 import '../../core/constant/color.dart';
@@ -62,6 +63,8 @@ class HomePage extends StatelessWidget {
           // Use endDrawer for the drawer to appear on the right side
           child: ListView(
             padding: EdgeInsets.zero,
+            shrinkWrap: true, // Helps with wrapping the content
+
             children: [
               DrawerHeader(
                 decoration: BoxDecoration(color: AppColor.primaryColor2),
@@ -275,6 +278,9 @@ class HomePage extends StatelessWidget {
                   ),
                 ],
               ),
+              const SizedBox(height: 70),
+
+
 
               // ExpansionTile(
               //   title: const Text('اختر حسب دور النشر'),
@@ -400,6 +406,60 @@ class HomePage extends StatelessWidget {
 //     )
 //   }
 // }
+// class ListItemsSearch extends GetView<HomeControllerImp> {
+//   final List<ItemsModel> listdatamodel;
+//   const ListItemsSearch({Key? key, required this.listdatamodel})
+//       : super(key: key);
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     Get.put(HomeControllerImp());
+//
+//     return GetBuilder<HomeControllerImp>(
+//       builder: (controller) {
+//         return ListView.builder(
+//           itemCount: listdatamodel.length,
+//           shrinkWrap: true,
+//           physics: NeverScrollableScrollPhysics(),
+//           itemBuilder: (context, index) {
+//             return InkWell(
+//               onTap: () {
+//                 // controller.goToPageProductDetails(listdatamodel[index]);
+//                 Get.find<HomeControllerImp>()
+//                     .goToPageProductDetails(listdatamodel[index]);
+//               },
+//               child: Container(
+//                 margin: const EdgeInsets.symmetric(vertical: 20),
+//                 child: Card(
+//                   child: Container(
+//                     padding: EdgeInsets.all(10),
+//                     child: Row(
+//                       children: [
+//                         Expanded(
+//                           child: CachedNetworkImage(
+//                             imageUrl:
+//                                 "${AppLink.imagesItems}/${listdatamodel[index].itemsImage}",
+//                           ),
+//                         ),
+//                         Expanded(
+//                           flex: 2,
+//                           child: ListTile(
+//                             title: Text(listdatamodel[index].itemsName!),
+//                             subtitle: Text(listdatamodel[index].itemsPrice!),
+//                           ),
+//                         ),
+//                       ],
+//                     ),
+//                   ),
+//                 ),
+//               ),
+//             );
+//           },
+//         );
+//       },
+//     ); // ✅ This closing bracket was missing
+//   }
+// }
 class ListItemsSearch extends GetView<HomeControllerImp> {
   final List<ItemsModel> listdatamodel;
   const ListItemsSearch({Key? key, required this.listdatamodel})
@@ -411,46 +471,123 @@ class ListItemsSearch extends GetView<HomeControllerImp> {
 
     return GetBuilder<HomeControllerImp>(
       builder: (controller) {
-        return ListView.builder(
+        return GridView.builder(
+          shrinkWrap: true, // ✅ يسمح بتحديد الارتفاع بناءً على العناصر
+          physics: NeverScrollableScrollPhysics(), //
           itemCount: listdatamodel.length,
-          shrinkWrap: true,
-          physics: NeverScrollableScrollPhysics(),
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 2, // عدد الأعمدة في الشبكة
+            crossAxisSpacing: 8,
+            mainAxisSpacing: 8,
+            childAspectRatio: 0.7, // نسبة العرض إلى الارتفاع
+          ),
+          padding: const EdgeInsets.all(8),
           itemBuilder: (context, index) {
+            final itemsModel = listdatamodel[index];
+
+
             return InkWell(
+
               onTap: () {
-                // controller.goToPageProductDetails(listdatamodel[index]);
-                Get.find<HomeControllerImp>()
-                    .goToPageProductDetails(listdatamodel[index]);
+                Get.find<HomeControllerImp>().goToPageProductDetails(itemsModel);
               },
-              child: Container(
-                margin: const EdgeInsets.symmetric(vertical: 20),
-                child: Card(
-                  child: Container(
-                    padding: EdgeInsets.all(10),
-                    child: Row(
-                      children: [
-                        Expanded(
-                          child: CachedNetworkImage(
-                            imageUrl:
-                                "${AppLink.imagesItems}/${listdatamodel[index].itemsImage}",
+              child: Column(
+                children: [
+                  // Stack with Image and Background
+                  Stack(
+                    children: [
+                      // Background Container with Rounded Corners
+                      Container(
+                        margin: const EdgeInsets.symmetric(horizontal: 10),
+                        decoration: BoxDecoration(
+                          color: AppColor.secondColor,
+                          borderRadius: BorderRadius.circular(15),
+                        ),
+                        height: 120,
+                        width: 130,
+                      ),
+
+                      // Image Positioned at the Center
+                      Positioned(
+                        top: 5,
+                        left: 5,
+                        right: 5,
+                        child: CachedNetworkImage(
+                          imageUrl: itemsModel.itemsImage != null
+                              ? "${AppLink.imagesItems}/${itemsModel.itemsImage}"
+                              : "https://via.placeholder.com/90", // صورة افتراضية
+                          height: 90,
+                          width: 90,
+                          fit: BoxFit.contain,
+                          placeholder: (context, url) => const Center(
+                            child: CircularProgressIndicator(),
+                          ),
+                          errorWidget: (context, url, error) => const Icon(Icons.error),
+                        ),
+                      ),
+
+                      // إظهار نسبة الخصم إذا كان هناك خصم
+
+
+                      // زر إضافة إلى السلة
+                      Positioned(
+                        bottom: 0,
+                        left: 0,
+                        child: Container(
+                          width: 30,
+                          height: 30,
+                          decoration: BoxDecoration(
+                            color: AppColor.primaryColor2,
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          child: IconButton(
+                            onPressed: () {
+                              final CartController cartController = Get.find<CartController>();
+                              if (itemsModel.itemsId != null) {
+                                cartController.add(itemsModel.itemsId!.toString());
+                              }
+                            },
+                            icon: const Icon(
+                              Icons.shopping_cart_outlined,
+                              size: 14,
+                              color: AppColor.secondColor,
+                            ),
                           ),
                         ),
-                        Expanded(
-                          flex: 2,
-                          child: ListTile(
-                            title: Text(listdatamodel[index].itemsName!),
-                            subtitle: Text(listdatamodel[index].itemsPrice!),
-                          ),
-                        ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
-                ),
+
+                  // Text Below the Stack
+                  Text(
+                    itemsModel.itemsName ?? "اسم غير معروف",
+                    style: const TextStyle(
+                      color: AppColor.primaryColor,
+                      fontSize: 13,
+                      fontFamily: "ttf",
+                      fontWeight: FontWeight.w500,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+
+                  // عرض السعر مع أو بدون خصم
+
+                    Text(
+                      "${double.parse(itemsModel.itemsPrice!).round()} درهم",
+                      style: const TextStyle(
+                        color: AppColor.primaryColor2,
+                        fontSize: 14,
+                        fontWeight: FontWeight.w500,
+                        fontFamily: "cairo",
+                      ),
+                      textAlign: TextAlign.center,
+                    ),
+                ],
               ),
             );
           },
         );
       },
-    ); // ✅ This closing bracket was missing
+    );
   }
 }

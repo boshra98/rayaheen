@@ -133,19 +133,23 @@ class PriceAndCountItems extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Text(
-                    "$discountedPrice",
+                    "${discountedPrice.round()}", // ✅ تحويل السعر إلى عدد صحيح فقط
                     style: const TextStyle(
                       color: AppColor.primaryColor2,
-                      fontSize: 16,
+                      fontSize: 20,
+                      //fontWeight: FontWeight.w300,
+
+                      fontFamily:"cairo",
                       fontWeight: FontWeight.bold,
                     ),
                   ),
+
                   const SizedBox(width: 2), // ✅ مسافة صغيرة بين السعر وكلمة "درهم"
                   const Text(
                     "درهم",
                     style: TextStyle(
                       color: AppColor.primaryColor2,
-                      fontSize: 8,
+                      fontSize: 10,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
@@ -158,23 +162,26 @@ class PriceAndCountItems extends StatelessWidget {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Text(
-                    "$originalPrice",
+                    "${originalPrice.round()}", // ✅ تحويل السعر إلى عدد صحيح فقط
                     style: const TextStyle(
                       color: Colors.orange,
                       fontSize: 13,
+                      fontFamily:"cairo",
+
                       fontWeight: FontWeight.bold,
                       decoration: TextDecoration.lineThrough,
                     ),
                   ),
+
                   const SizedBox(width: 2), // ✅ مسافة صغيرة بين السعر وكلمة "درهم"
-                  // const Text(
-                  //   "درهم",
-                  //   style: TextStyle(
-                  //     color: Colors.orange,
-                  //     fontSize: 8,
-                  //     fontWeight: FontWeight.bold,
-                  //   ),
-                  // ),
+                  const Text(
+                    "درهم",
+                    style: TextStyle(
+                      color: Colors.orange,
+                      fontSize: 8,
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
                 ],
               ),
               const SizedBox(width: 8),
@@ -191,6 +198,8 @@ class PriceAndCountItems extends StatelessWidget {
                   style: const TextStyle(
                     color: Colors.white,
                     fontSize: 12,
+                    fontFamily:"cairo",
+
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -204,19 +213,21 @@ class PriceAndCountItems extends StatelessWidget {
               mainAxisSize: MainAxisSize.min,
               children: [
                 Text(
-                  "$originalPrice",
+                  "${originalPrice.round()}", // ✅ تحويل السعر إلى عدد صحيح فقط
                   style: const TextStyle(
                     color: AppColor.primaryColor2,
                     fontSize: 17,
                     fontWeight: FontWeight.w300,
+                    fontFamily:"cairo"
                   ),
                 ),
-                const SizedBox(width: 4), // ✅ مسافة صغيرة بين السعر وكلمة "درهم"
+
+                const SizedBox(width: 5), // ✅ مسافة صغيرة بين السعر وكلمة "درهم"
                 const Text(
                   "درهم",
                   style: TextStyle(
                     color: AppColor.primaryColor2,
-                    fontSize: 17,
+                    fontSize: 16,
                     fontWeight: FontWeight.w300,
                   ),
                 ),

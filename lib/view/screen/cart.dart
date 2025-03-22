@@ -29,7 +29,7 @@ class Cart extends StatelessWidget {
                 },
                 price: "${cartController.priceorders}",
                 discount: "${controller.discountcoupon}%",
-                totalprice: "${controller.getTotalPrice()}")),
+                totalprice: "${controller.getTotalPrice().round()}")),
       body: Obx(() {
         final cartController = Get.find<CartController>(); // ✅ Get the correct controller
 
@@ -39,7 +39,7 @@ class Cart extends StatelessWidget {
             children: [
               SizedBox(height: 10),
               TopCardCart(
-                message: "88".tr + "${cartController.cartService.cartItemCount.value}" + "89".tr,
+                message: "${"88".tr} ${cartController.cartService.cartItemCount.value} ${"89".tr}",
               ),
               Container(
                 padding: EdgeInsets.all(10),
@@ -57,8 +57,9 @@ class Cart extends StatelessWidget {
                         },
                         imagename: "${cartController.data[index].itemsImage}",
                         name: "${cartController.data[index].itemsName}",
-                        price: "${cartController.data[index].itemsprice} درهم",
-                        count: "${cartController.data[index].countitems}",
+                            price: "${cartController.data[index].itemsprice} درهم",
+
+                              count: "${cartController.data[index].countitems}",
                       ),
                     ),
                   ],
