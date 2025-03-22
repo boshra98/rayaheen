@@ -27,8 +27,8 @@ class ForgetPasswordControllerImp extends ForgetPasswordController{
     if (formstate.currentState!.validate()){
       statusRequest = StatusRequest.loading;
       update() ;
-      var response = await checkphoneData.postdata( "${code.text}${phone.text}".substring(1,12));
-      print("${code.text}${phone.text}".substring(1,12));
+      var response = await checkphoneData.postdata( "${code.text}${phone.text}".substring(1));
+      print("${code.text}${phone.text}".substring(1));
 
       print("=============================== Controller $response ");
       statusRequest = handlingData(response);
@@ -36,7 +36,7 @@ class ForgetPasswordControllerImp extends ForgetPasswordController{
         if (response['status'] == "success") {
           // data.addAll(response['data']);
           Get.offNamed(AppRoute.resetPassword , arguments: {
-            "phone" : "${code.text}${phone.text}".substring(1,12)
+            "phone" : "${code.text}${phone.text}".substring(1)
           });
 
         } else {
