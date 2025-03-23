@@ -117,9 +117,9 @@ class BooksListPageDisc extends StatelessWidget {
                               Text(
                                 "${double.parse(book.itemsPrice!).toInt()} درهم", // ✅ تحويل السعر إلى عدد صحيح فقط
                                 style: const TextStyle(
-                                  fontSize: 10,
+                                  fontSize: 13,
                                   decoration: TextDecoration.lineThrough,
-                                  color: Colors.orange,
+                                  color: Colors.black,
                                   fontFamily:"cairo",
 
                                 ),
@@ -135,7 +135,7 @@ class BooksListPageDisc extends StatelessWidget {
                                 ),
                                 child: Text(
                                   "-${double.parse(book.discount!.discountPercentage!).toInt()}%", // ✅ حذف الفاصلة العشرية
-                                  style: const TextStyle(color: Colors.white, fontSize: 10, fontWeight: FontWeight.bold,   fontFamily:"cairo",
+                                  style: const TextStyle(color: Colors.white, fontSize: 11, fontWeight: FontWeight.bold,   fontFamily:"cairo",
                                   ),
                                 ),
                               ),
@@ -154,7 +154,7 @@ class BooksListPageDisc extends StatelessWidget {
                                 child: Text(
                                   getRemainingTime(book.discount!.expiresAt!),
                                   style: const TextStyle(
-                                    color: Colors.black,
+                                    color: Colors.black,fontFamily:"cairo",
                                     fontSize: 10,
                                   ),
                                 ),

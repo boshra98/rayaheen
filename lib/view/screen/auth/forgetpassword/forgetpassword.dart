@@ -21,6 +21,8 @@ class _ForgetPasswordState extends State<ForgetPassword> {
     {"country": "UAE", "code": "+971"},
     {"country": "Oman", "code": "+968"},
     {"country": "Saudi Arabia", "code": "+966"},
+    {"country": "Syria", "code": "+963"},
+
     {"country": "Afghanistan", "code": "+93"},
     {"country": "Albania", "code": "+355"},
     {"country": "Algeria", "code": "+213"},
@@ -187,7 +189,6 @@ class _ForgetPasswordState extends State<ForgetPassword> {
     {"country": "Suriname", "code": "+597"},
     {"country": "Sweden", "code": "+46"},
     {"country": "Switzerland", "code": "+41"},
-    {"country": "Syria", "code": "+963"},
     {"country": "Taiwan", "code": "+886"},
     {"country": "Tajikistan", "code": "+992"},
     {"country": "Tanzania", "code": "+255"},
