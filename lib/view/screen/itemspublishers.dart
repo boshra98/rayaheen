@@ -56,8 +56,11 @@ class itemspublishers extends StatelessWidget {
                       physics: const NeverScrollableScrollPhysics(),
                       itemCount: controller.data.length,
                       gridDelegate:
-                      const SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 2, childAspectRatio: 0.7),
+                       SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2,
+                         childAspectRatio: MediaQuery.of(context).orientation == Orientation.portrait
+                             ? 0.7
+                             : 1.0,),
                       itemBuilder: (BuildContext context, index) {
                         controllerFav.isFavorite[controller.data[index]
                         ['items_id']] =

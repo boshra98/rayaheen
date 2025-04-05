@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../core/constant/color.dart';
+import '../core/constant/routes.dart';
 import '../core/services/cartservices.dart';
 import '../data/model/cartmodel.dart';
 import 'cart_controller.dart';
@@ -47,36 +48,64 @@ class ProductDetailsControllerImp extends ProductDetailsController {
 
   int countitems = 1;
 
-  intialData() async {
+  // intialData() async {
+  //   statusRequest = StatusRequest.loading;
+  //   itemsModel = Get.arguments['itemsmodel'];
+  //   countitems = await getCountItems(itemsModel.itemsId! );
+  //   statusRequest = StatusRequest.success;
+  //   update();
+  // }
+  Future<void> intialData() async {
     statusRequest = StatusRequest.loading;
     itemsModel = Get.arguments['itemsmodel'];
-    countitems = await getCountItems(itemsModel.itemsId! );
+    countitems = await getCountItems(itemsModel.itemsId!);
     statusRequest = StatusRequest.success;
     update();
   }
 
-  getCountItems(int itemsid) async {
-    statusRequest = StatusRequest.loading;
-    var response = await cartData.getCountCart(
-        myServices.sharedPreferences.getString("id")!, itemsid);
-    print("=============================== Controller getCountItems  $response ");
-    statusRequest = handlingData(response);
-    if (StatusRequest.success == statusRequest) {
-      // Start backend
-      if (response['status'] == "success") {
-        int countitems = 0;
-        countitems = response['data'];
-        print("==================================");
-        print("$countitems");
 
-        return countitems;
-        // data.addAll(response['data']);
-      } else {
-        statusRequest = StatusRequest.failure;
-      }
-      // End
+  // getCountItems(int itemsid) async {
+  //   statusRequest = StatusRequest.loading;
+  //   var response = await cartData.getCountCart(
+  //       myServices.sharedPreferences.getString("id")!, itemsid);
+  //   print("=============================== Controller getCountItems  $response ");
+  //   statusRequest = handlingData(response);
+  //   if (StatusRequest.success == statusRequest) {
+  //     // Start backend
+  //     if (response['status'] == "success") {
+  //       int countitems = 0;
+  //       countitems = response['data'];
+  //       print("==================================");
+  //       print("$countitems");
+  //
+  //       return countitems;
+  //       // data.addAll(response['data']);
+  //     } else {
+  //       statusRequest = StatusRequest.failure;
+  //     }
+  //     // End
+  //   }
+  // }
+
+  Future<int> getCountItems(int itemsid) async {
+    String userId = myServices.sharedPreferences.getString("id") ?? "";
+
+    if (userId == "guest") {
+      return 0; // Guest has no cart, so 0 is safe
     }
+
+    try {
+      var response = await cartData.getCountCart(userId, itemsid);
+      if (response['status'] == "success" && response['data'] != null) {
+        return response['data'];
+      }
+    } catch (e) {
+      print("Error in getCountItems: $e");
+    }
+
+    return 0;
   }
+
 
   // addItems(int itemsid) async {
   //   statusRequest = StatusRequest.loading;
@@ -109,25 +138,14 @@ class ProductDetailsControllerImp extends ProductDetailsController {
   //   update();
   // }
   addItems(int itemsid) async {
-    // if (itemsModel.itemsCount == 0) {
-    //   Get.rawSnackbar(
-    //     titleText: const Text(
-    //       "إشعار",
-    //       style: TextStyle(
-    //         color: AppColor.secondColor2,
-    //         fontWeight: FontWeight.bold,
-    //         fontSize: 16,
-    //       ),
-    //       textAlign: TextAlign.right,
-    //     ),
-    //     messageText: const Text(
-    //       "نفذت الكمية، لا يمكنك إضافة هذا المنتج",
-    //       style: TextStyle(color: AppColor.secondColor2),
-    //       textAlign: TextAlign.right,
-    //     ),
-    //   );
-    //   return;
-    // }
+    if (myServices.sharedPreferences.getString("id") == "guest") {
+      Get.snackbar("تنبيه", "يرجى تسجيل الدخول لإضافة المنتجات");
+      Future.delayed(Duration(seconds: 1), () {
+        Get.toNamed(AppRoute.login);
+      });
+      return;
+    }
+
 
     statusRequest = StatusRequest.loading;
     update();
@@ -167,6 +185,14 @@ class ProductDetailsControllerImp extends ProductDetailsController {
   }
 
   deleteitems(int itemsid) async {
+    if (myServices.sharedPreferences.getString("id") == "guest") {
+      Get.snackbar("تنبيه", "يرجى تسجيل الدخول لإضافة المنتجات");
+      Future.delayed(Duration(seconds: 1), () {
+        Get.toNamed(AppRoute.login);
+      });
+      return;
+    }
+
     statusRequest = StatusRequest.loading;
     update();
 // if(getCountItems(itemsid)>1)

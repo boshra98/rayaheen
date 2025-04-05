@@ -17,6 +17,10 @@ class MyMiddleWare extends GetMiddleware {
     if (route == '/' || route == AppRoute.language) {
       return null;
     }
+    if (myServices.sharedPreferences.getString("step") == "guest") {
+      return const RouteSettings(name: AppRoute.homePage);
+    }
+
 
     // If the user has completed step 2, redirect to the homepage
     if (myServices.sharedPreferences.getString("step") == "2") {

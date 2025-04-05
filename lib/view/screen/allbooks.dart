@@ -27,9 +27,11 @@ class BooksListPage extends StatelessWidget {
           ? GridView.builder(
         shrinkWrap: true, // Ensures it does not take up excess space
         physics: AlwaysScrollableScrollPhysics(), // Allow scrolling in all cases
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+        gridDelegate:  SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2, // Number of columns in the grid
-          childAspectRatio: 0.8,
+          childAspectRatio: MediaQuery.of(context).orientation == Orientation.portrait
+              ? 0.7
+              : 1.0,
           mainAxisSpacing: 0.0,
           crossAxisSpacing: 0.0,  // Space between columns (horizontally)
 // Space between rows (vertically)

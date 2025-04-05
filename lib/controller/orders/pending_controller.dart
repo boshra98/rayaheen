@@ -2,6 +2,7 @@
 import 'package:get/get.dart';
 
 import '../../core/class/statusrequest.dart';
+import '../../core/constant/routes.dart';
 import '../../core/functions/handlingdatacontroller.dart';
 import '../../core/services/services.dart';
 import '../../data/datasource/remote/orders/pending_data.dart';
@@ -13,7 +14,7 @@ class OrdersPendingController extends GetxController {
 
   List<OrdersModel> data = [];
 
-  late StatusRequest statusRequest;
+  StatusRequest statusRequest = StatusRequest.none;
 
   MyServices myServices = Get.find();
 
@@ -47,6 +48,14 @@ class OrdersPendingController extends GetxController {
     }
   }
   getOrders() async {
+    final userId = myServices.sharedPreferences.getString("id");
+    if (userId == "guest") {
+      Get.snackbar("تنبيه", "يرجى تسجيل الدخول لعرض الطلبات");
+      Future.delayed(Duration(seconds: 1), () {
+        Get.toNamed(AppRoute.login);
+      });
+      return;
+    }
     data.clear();
     statusRequest = StatusRequest.loading;
     update();
@@ -68,6 +77,14 @@ class OrdersPendingController extends GetxController {
   }
 
   deleteOrder(int orderid) async {
+    final userId = myServices.sharedPreferences.getString("id");
+    if (userId == "guest") {
+      Get.snackbar("تنبيه", "يرجى تسجيل الدخول لعرض الطلبات");
+      Future.delayed(Duration(seconds: 1), () {
+        Get.toNamed(AppRoute.login);
+      });
+      return;
+    }
     data.clear();
     statusRequest = StatusRequest.loading;
     update();

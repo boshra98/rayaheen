@@ -1,18 +1,11 @@
-import 'dart:io';
 
-import 'package:double_tap_to_exit/double_tap_to_exit.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_dash/flutter_dash.dart';
 import 'package:get/get.dart';
-
 import '../../controller/cart_controller.dart';
 import '../../controller/home_controller.dart';
 import '../../core/class/handlingdataview.dart';
 import '../../core/constant/color.dart';
-import '../../core/constant/imageasset.dart';
-import '../../core/functions/alartexitapp.dart';
 import '../../data/model/categorymodel.dart';
-import '../../data/model/publisherModel.dart';
 
 import '../../data/model/itemsmodel.dart';
 import '../../linkapi.dart';
@@ -20,16 +13,17 @@ import '../widget/customappbar2.dart';
 import '../widget/home/customcardhome.dart';
 import '../widget/home/customtitlehome.dart';
 import '../widget/home/listagegroup.dart';
+import '../widget/home/listagegroup_responsive.dart';
+import '../widget/home/listagegroup_responsive_ordered.dart';
 import '../widget/home/listcategorieshome.dart';
 
 import 'package:cached_network_image/cached_network_image.dart';
 
-import 'package:rayaheen_bookstore/core/constant/routes.dart';
 
-import 'package:rayaheen_bookstore/view/widget/customappbar.dart';
 
 import 'package:rayaheen_bookstore/view/widget/home/listitemshome.dart';
 
+import '../widget/home/listitemshome_responsive_final.dart';
 import 'allbooks.dart';
 import 'allbooksdiscount.dart';
 import 'newitems.dart';
@@ -231,12 +225,7 @@ class HomePage extends StatelessWidget {
 
                             controller.goToItemsByPublisher(
                                 publisher, controller.categories);
-                            // controller.goToItems(
-                            //     controller.publishers,
-                            //     controller.publishers.indexOf(category),
-                            //     PublisherModel.publisherName!.toString();
-                            //   // categoryModel.categoriesId! as String ,
-                            // );
+
                           },
                         );
                       }).toList()
@@ -282,27 +271,7 @@ class HomePage extends StatelessWidget {
 
 
 
-              // ExpansionTile(
-              //   title: const Text('اختر حسب دور النشر'),
-              //   leading: const Icon(Icons.book),
-              //   children: controller.publishers.isNotEmpty
-              //       ? controller.publishers.map<Widget>((publisher) {
-              //     // Assuming publisher JSON has "name" and "id" fields
-              //     return ListTile(
-              //       title: Text(publisher['name'] ?? 'No Name'),
-              //       onTap: () {
-              //         // Add navigation logic if necessary
-              //       //  controller.goToItemsByPublisher(publisher['id']);
-              //       },
-              //     );
-              //   }).toList()
-              //       : [
-              //     // const Center(
-              //     //   child: CircularProgressIndicator(),
-              //     // ),
-              //   ],
-              // ),
-//here)
+
             ],
           ),
         ),
@@ -329,9 +298,11 @@ class HomePage extends StatelessWidget {
                         children: [
                           const CustomCardHome(),
                           CustomTitleHome(title: '43'.tr),
-                          const ListItemsHome(),
+                          //const ListItemsHome(),
+                          const ListItemsHomeResponsive(),
+
                           // CustomTitleHome(title: '42'.tr,),
-                          const ListAgeGroup(),
+                          const ListAgeGroupRR(),
                           CustomTitleHome(title: '74'.tr),
                           const ListCategoriesHome(),
                         ],
@@ -346,120 +317,7 @@ class HomePage extends StatelessWidget {
   }
 }
 
-// class ListItemsSearch extends GetView<HomeControllerImp> {
-//
-//   final List<ItemsModel> listdatamodel;
-//   const ListItemsSearch({Key? key, required this.listdatamodel})
-//       : super(key: key);
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     Get.put(HomeControllerImp());
-//
-//     return
-//
-//       GetBuilder<HomeControllerImp>(
-//           builder: (controller)
-//     { return
-//         ListView.builder(
-//             itemCount: listdatamodel.length,
-//             shrinkWrap: true,
-//             physics: NeverScrollableScrollPhysics(),
-//             itemBuilder: (context, index) {
-//               return InkWell(
-//                 onTap: () {
-//                   controller.goToPageProductDetails(listdatamodel[index]);
-//                   //  Get.find<HomeControllerImp>().goToPageProductDetails(listdatamodel);
-//
-//                 },
-//                 child: Container(
-//                   margin: const EdgeInsets.symmetric(vertical: 20),
-//                   child: Card(
-//                       child: Container(
-//                         padding: EdgeInsets.all(10),
-//                         child: Row(
-//                           children: [
-//                             Expanded(
-//                                 child: CachedNetworkImage(
-//                                     imageUrl:
-//                                     "${AppLink
-//                                         .imagesItems}/${listdatamodel[index]
-//                                         .itemsImage}")),
-//                             Expanded(
-//                                 flex: 2,
-//                                 child: ListTile(
-//                                   title: Text(listdatamodel[index].itemsName!),
-//                                   subtitle: Text(
-//                                       listdatamodel[index].itemsPrice!),
-//                                 )),
-//                           ],
-//                         ),
-//                       )
-//                   ),
-//                 ),
-//               );
-//
-//             }
-//         );
-//
-//
-//     )
-//   }
-// }
-// class ListItemsSearch extends GetView<HomeControllerImp> {
-//   final List<ItemsModel> listdatamodel;
-//   const ListItemsSearch({Key? key, required this.listdatamodel})
-//       : super(key: key);
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     Get.put(HomeControllerImp());
-//
-//     return GetBuilder<HomeControllerImp>(
-//       builder: (controller) {
-//         return ListView.builder(
-//           itemCount: listdatamodel.length,
-//           shrinkWrap: true,
-//           physics: NeverScrollableScrollPhysics(),
-//           itemBuilder: (context, index) {
-//             return InkWell(
-//               onTap: () {
-//                 // controller.goToPageProductDetails(listdatamodel[index]);
-//                 Get.find<HomeControllerImp>()
-//                     .goToPageProductDetails(listdatamodel[index]);
-//               },
-//               child: Container(
-//                 margin: const EdgeInsets.symmetric(vertical: 20),
-//                 child: Card(
-//                   child: Container(
-//                     padding: EdgeInsets.all(10),
-//                     child: Row(
-//                       children: [
-//                         Expanded(
-//                           child: CachedNetworkImage(
-//                             imageUrl:
-//                                 "${AppLink.imagesItems}/${listdatamodel[index].itemsImage}",
-//                           ),
-//                         ),
-//                         Expanded(
-//                           flex: 2,
-//                           child: ListTile(
-//                             title: Text(listdatamodel[index].itemsName!),
-//                             subtitle: Text(listdatamodel[index].itemsPrice!),
-//                           ),
-//                         ),
-//                       ],
-//                     ),
-//                   ),
-//                 ),
-//               ),
-//             );
-//           },
-//         );
-//       },
-//     ); // ✅ This closing bracket was missing
-//   }
-// }
+
 class ListItemsSearch extends GetView<HomeControllerImp> {
   final List<ItemsModel> listdatamodel;
   const ListItemsSearch({Key? key, required this.listdatamodel})
@@ -475,11 +333,14 @@ class ListItemsSearch extends GetView<HomeControllerImp> {
           shrinkWrap: true, // ✅ يسمح بتحديد الارتفاع بناءً على العناصر
           physics: NeverScrollableScrollPhysics(), //
           itemCount: listdatamodel.length,
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 2, // عدد الأعمدة في الشبكة
+          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: MediaQuery.of(context).size.width > 600 ? 3 : 2,
+            // عدد الأعمدة في الشبكة
             crossAxisSpacing: 8,
             mainAxisSpacing: 8,
-            childAspectRatio: 0.7, // نسبة العرض إلى الارتفاع
+            childAspectRatio: MediaQuery.of(context).orientation == Orientation.portrait
+                ? 0.7
+                : 1.0,
           ),
           padding: const EdgeInsets.all(8),
           itemBuilder: (context, index) {

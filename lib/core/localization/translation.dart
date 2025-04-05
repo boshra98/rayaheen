@@ -116,6 +116,9 @@ class MyTranslation extends Translations {
           "107":"الخصومات والعروض",
           "108":"عرض الخصومات المتاحة" ,
           "109":"الخصومات",
+          "110":"المتابعة كزائر",
+          "111":"حذف الحساب",
+          "112":"هل أنت متأكد من حذف حسابك"
         },
         "en": {
           "1": "Choose Language",
@@ -226,6 +229,9 @@ class MyTranslation extends Translations {
           "107":"Discount",
           "108":"all Discount Available",
           "109":"Discount",
+          "110":"Continue as Guest",
+          "111":"Delete Account",
+          "112":"Are you sure you want to Delete Account?"
 
         }
       };

@@ -93,12 +93,13 @@ class ListAgeGroup extends GetView<HomeControllerImp> {
             child: GridView.builder(
               itemCount: ageGroups.length, // Use the fixed age group count
               physics: const NeverScrollableScrollPhysics(), // Disable scrolling
-              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 3, // 3 items per row for symmetry
-                crossAxisSpacing: 50, // Equal horizontal spacing between circles
-                mainAxisSpacing: 20, // Equal vertical spacing between circles
-                childAspectRatio: 1, // Ensure items are square
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                crossAxisCount: MediaQuery.of(context).size.width > 600 ? 4 : 3,
+                crossAxisSpacing: 30,
+                mainAxisSpacing: 20,
+                childAspectRatio: MediaQuery.of(context).size.width / MediaQuery.of(context).size.height * 1.1,
               ),
+
               itemBuilder: (context, index) {
                 // Add conditional padding for the first row
                 final int originalIndex = displayOrder[index];

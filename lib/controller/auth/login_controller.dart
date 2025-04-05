@@ -55,7 +55,8 @@ class LoginControllerImp extends LoginController {
           print("hhhhhh");
           myServices.sharedPreferences.setString("id", response['id']);
 
-
+          // ✅ أضف هذه السطر لتحديد أن المستخدم "ليس زائرًا"
+          myServices.sharedPreferences.setBool("guest", false);
           // Simulate login by saving a token
           // SharedPreferences prefs = await SharedPreferences.getInstance();
           // await prefs.setString('auth_token', 'user_token');

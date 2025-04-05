@@ -45,6 +45,13 @@ class CartController extends GetxController {
 
 
   add(String itemsid) async {
+    if (myServices.sharedPreferences.getString("id") == "guest") {
+      Get.snackbar("تسجيل الدخول مطلوب", "الرجاء تسجيل الدخول لإضافة منتجات إلى السلة");
+      Future.delayed(Duration(seconds: 1), () {
+        Get.toNamed(AppRoute.login);
+      });
+      return;
+    }
     statusRequest = StatusRequest.loading;
     update();
     var response = await cartData.addCart(
@@ -84,6 +91,14 @@ class CartController extends GetxController {
   }
 
   goToPageCheckout() {
+    if (myServices.sharedPreferences.getString("id") == "guest") {
+      Get.snackbar("تنبيه", "الرجاء تسجيل الدخول لمتابعة عملية الشراء");
+      Future.delayed(Duration(seconds: 1), () {
+        Get.toNamed(AppRoute.login);
+      });
+      return;
+    }
+
     if (data.isEmpty) return Get.snackbar("تنبيه", "السله فارغه");
     Get.toNamed(AppRoute.checkout, arguments: {
       "couponid": couponid ?? "0",
@@ -97,6 +112,13 @@ class CartController extends GetxController {
   }
 
   delete(String itemsid) async {
+    if (myServices.sharedPreferences.getString("id") == "guest") {
+      Get.snackbar("تسجيل الدخول مطلوب", "الرجاء تسجيل الدخول لإضافة منتجات إلى السلة");
+      Future.delayed(Duration(seconds: 1), () {
+        Get.toNamed(AppRoute.login);
+      });
+      return;
+    }
     statusRequest = StatusRequest.loading;
     update();
 
@@ -169,6 +191,13 @@ class CartController extends GetxController {
   }
 
   void view() async {
+    String? userId = myServices.sharedPreferences.getString("id");
+
+    if (userId == "guest") {
+      statusRequest = StatusRequest.none;
+      update();
+      return;
+    }
     statusRequest = StatusRequest.loading;
     update();
 

@@ -5,6 +5,7 @@ import '../core/services/services.dart';
 
 class SettingsController extends GetxController {
   MyServices myServices = Get.find();
+  bool get isGuest => myServices.sharedPreferences.getBool("guest") ?? false;
 
   logout() {
     String userid = myServices.sharedPreferences.getString("id")!;

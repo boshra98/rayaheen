@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:rayaheen_bookstore/view/screen/home.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../../controller/auth/login_controller.dart';
 import '../../../core/class/statusrequest.dart';
 import '../../../core/constant/color.dart';
+import '../../../core/constant/routes.dart';
 import '../../../core/functions/validinput.dart';
 import '../../../core/services/formatted.dart';
 import '../../widget/auth/custombuttomauth.dart';
@@ -302,7 +304,7 @@ class Login extends StatelessWidget {
                       ),
                     ),
                   ],
-                ),                const SizedBox(height: 35),
+                ),                const SizedBox(height: 20),
                 CustomTextFormAuth(
                   isNumber: false,
                   valid: (val) {
@@ -328,7 +330,7 @@ class Login extends StatelessWidget {
                     controller.login();
                   },
                 ),
-                const SizedBox(height: 40),
+                const SizedBox(height: 20),
                 CustomTextSignUpOrSignIn(
                   textone: "16".tr,
                   texttwo: "17".tr,
@@ -336,6 +338,25 @@ class Login extends StatelessWidget {
                     controller.goToSignUp();
                   },
                 ),
+
+                ElevatedButton(
+                  onPressed: () async {
+                    SharedPreferences prefs = await SharedPreferences.getInstance();
+
+                    await prefs.setString("step", "guest");      // ✅ تظل كما هي
+                    await prefs.setString("id", "guest");        // ✅ ID وهمي
+                    await prefs.setBool("guest", true);          // ✅ هذا هو الجديد والمهم
+
+                    Get.offAllNamed(AppRoute.homePage);          // الانتقال للصفحة الرئيسية
+                  },
+                  child: Text(
+                    "110".tr,
+                    style: TextStyle(color: AppColor.primaryColor2),
+                  ),
+                ),
+
+
+
               ],
             ),
           ),

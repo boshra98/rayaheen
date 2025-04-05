@@ -8,10 +8,6 @@ import '../../../core/constant/color.dart';
 import '../../../data/model/itemsmodel.dart';
 import '../../../linkapi.dart';
 
-
-
-
-
 class ListItemsHome2 extends GetView<HomeControllerImp> {
   const ListItemsHome2({Key? key}) : super(key: key);
 
@@ -31,17 +27,9 @@ class ListItemsHome2 extends GetView<HomeControllerImp> {
           height: 120,
           child: ListView.builder(
             itemCount: controller.newitems.length,
-            //scrollDirection: Axis.horizontal,
             itemBuilder: (context, i) {
               final itemsModel = ItemsModel.fromJson(controller.newitems[i]);
-
-              // Debugging: Print item details
-              debugPrint("Item Name: ${itemsModel.itemsName}");
-              debugPrint("Item Image: ${itemsModel.itemsImage}");
-
-              return ItemsHome2(
-                itemsModel: itemsModel,
-              );
+              return ItemsHome2(itemsModel: itemsModel);
             },
           ),
         );
@@ -59,32 +47,33 @@ class ItemsHome2 extends StatelessWidget {
   Widget build(BuildContext context) {
     if (itemsModel == null) {
       return const Center(
-        child: Text(
-          "خطأ: لا يوجد بيانات للعنصر",
-          style: TextStyle(color: Colors.red),
-        ),
+        child: Text("خطأ: لا يوجد بيانات للعنصر", style: TextStyle(color: Colors.red)),
       );
     }
 
-    // ✅ التحقق من وجود خصم
     double discount = double.tryParse(itemsModel!.discount?.discountPercentage ?? "0") ?? 0.0;
-    bool hasDiscount = discount > 0;
+    String? expiresAt = itemsModel!.discount?.expiresAt;
+
+    bool hasValidDiscount = false;
+    if (discount > 0 && expiresAt != null) {
+      DateTime now = DateTime.now();
+      DateTime expiry = DateTime.tryParse(expiresAt) ?? now.subtract(const Duration(days: 1));
+      hasValidDiscount = expiry.isAfter(now);
+    }
+
     double originalPrice = double.tryParse(itemsModel!.itemsPrice ?? "0") ?? 0.0;
     double discountedPrice = originalPrice - (originalPrice * (discount / 100));
 
     return InkWell(
       onTap: () {
         if (itemsModel!.itemsId != null) {
-          print(itemsModel!.itemsId);
           Get.find<HomeControllerImp>().goToPageProductDetails(itemsModel!);
         }
       },
       child: Column(
         children: [
-          // Stack with Image and Background
           Stack(
             children: [
-              // Background Container with Rounded Corners
               Container(
                 margin: const EdgeInsets.symmetric(horizontal: 10),
                 decoration: BoxDecoration(
@@ -94,8 +83,6 @@ class ItemsHome2 extends StatelessWidget {
                 height: 120,
                 width: 130,
               ),
-
-              // Image Positioned at the Center
               Positioned(
                 top: 5,
                 left: 5,
@@ -103,42 +90,35 @@ class ItemsHome2 extends StatelessWidget {
                 child: CachedNetworkImage(
                   imageUrl: itemsModel!.itemsImage != null
                       ? "${AppLink.imagesItems}/${itemsModel!.itemsImage}"
-                      : "https://via.placeholder.com/90", // صورة افتراضية إذا كانت الصورة فارغة
+                      : "https://via.placeholder.com/90",
                   height: 90,
                   width: 90,
                   fit: BoxFit.contain,
-                  placeholder: (context, url) => const Center(
-                    child: CircularProgressIndicator(),
-                  ),
+                  placeholder: (context, url) => const Center(child: CircularProgressIndicator()),
                   errorWidget: (context, url, error) => const Icon(Icons.error),
                 ),
               ),
-
-              // ✅ إظهار نسبة الخصم إذا كان هناك خصم
-              if (hasDiscount)
+              if (hasValidDiscount)
                 Positioned(
                   top: 5,
                   right: 10,
                   child: Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 3), // ✅ تقليل التباعد الداخلي
+                    padding: const EdgeInsets.symmetric(horizontal: 6, vertical: 3),
                     decoration: BoxDecoration(
                       color: Colors.red,
-                      borderRadius: BorderRadius.circular(4), // ✅ تقليل استدارة الزوايا
+                      borderRadius: BorderRadius.circular(4),
                     ),
                     child: Text(
-                      "-${discount.toInt()}%", // ✅ حذف الأرقام العشرية
+                      "-${discount.toInt()}%",
                       style: const TextStyle(
                         color: Colors.white,
                         fontSize: 8,
-                        fontFamily:"cairo",
-// ✅ تصغير حجم النص
-                        fontWeight: FontWeight.w600, // ✅ جعل الخط متناسقًا ولكن ليس سميكًا جدًا
+                        fontFamily: "cairo",
+                        fontWeight: FontWeight.w600,
                       ),
                     ),
                   ),
                 ),
-
-
               Positioned(
                 bottom: 0,
                 left: 0,
@@ -168,8 +148,6 @@ class ItemsHome2 extends StatelessWidget {
               ),
             ],
           ),
-
-          // Text Below the Stack
           Text(
             itemsModel!.itemsName ?? "اسم غير معروف",
             style: const TextStyle(
@@ -180,50 +158,40 @@ class ItemsHome2 extends StatelessWidget {
             ),
             textAlign: TextAlign.center,
           ),
-
-          // ✅ إذا كان هناك خصم، عرض السعر الجديد والسعر الأصلي مشطوبًا
-          if (hasDiscount) ...[
+          if (hasValidDiscount) ...[
             Text(
-              "${discountedPrice.round()} درهم", // ✅ تحويل السعر إلى عدد صحيح فقط
+              "${discountedPrice.round()} درهم",
               style: const TextStyle(
                 color: AppColor.primaryColor2,
                 fontSize: 12,
-                fontFamily:"cairo",
-
-                //fontWeight: FontWeight.bold,
+                fontFamily: "cairo",
               ),
               textAlign: TextAlign.center,
             ),
-
             Text(
-              "${double.parse(itemsModel!.itemsPrice!).round()} درهم", // ✅ تحويل السعر إلى عدد صحيح فقط
+              "${originalPrice.round()} درهم",
               style: const TextStyle(
                 color: Colors.orange,
                 fontSize: 10,
                 fontWeight: FontWeight.bold,
-                fontFamily:"cairo",
-
+                fontFamily: "cairo",
                 decoration: TextDecoration.lineThrough,
               ),
               textAlign: TextAlign.center,
             ),
-
           ] else
-          // ✅ إذا لم يكن هناك خصم، عرض السعر العادي فقط
             Text(
-              "${double.parse(itemsModel!.itemsPrice!).round()} درهم", // ✅ تحويل السعر إلى عدد صحيح فقط
+              "${originalPrice.round()} درهم",
               style: const TextStyle(
                 color: AppColor.primaryColor2,
-                  fontSize: 14,
-                  fontWeight: FontWeight.w500,
-                  fontFamily:"cairo"
+                fontSize: 14,
+                fontWeight: FontWeight.w500,
+                fontFamily: "cairo",
               ),
               textAlign: TextAlign.center,
             ),
-
         ],
       ),
     );
   }
 }
-

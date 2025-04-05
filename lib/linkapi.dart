@@ -19,6 +19,7 @@ class AppLink {
 
   static const String signUp = "$server/register";
   static const String login = "$server/login";
+  static const String deleteaccount ="$server/deleteaccount";
   //static const String verifycodessignup = "$server/verify-email";
   //static const String resend ="$server/verify-email";
 

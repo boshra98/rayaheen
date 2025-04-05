@@ -36,11 +36,13 @@ class BooksListPageDisc extends StatelessWidget {
           : Padding(
         padding: const EdgeInsets.all(10.0),
         child: GridView.builder(
-          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+          gridDelegate:  SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 2,
             crossAxisSpacing: 10,
             mainAxisSpacing: 10,
-            childAspectRatio: 0.62,
+              childAspectRatio: MediaQuery.of(context).orientation == Orientation.portrait
+                  ? 0.7
+                  : 1.0,
           ),
           itemCount: items.length,
           itemBuilder: (context, index) {

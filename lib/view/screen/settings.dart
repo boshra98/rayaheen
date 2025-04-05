@@ -1,8 +1,10 @@
 import 'package:double_tap_to_exit/double_tap_to_exit.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:rayaheen_bookstore/linkapi.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import '../../controller/auth/account_controller.dart';
 import '../../controller/settings_controller.dart';
 import '../../core/constant/apptheme.dart';
 import '../../core/constant/color.dart';
@@ -17,6 +19,8 @@ class Settings extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     SettingsController controller = Get.put(SettingsController());
+    final AccountController accountController = Get.put(AccountController());
+
     return Container(
       child: ListView(
         children: [
@@ -38,129 +42,122 @@ class Settings extends StatelessWidget {
                         backgroundImage: const AssetImage(ImageAsset.logo),
                       ),
                     )),
-              ]),
+              ],),
           const SizedBox(height: 155),
-          Container(
-            padding: const EdgeInsets.symmetric(horizontal: 10),
-            child: Card(
-              color: AppColor.secondColor,
-              child: Column(mainAxisSize: MainAxisSize.min, children: [
-                // ListTile(
-                //   // onTap: () {},
-                //   trailing: const Icon(Icons.wb_sunny_outlined,color:AppColor.black),
-                //   onTap:(){
-                //     if(Get.isDarkMode){
-                //       Get.changeTheme(customLightTheme);
-                //     } else{
-                //       Get.changeTheme(customDarkTheme);
-                //     }
-                //   },
-                //   title: Text(
-                //     '44'.tr,
-                //     style: const TextStyle(fontSize: 18,color:AppColor.primaryColor,fontFamily:"playfairDisplay"), // Increase font size
-                //   ),
-                // ),
-                ListTile(
-                  onTap: () {
-                    Get.toNamed(AppRoute.orderspending);
-                  },
-                  trailing: const Icon(Icons.card_travel,color:AppColor.black),
-                  title: Text(
-                    '45'.tr,
-                    style: const TextStyle(fontSize: 18 , color:AppColor.primaryColor,fontFamily:"playfairDisplay") , // Increase font size
-                  ),
-                ),
-                ListTile(
-                  onTap: () {
-                    Get.toNamed(AppRoute.ordersarchive);
-                  },
-                  trailing: const Icon(Icons.card_travel,color:AppColor.black),
-                  title: Text(
-                    '46'.tr,
-                    style: const TextStyle(fontSize: 18,color:AppColor.primaryColor,fontFamily:"playfairDisplay"), // Increase font size
-                  ),
-                ),
-                // ListTile(
-                //   onTap: () {
-                //     Get.toNamed(AppRoute.addressview);
-                //   },
-                //   trailing: Icon(Icons.location_on_outlined),
-                //   title: Text('47'.tr),
-                // ),
-                ListTile(
-                  onTap: () {
-                    Get.toNamed(AppRoute.aboutus);
-                  },
-                  trailing: const Icon(Icons.help_outline_rounded,color:AppColor.black),
-                  title: Text(
-                    '48'.tr,
-                    style: const TextStyle(fontSize: 18 ,color:AppColor.primaryColor,fontFamily:"playfairDisplay",), // Increase font size
-                  ),
-                ),
-                ListTile(
-                  onTap: () {
-                    launchUrl(Uri.parse("https://wa.me/+971528816100"));
-                  },
-                  trailing: const Icon(Icons.phone_callback_outlined,color:AppColor.black),
-                  title: Text(
-                    '49'.tr,
-                    style: const TextStyle(fontSize: 18,color:AppColor.primaryColor,fontFamily:"playfairDisplay"), // Increase font size
-                  ),
-                ),
-                ListTile(
-                  title: Text(
-                    "51".tr,
-                    style: const TextStyle(fontSize: 18,color:AppColor.primaryColor,fontFamily:"playfairDisplay"), // Increase font size
-                  ),
-                  trailing: const Icon(Icons.language,color:AppColor.black),
-                  onTap:(){
-                    //Navigator.of(context).push(MaterialPageRoute(builder: (context)=> Language()));
-                    Get.toNamed(AppRoute.language2);
-                  },
-                ),
-                ListTile(
-                  onTap: () {
-                    showDialog(
-                      context: context,
-                      builder: (BuildContext context) {
-                        return AlertDialog(
-                          title: Text("99".tr),
-                          content: Text("100".tr),
-                          actions: [
-                            TextButton(
-                              onPressed: () {
-                                Navigator.of(context).pop(); // Close the dialog
-                              },
-                              child: Text("101".tr),
-                            ),
-                            TextButton(
-                              onPressed: () {
-                                Navigator.of(context).pop(); // Close the dialog
-                                controller.logout(); // Perform logout action
-                              },
-                              child: Text("102".tr),
-                            ),
-                          ],
-                        );
-                      },
-                    );
-                  },
-                  title: Text(
-                    '50'.tr,
-                    style: const TextStyle(
-                      fontSize: 18,
-                      color: AppColor.primaryColor,
-                      fontFamily: "playfairDisplay",
-                    ),
-                  ),
-                  trailing: const Icon(Icons.exit_to_app, color: AppColor.black),
-                ),
+    Card(
 
-              ]),
-            ),
-          )
-        ],
-      ),
+    color: AppColor.secondColor,
+    child: Column(
+    children: [
+    // ✅ لا تظهر الطلبات إذا كان زائر
+    if (!controller.isGuest)
+    ListTile(
+    onTap: () => Get.toNamed(AppRoute.orderspending),
+    trailing: const Icon(Icons.card_travel, color: AppColor.black),
+    title: Text('45'.tr, style: _titleStyle),
+    ),
+
+    if (!controller.isGuest)
+    ListTile(
+    onTap: () => Get.toNamed(AppRoute.ordersarchive),
+    trailing: const Icon(Icons.archive, color: AppColor.black),
+    title: Text('46'.tr, style: _titleStyle),
+    ),
+
+    // معلومات عامة للجميع
+    ListTile(
+    onTap: () => Get.toNamed(AppRoute.aboutus),
+    trailing: const Icon(Icons.help_outline_rounded, color: AppColor.black),
+    title: Text('48'.tr, style: _titleStyle),
+    ),
+    ListTile(
+    onTap: () => launchUrl(Uri.parse("https://wa.me/+971528816100")),
+    trailing: const Icon(Icons.phone_callback_outlined, color: AppColor.black),
+    title: Text('49'.tr, style: _titleStyle),
+    ),
+    ListTile(
+    onTap: () => Get.toNamed(AppRoute.language2),
+    trailing: const Icon(Icons.language, color: AppColor.black),
+    title: Text('51'.tr, style: _titleStyle),
+    ),
+
+    // ✅ لا تعرض زر تسجيل الخروج إلا إذا كان مسجلاً
+    if (!controller.isGuest)
+    ListTile(
+    onTap: () {
+    showDialog(
+    context: context,
+    builder: (BuildContext context) => AlertDialog(
+    title: Text("99".tr),
+    content: Text("100".tr),
+    actions: [
+    TextButton(onPressed: () => Navigator.pop(context), child: Text("101".tr)),
+    TextButton(onPressed: () {
+    Navigator.pop(context);
+    controller.logout();
+    }, child: Text("102".tr)),
+    ],
+    ),
     );
+    },
+    title: Text('50'.tr, style: _titleStyle),
+    trailing: const Icon(Icons.exit_to_app, color: AppColor.black),
+    ),
+
+    // ✅ لا تعرض زر حذف الحساب إلا إذا كان مسجلاً
+    if (!controller.isGuest)
+    ListTile(
+    onTap: () {
+    showDialog(
+    context: context,
+    builder: (BuildContext context) => AlertDialog(
+    title: Text("111".tr),
+    content: Text("112".tr),
+    actions: [
+    TextButton(onPressed: () => Navigator.pop(context), child: Text("76".tr)),
+    TextButton(
+    onPressed: () async {
+    Navigator.pop(context);
+    await accountController.deleteAccount();
+    },
+    child: Text("86".tr),
+    ),
+    ],
+    ),
+    );
+    },
+    title: Text('111'.tr, style: _titleStyle),
+    trailing: const Icon(Icons.cancel, color: AppColor.black),
+    ),
+
+      // ✅ يظهر فقط إذا كان زائر
+      if (controller.isGuest)
+        ListTile(
+          onTap: () {
+            Get.offAllNamed(AppRoute.login); // أو Get.toNamed إذا تفضل عدم حذف المسارات السابقة
+          },
+          title: Text(
+            '9'.tr,
+            style: _titleStyle,
+          ),
+          trailing: const Icon(Icons.login, color: AppColor.black),
+        ),
+
+    ],
+    ),
+    )]
+    )
+
+    )
+    ;
+
+
   }
+
+  TextStyle get _titleStyle => const TextStyle(
+    fontSize: 18,
+    color: AppColor.primaryColor,
+    fontFamily: "playfairDisplay",
+  );
+
 }

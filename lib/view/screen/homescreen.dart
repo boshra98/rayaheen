@@ -192,13 +192,24 @@ class HomeScreen extends StatelessWidget {
               FloatingActionButton(
                 backgroundColor: AppColor.primaryColor,
                 onPressed: () {
-                  Get.toNamed(AppRoute.cart);
+                  final String? userId = cartController.myServices.sharedPreferences.getString("id");
+                  if (userId == "guest") {
+                    Get.snackbar(
+                      "تنبيه",
+                      "الرجاء تسجيل الدخول للوصول إلى السلة",
+                      snackPosition: SnackPosition.BOTTOM,
+                      duration: const Duration(seconds: 2),
+                    );
+                  } else {
+                    Get.toNamed(AppRoute.cart);
+                  }
                 },
                 child: const Icon(
                   Icons.shopping_cart_outlined,
                   color: AppColor.secondColor,
                 ),
               ),
+
 
               // ✅ استخدم `Obx` لمراقبة `cartItemCount`
               Obx(() => cartController.cartService.cartItemCount.value > 0
