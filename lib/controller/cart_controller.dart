@@ -201,7 +201,7 @@ class CartController extends GetxController {
     statusRequest = StatusRequest.loading;
     update();
 
-    var response = await cartData.viewCart(myServices.sharedPreferences.getString("id")!);
+    var response = await cartData.viewCart(userId!);
     print("=============================== Controller $response ");
     statusRequest = handlingData(response);
 
