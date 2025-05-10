@@ -52,6 +52,9 @@ class HomeControllerImp extends HomeController {
 
   @override
   void onInit() {
+
+    print("✅ HomeController بدأ العمل");
+
     search = TextEditingController();
     getdata();
     initialData();
