@@ -13,15 +13,19 @@ class ImageInfo {
     // required this.updatedAt,
   });
 
-  factory ImageInfo.fromJson(Map<String, dynamic> json) {
-    return ImageInfo(
-      // id: json['id'],
-      // bookId: json['book_id'],
-      path: json['path'],
-      // createdAt: DateTime.parse(json['created_at']),
-      // updatedAt: DateTime.parse(json['updated_at']),
-    );
+  factory ImageInfo.fromJson(dynamic json) {
+    // إذا جاء كـ String فقط (مسار)
+    if (json is String) {
+      return ImageInfo(path: json);
+    }
+    // إذا جاء كـ Map يحتوي path
+    else if (json is Map<String, dynamic>) {
+      return ImageInfo(path: json['path'] ?? '');
+    } else {
+      throw Exception("Invalid image format");
+    }
   }
+
 
   Map<String, dynamic> toJson() {
     return {

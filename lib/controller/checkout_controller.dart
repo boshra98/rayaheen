@@ -11,6 +11,8 @@ import '../data/datasource/remote/checkout_date.dart';
 import '../data/model/addressmodel.dart';
 import 'package:url_launcher/url_launcher.dart';
 
+import 'cart_controller.dart';
+
 
 
 
@@ -41,6 +43,7 @@ class CheckoutControllerImp extends CheckoutController {
   StatusRequest statusRequest = StatusRequest.none;
 
   String? paymentMethod;
+
  // String? deliveryAddress;
   //String addressid = "0";
 
@@ -89,9 +92,46 @@ class CheckoutControllerImp extends CheckoutController {
     //update();
 
 
+  // @override
+  // checkout() async {
+  //   update();
+  //   if (PaymentMethod() == null) {
+  //     return Get.snackbar("تنبيه", "اختر وسيلة الدفع أولاً ");
+  //   }
+  //
+  //   if (formstate.currentState!.validate()) {
+  //     statusRequest = StatusRequest.loading;
+  //     update();
+  //
+  //     var response = await checkoutData.postdata(
+  //         myServices.sharedPreferences.getString("id")!,
+  //         Imara.text, sharae.text, mantica.text, paymentMethod!, phone.text, totalToSend,
+  //     );
+  //
+  //     print("=============================== Controller $response ");
+  //     statusRequest = handlingData(response);
+  //
+  //     if (StatusRequest.success == statusRequest) {
+  //       if (response['status'] == "success") {
+  //         Get.snackbar("32".tr, "90".tr);
+  //
+  //         // استدعاء دالة إرسال رسالة WhatsApp
+  //         sendWhatsAppMessage();
+  //
+  //         Get.offAllNamed(AppRoute.homePage);
+  //       } else {
+  //         Get.defaultDialog(title: "78".tr, middleText: "79".tr);
+  //         statusRequest = StatusRequest.failure;
+  //       }
+  //     }
+  //     update();
+  //   }
+  // }
+
   @override
   checkout() async {
     update();
+
     if (PaymentMethod() == null) {
       return Get.snackbar("تنبيه", "اختر وسيلة الدفع أولاً ");
     }
@@ -100,9 +140,21 @@ class CheckoutControllerImp extends CheckoutController {
       statusRequest = StatusRequest.loading;
       update();
 
+      final cartController = Get.find<CartController>();
+
+      // ✅ نحصل على السعر بعد الحسم إن وُجد، وإلا نستخدم السعر الأصلي
+      double total = cartController.total > 0
+          ? cartController.total
+          : cartController.priceorders;
+
       var response = await checkoutData.postdata(
-          myServices.sharedPreferences.getString("id")!,
-          Imara.text, sharae.text, mantica.text, paymentMethod!, phone.text
+        myServices.sharedPreferences.getString("id")!,
+        Imara.text,
+        sharae.text,
+        mantica.text,
+        paymentMethod!,
+        phone.text,
+        total, // ✅ السعر النهائي بعد الخصم
       );
 
       print("=============================== Controller $response ");
@@ -121,13 +173,18 @@ class CheckoutControllerImp extends CheckoutController {
           statusRequest = StatusRequest.failure;
         }
       }
+
       update();
     }
   }
 
+
   void sendWhatsAppMessage() async {
+    final cartController = Get.find<CartController>();
+    double totalprice = cartController.getTotalPrice();
+
     String adminPhone = "+971528816100"; // ضع هنا رقم مدير المتجر
-    String message = Uri.encodeFull("🚀 طلب جديد تم بنجاح!\nرقم الهاتف: ${phone.text}\nالعنوان: ${Imara.text}, ${sharae.text}, ${mantica.text}\nطريقة الدفع: $paymentMethod");
+    String message = Uri.encodeFull("🚀 طلب جديد تم بنجاح!\nرقم الهاتف: ${phone.text}\nالعنوان: ${Imara.text}, ${sharae.text}, ${mantica.text}\nطريقة الدفع: $paymentMethod السعر الكلي: \n${totalprice.toStringAsFixed(2)} درهم");
     String url = "https://wa.me/$adminPhone?text=$message";
 
     if (await canLaunch(url)) {

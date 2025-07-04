@@ -62,12 +62,14 @@ class ItemsModel {
     publisher = json['publisher'];
     itemsDesc = json['description'];
 
-    // ✅ التحقق مما إذا كانت هناك صور
-    if (json['images'] != null) {
+    if (json['images'] != null && json['images'] is List) {
       itemsImages = (json['images'] as List)
           .map((imageJson) => ImageInfo.fromJson(imageJson))
           .toList();
+    } else {
+      itemsImages = [];
     }
+
 
     itemsImage = json['cover_image'];
     itemsCount = json['count'];

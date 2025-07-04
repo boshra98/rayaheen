@@ -440,11 +440,12 @@ String? validInput(String val, int min, int max, String type, {String? countryCo
 
   // Handle address validation (allows spaces with Arabic/English letters)
   if (type == "address") {
-    if (!isArabicOrEnglish(val)) {
-      return "العنوان غير صالح، يجب أن يحتوي على أحرف عربية أو إنجليزية فقط"; // "Invalid address, should contain only Arabic or English letters"
+    final regex = RegExp(
+        r'^[\u0600-\u06FFa-zA-Z0-9\s\-_,.()]+$'); // يسمح بالحروف العربية واللاتينية والأرقام وبعض الرموز
+    if (!regex.hasMatch(val)) {
+      return "العنوان يحتوي على رموز غير صالحة";
     }
   }
-
   // Handle email validation
   if (type == "email") {
     if (!GetUtils.isEmail(val)) {
@@ -463,12 +464,15 @@ String? validInput(String val, int min, int max, String type, {String? countryCo
   // Handle password validation
   if (type == "password") {
     if (val.length < 8) {
-      return "يجب أن يحتوي على 8 أرقام على الأقل"; // "Should contain at least 4 digits" in Arabic
+      return "يجب أن تتكون كلمة المرور من 8 محارف على الأقل";
     }
-    if (!RegExp(r'^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]+$').hasMatch(val)) {
-      return "يجب أن يحتوي على أحرف وأرقام"; // "Should contain both letters and numbers" in Arabic
+
+    if (!RegExp(r'^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d@#%^&*!()_\-+=<>?/\\|[\]{}~`.:;,]+$')
+        .hasMatch(val)) {
+      return "يجب أن تحتوي كلمة المرور على أحرف إنجليزية وأرقام، ويمكن أن تشمل رموزًا خاصة";
     }
   }
+
 
 
   // Check length constraints

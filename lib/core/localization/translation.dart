@@ -118,7 +118,8 @@ class MyTranslation extends Translations {
           "109":"الخصومات",
           "110":"المتابعة كزائر",
           "111":"حذف الحساب",
-          "112":"هل أنت متأكد من حذف حسابك"
+          "112":"هل أنت متأكد من حذف حسابك",
+          "113":"الملف الشخصي",
         },
         "en": {
           "1": "Choose Language",
@@ -231,7 +232,8 @@ class MyTranslation extends Translations {
           "109":"Discount",
           "110":"Continue as Guest",
           "111":"Delete Account",
-          "112":"Are you sure you want to Delete Account?"
+          "112":"Are you sure you want to Delete Account?",
+          "113":"profile"
 
         }
       };

@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:rayaheen_bookstore/core/class/statusrequest.dart';
 import 'package:rayaheen_bookstore/core/constant/routes.dart';
 import 'package:rayaheen_bookstore/core/services/services.dart';
@@ -346,12 +348,30 @@ class SearchMixController extends GetxController {
 
   late StatusRequest statusRequest;
   HomeData homedata = HomeData(Get.find());
+  String normalizeArabic(String text) {
+    return text
+        .replaceAll(RegExp(r"[أإآ]"), "ا")
+        .replaceAll("ؤ", "و")
+        .replaceAll("ئ", "ي")
+        .replaceAll("ء", "")
+        .replaceAll("ة", "ه")
+        .replaceAll("ى", "ي")
+        .replaceAll(RegExp(r"[\u064B-\u0652]"), ""); // حذف التشكيل
+  }
+
 
   searchData() async {
     statusRequest = StatusRequest.loading;
-    var response = await homedata.searchData(search!.text);
+    //هذه استخدمها بعد التطبيع من الباكند
+    var response = await homedata.searchData(normalizeArabic(search!.text));
+
+    // مؤقتاً أزل التطبيع إذا أردت نتائج البحث تظهر بشكل أفضل
+    //var response = await homedata.searchData(search!.text);
+
+
     //print(response);
     print("🔍 Search Response: $response"); // Print full response
+    print(jsonEncode(response['data']));
 
     print("=============================== Controller $response ");
     statusRequest = handlingData(response);

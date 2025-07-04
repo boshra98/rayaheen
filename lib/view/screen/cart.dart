@@ -22,16 +22,24 @@ class Cart extends StatelessWidget {
               appBar: AppBar(
                 title: Text("87".tr),
               ),
-              bottomNavigationBar: BottomNavgationBarCart(
-                  shipping: "0",
-                  controllercoupon: cartController.controllercoupon!,
-                  onApplyCoupon: () {
-                    cartController.checkcoupon();
-                  },
-                  price: "${cartController.priceorders}",
-                  discount: "${cartController.discountcoupon}%",
-                  totalprice: "${cartController.getTotalPrice().round()}"
+              // bottomNavigationBar: BottomNavgationBarCart(
+              //     shipping: "0",
+              //     controllercoupon: cartController.controllercoupon!,
+              //     onApplyCoupon: () {
+              //       cartController.checkcoupon();
+              //     },
+              //     price: "${cartController.priceorders}",
+              //     discount: "${cartController.discountcoupon}%",
+              //     totalprice: "${cartController.getTotalPrice().round()}"
+              // ),
+
+              bottomNavigationBar:  BottomNavgationBarCart(
+                controllercoupon: cartController.controllercoupon!,
+                onApplyCoupon: () {
+                  cartController.checkcoupon();
+                },
               ),
+
               body: GetBuilder<CartController>(
                 builder: (cartController) {
                   if (cartController.statusRequest == StatusRequest.loading) {

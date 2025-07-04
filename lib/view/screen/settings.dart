@@ -1,4 +1,4 @@
-import 'package:double_tap_to_exit/double_tap_to_exit.dart';
+// import 'package:double_tap_to_exit/double_tap_to_exit.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:rayaheen_bookstore/linkapi.dart';
@@ -70,7 +70,14 @@ class Settings extends StatelessWidget {
     trailing: const Icon(Icons.help_outline_rounded, color: AppColor.black),
     title: Text('48'.tr, style: _titleStyle),
     ),
-    ListTile(
+      if (!controller.isGuest)
+      ListTile(
+        onTap: () => Get.toNamed(AppRoute.profile),
+        trailing: const Icon(Icons.person, color: AppColor.black),
+        title: Text('113'.tr, style: _titleStyle),
+      ),
+
+      ListTile(
     onTap: () => launchUrl(Uri.parse("https://wa.me/+971528816100")),
     trailing: const Icon(Icons.phone_callback_outlined, color: AppColor.black),
     title: Text('49'.tr, style: _titleStyle),

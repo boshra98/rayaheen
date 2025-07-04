@@ -54,6 +54,9 @@ class AppLink {
   static const String addressEdit = "server/address/edit.php";
   static const String addressDelete = "server/address/delete.php";
 
+  static const String getprofile  = "$server/user/getprofile";
+
+  static const String editprofile  = "$server/user/editprofile";
 
   // Cart
   static const String cartview = "$server/cart";
@@ -63,7 +66,7 @@ class AppLink {
 
   // Coupon
 
-  static const String checkcoupon  = "server/coupon/checkcoupon.php";
+  static const String applyDiscount  = "$server/applyDiscount";
 
   // Checkout
 

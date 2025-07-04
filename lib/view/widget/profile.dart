@@ -1,79 +1,123 @@
-import 'dart:io';
+//
+// import 'package:flutter/material.dart';
+// import 'package:get/get.dart';
+//
+// import '../../controller/profile_controller.dart';
+//
+// class ProfilePage extends StatelessWidget {
+//   final ProfileController controller = Get.put(ProfileController());
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return Scaffold(
+//       appBar: AppBar(title: Text("الملف الشخصي")),
+//       body: Obx(() => controller.isLoading.value
+//           ? Center(child: CircularProgressIndicator())
+//           : Padding(
+//         padding: const EdgeInsets.all(16),
+//         child: ListView(
+//           children: [
+//             TextField(
+//               controller: controller.nameController,
+//               decoration: InputDecoration(labelText: "الاسم"),
+//             ),
+//             SizedBox(height: 10),
+//             TextField(
+//               controller: controller.phoneController,
+//               decoration: InputDecoration(labelText: "رقم الهاتف"),
+//             ),
+//             SizedBox(height: 10),
+//             // TextField(
+//             //   controller: controller.addressController,
+//             //   decoration: InputDecoration(labelText: "عنوان السكن"),
+//             // ),
+//             SizedBox(height: 20),
+//             ElevatedButton(
+//               onPressed: controller.updateProfile,
+//               child: Text("تحديث البيانات"),
+//             )
+//           ],
+//         ),
+//       )),
+//     );
+//   }
+// }
+
 
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import '../../controller/profile_controller.dart';
+//import '../change_password_page.dart'; // تأكد من وجود هذه الصفحة أو أنشئها
 
-class ProfileWidget extends StatelessWidget {
-  final String imagePath;
-  final VoidCallback onClicked;
-
-  const ProfileWidget({
-    Key? key,
-    required this.imagePath,
-    required this.onClicked,
-  }) : super(key: key);
+class ProfilePage extends StatelessWidget {
+  final controller = Get.put(ProfileController());
 
   @override
   Widget build(BuildContext context) {
-    final color = Theme.of(context).colorScheme.primary;
+    return Scaffold(
+      appBar: AppBar(title: const Text("الملف الشخصي")),
+      body: Obx(() => controller.isLoading.value
+          ? const Center(child: CircularProgressIndicator())
+          : SingleChildScrollView(
+        padding: const EdgeInsets.all(24),
+        child: Column(
+          children: [
+            const SizedBox(height: 16),
+            CircleAvatar(
+              radius: 60,
+              backgroundImage: AssetImage('assets/images/im2.png'), // أو NetworkImage لاحقًا
+              backgroundColor: Colors.grey[200],
+            ),
+            const SizedBox(height: 24),
+            buildTextField("الاسم", controller.nameController),
+            const SizedBox(height: 16),
+            buildTextField("رقم الهاتف", controller.phoneController,
+                keyboardType: TextInputType.phone),
+            const SizedBox(height: 16),
+            Align(
+              alignment: Alignment.centerRight,
+              child: TextButton(
+                onPressed: () {
+                //  Get.to(() => ChangePasswordPage()); // انتقل لصفحة تغيير كلمة المرور
+                },
+                child: const Text(
+                  "تغيير كلمة المرور",
+                  style: TextStyle(color: Colors.blue),
+                ),
+              ),
+            ),
+            const SizedBox(height: 24),
+            SizedBox(
+              width: double.infinity,
+              height: 50,
+              child: ElevatedButton(
+                onPressed: controller.updateProfile,
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: const Color(0xFF4BA6A4),
+                ),
+                child: const Text(
+                  "تحديث البيانات",
+                  style: TextStyle(fontSize: 16,color: Colors.white),
 
-    return Center(
-      child: Stack(
-        children: [
-          buildImage(),
-          Positioned(
-            bottom: 0,
-            right: 4,
-            child: buildEditIcon(color),
-          ),
-        ],
-      ),
+
+                ),
+              ),
+            ),
+          ],
+        ),
+      )),
     );
   }
 
-  Widget buildImage() {
-    final image = NetworkImage(imagePath);
-
-    return ClipOval(
-      child: Material(
-        color: Colors.transparent,
-        child: Ink.image(
-          image: image,
-          fit: BoxFit.cover,
-          width: 200,
-          height: 200,
-          child: InkWell(onTap: onClicked),
-        ),
+  Widget buildTextField(String label, TextEditingController controller,
+      {TextInputType keyboardType = TextInputType.text}) {
+    return TextField(
+      controller: controller,
+      keyboardType: keyboardType,
+      decoration: InputDecoration(
+        labelText: label,
+        border: const OutlineInputBorder(),
       ),
     );
   }
-
-  Widget buildEditIcon(Color color) => buildCircle(
-    color: Colors.white,
-    all: 3, //padding
-    child: buildCircle(
-      color: color,
-      all: 8,
-      child:
-      const Icon(
-        Icons.edit,
-        color: Colors.white,
-        size: 20,
-
-
-      ),
-    ),
-  );
-
-  Widget buildCircle({
-    required Widget child,
-    required double all,
-    required Color color,
-  }) =>
-      ClipOval(
-        child: Container(
-          padding: EdgeInsets.all(all),
-          color: color,
-          child: child,
-        ),
-      );
 }

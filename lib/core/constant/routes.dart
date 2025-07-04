@@ -44,6 +44,10 @@ class AppRoute {
 
   static const String aboutus = "/aboutus";
 
+
+  static const String profile = "/profile";
+
+
   static const String orderspending = "/orderspending";
   static const String ordersarchive = "/ordersarchive";
   static const String ordersdetails = "/ordersdetails";

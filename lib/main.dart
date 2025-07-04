@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:rayaheen_bookstore/router.dart';
 import 'package:rayaheen_bookstore/view/screen/homescreen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -19,7 +20,11 @@ void main() async {
   Get.put<CartService>(CartService(), permanent: true);
 
   await initialservices();
+  await GetStorage.init(); // ← مهم جداً
+
+
   // Register CartService
+
  // Get.put(CartService(), permanent: true);
 
   // Register CartController (dependencies resolved in onInit)

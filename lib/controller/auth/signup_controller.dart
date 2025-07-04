@@ -1,10 +1,12 @@
 import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 
 import '../../core/class/statusrequest.dart';
 import '../../core/constant/routes.dart';
 import '../../core/functions/handlingdatacontroller.dart';
+import '../../core/functions/storefunctions.dart';
 import '../../data/datasource/remote/auth/signup.dart';
 
 abstract class SignUpController extends GetxController {
@@ -33,18 +35,20 @@ class SignUpControllerImp extends SignUpController {
       email.text = username.text + "$intValue@gmail.com";
       update();
 
-      // Use `code.text` as the selected country code for the phone number
       var response = await signupData.postdata(
         username.text,
         password.text,
         email.text,
-        "${code.text}${phone.text}".substring(1),  // Combine code and phone
+        "${code.text}${phone.text}".substring(1),
       );
+
       print("${code.text}${phone.text}".substring(1));
       print("=============================== Controller $response ");
       statusRequest = handlingData(response);
+
       if (StatusRequest.success == statusRequest) {
         if (response['status'] == "success") {
+          storeUserData(response['user'], response['id'].toString());
           Get.offNamed(AppRoute.successSignUp);
         } else {
           Get.defaultDialog(
@@ -52,9 +56,11 @@ class SignUpControllerImp extends SignUpController {
           statusRequest = StatusRequest.failure;
         }
       }
+
       update();
     }
   }
+
 
   @override
   goToSignIn() {

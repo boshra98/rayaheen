@@ -42,6 +42,7 @@ class CartController extends GetxController {
 
   int totalcountitems = 0;
   int cartItemCount = 0;
+  double total = 0.0;
 
 
   add(String itemsid) async {
@@ -107,9 +108,24 @@ class CartController extends GetxController {
     });
   }
 
-  getTotalPrice() {
-    return (priceorders - priceorders * discountcoupon! / 100);
+  // getTotalPrice() {
+  //   return (priceorders - priceorders * discountcoupon! / 100);
+  // }
+
+  // getTotalPrice() {
+  //   if (couponModel != null) {
+  //     if (couponModel!.discountType == "percent") {
+  //       return priceorders - (priceorders * double.parse(couponModel!.discountValue!) / 100);
+  //     } else if (couponModel!.discountType == "fixed") {
+  //       return priceorders - double.parse(couponModel!.discountValue!);
+  //     }
+  //   }
+  //   return priceorders;
+  // }
+  double getTotalPrice() {
+    return total > 0 ? total : priceorders;
   }
+
 
   delete(String itemsid) async {
     if (myServices.sharedPreferences.getString("id") == "guest") {
@@ -150,32 +166,209 @@ class CartController extends GetxController {
     update();
   }
 
+  // checkcoupon() async {
+  //   statusRequest = StatusRequest.loading;
+  //   update();
+  //
+  //   var response = await cartData.checkCoupon(controllercoupon!.text);
+  //   print("=============================== Controller $response ");
+  //   statusRequest = handlingData(response);
+  //   if (StatusRequest.success == statusRequest) {
+  //     // Start backend
+  //     if (response['status'] == "success") {
+  //       Map<String, dynamic> datacoupon = response['data'];
+  //       couponModel = CouponModel.fromJson(datacoupon);
+  //       discountcoupon = int.parse(couponModel!.couponDiscount!);
+  //       couponname = couponModel!.couponName;
+  //       couponid = couponModel!.couponId;
+  //     } else {
+  //       // statusRequest = StatusRequest.failure;
+  //       discountcoupon = 0;
+  //       couponname = null;
+  //       couponid = null;
+  //       Get.snackbar("Warning", "Coupon Not Valid") ;
+  //     }
+  //     // End
+  //   }
+  //
+  //
+  //   statusRequest = StatusRequest.success;
+  //
+  //   update();
+  // }
+
+  // ========== مؤقتًا بدل الاتصال الحقيقي ========== //
+  // String code = controllercoupon!.text.trim();
+  // if (code == "SAVE10") {
+  //   discountcoupon = 10;
+  //   couponname = code;
+  //   couponid = "1"; // أي رقم وهمي
+  //   Get.snackbar("نجاح", "تم تطبيق الكوبون");
+  // } else {
+  //   discountcoupon = 0;
+  //   couponname = null;
+  //   couponid = null;
+  //   Get.snackbar("خطأ", "الكوبون غير صالح");
+  // }
+  // // =============================================== //
+
+
+
+  // checkcoupon() async {
+  //   statusRequest = StatusRequest.loading;
+  //   update();
+  //
+  //   var response = await cartData.checkCoupon(controllercoupon!.text,  priceorders // ← يجب أن تحسب السعر الإجمالي مسبقاً
+  //   );
+  //   print("=============================== Controller $response ");
+  //   statusRequest = handlingData(response);
+  //
+  //   if (StatusRequest.success == statusRequest) {
+  //     if (response['success'] == true) {
+  //       Map<String, dynamic> datacoupon = response;
+  //       couponModel = CouponModel.fromJson(datacoupon);
+  //
+  //       // إذا أردت استخدام القيم لاحقًا في التطبيق:
+  //       discountcoupon = couponModel!.discountAmount ?? 0;
+  //       couponname = couponModel!.couponName;
+  //       couponid = couponModel!.couponId;
+  //
+  //       Get.snackbar("تم الحسم", couponModel!.message ?? "تم تطبيق الحسم بنجاح");
+  //     } else {
+  //       discountcoupon = 0;
+  //       couponname = null;
+  //       couponid = null;
+  //
+  //       Get.snackbar("تحذير", response['message'] ?? "كوبون غير صالح");
+  //     }
+  //   }
+  //
+  //   statusRequest = StatusRequest.success;
+  //   update();
+  // }
+
+  // checkcoupon() async {
+  //   statusRequest = StatusRequest.loading;
+  //   update();
+  //
+  //   var rawResponse = await cartData.checkCoupon(controllercoupon!.text, priceorders);
+  //   print("================ Controller $rawResponse");
+  //   statusRequest = handlingData(rawResponse);
+  //
+  //   if (StatusRequest.success == statusRequest) {
+  //     CouponResponseModel response = CouponResponseModel.fromJson(rawResponse);
+  //
+  //     if (response.success) {
+  //       couponModel = response.data;
+  //       discountcoupon = couponModel!.discountAmount ?? 0;
+  //       couponname = couponModel!.couponName;
+  //       couponid = couponModel!.couponId;
+  //
+  //       Get.snackbar("تم الحسم", couponModel!.message ?? "تم تطبيق الكوبون بنجاح");
+  //     } else {
+  //       discountcoupon = 0;
+  //       couponname = null;
+  //       couponid = null;
+  //
+  //       Get.snackbar("تحذير", response.message ?? "كوبون غير صالح");
+  //     }
+  //   }
+  //
+  //   statusRequest = StatusRequest.success;
+  //   update();
+  // }
+
+  // checkcoupon() async {
+  //   statusRequest = StatusRequest.loading;
+  //   update();
+  //
+  //   var rawResponse = await cartData.checkCoupon(controllercoupon!.text, priceorders);
+  //   print("================ Controller $rawResponse");
+  //   statusRequest = handlingData(rawResponse);
+  //
+  //   if (StatusRequest.success == statusRequest) {
+  //     CouponResponseModel response = CouponResponseModel.fromJson(rawResponse);
+  //
+  //     if (response.success) {
+  //       couponModel = response.data;
+  //       discountcoupon = couponModel!.discountAmount ?? 0;
+  //       couponname = couponModel!.couponName;
+  //       couponid = couponModel!.couponId;
+  //
+  //       Get.snackbar("تم الحسم", couponModel!.message ?? "تم تطبيق الكوبون بنجاح");
+  //     } else {
+  //       // ✅ تحقق إن كانت الرسالة بسبب الحد الأدنى
+  //       if (rawResponse.containsKey('min_order_amount')) {
+  //         Get.snackbar(
+  //           "تنبيه",
+  //           "${rawResponse['message']} (الحد الأدنى: ${rawResponse['min_order_amount']} درهم)",
+  //         );
+  //       } else {
+  //         Get.snackbar("تحذير", response.message ?? "كوبون غير صالح");
+  //       }
+  //
+  //       discountcoupon = 0;
+  //       couponname = null;
+  //       couponid = null;
+  //     }
+  //   }
+  //
+  //   statusRequest = StatusRequest.success;
+  //   update();
+  // }
+
   checkcoupon() async {
     statusRequest = StatusRequest.loading;
     update();
 
-    var response = await cartData.checkCoupon(controllercoupon!.text);
-    print("=============================== Controller $response ");
-    statusRequest = handlingData(response);
+    var rawResponse = await cartData.checkCoupon(controllercoupon!.text, priceorders);
+    print("================ Controller $rawResponse");
+    statusRequest = handlingData(rawResponse);
+
     if (StatusRequest.success == statusRequest) {
-      // Start backend
-      if (response['status'] == "success") {
-        Map<String, dynamic> datacoupon = response['data'];
-        couponModel = CouponModel.fromJson(datacoupon);
-        discountcoupon = int.parse(couponModel!.couponDiscount!);
+      CouponResponseModel response = CouponResponseModel.fromJson(rawResponse);
+
+      if (response.success) {
+        couponModel = response.data;
+        discountcoupon = couponModel!.discountAmount ?? 0;
         couponname = couponModel!.couponName;
         couponid = couponModel!.couponId;
+
+        // ✅ حساب السعر بعد الخصم
+        if (couponModel!.discountType == "percent") {
+          total = priceorders -
+              (priceorders * double.parse(couponModel!.discountValue!) / 100);
+        } else if (couponModel!.discountType == "fixed") {
+          total = priceorders -
+              double.parse(couponModel!.discountValue!);
+        } else {
+          total = priceorders;
+        }
+
+        Get.snackbar("تم الحسم", couponModel!.message ?? "تم تطبيق الكوبون بنجاح");
       } else {
-        // statusRequest = StatusRequest.failure;
+        // ✅ تحقق من وجود حد أدنى للطلب
+        if (rawResponse.containsKey('min_order_amount')) {
+          Get.snackbar(
+            "تنبيه",
+            "${rawResponse['message']} (الحد الأدنى: ${rawResponse['min_order_amount']} درهم)",
+          );
+        } else {
+          Get.snackbar("تحذير", response.message ?? "كوبون غير صالح");
+        }
+
+        // ✅ إعادة التعيين عند الفشل
         discountcoupon = 0;
         couponname = null;
         couponid = null;
-        Get.snackbar("Warning", "Coupon Not Valid") ;
+        total = 0.0;
       }
-      // End
     }
+
+    statusRequest = StatusRequest.success;
     update();
   }
+
 
   resetVarCart() {
     totalcountitems = 0;
@@ -218,6 +411,7 @@ class CartController extends GetxController {
           cartService.setCount(totalcountitems);
 
           priceorders = double.parse((dataresponsecountprice['totalprice'] - 0.1).toStringAsFixed(1));
+          total= 0.0; // ✅ إعادة تعيين أي خصم سابق عند تحديث السلة
 
           print(priceorders);
         }

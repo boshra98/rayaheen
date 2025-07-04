@@ -290,9 +290,13 @@ class CustomListItems extends GetView<ItemsControllerImp> {
                   child: IconButton(
                     onPressed: () {
                       final CartController cartController = Get.find<CartController>();
-                      if (itemsModel.itemsId != null) {
-                        cartController.add(itemsModel.itemsId!.toString());
-                      }
+    if (itemsModel?.itemsId != null && itemsModel!.itemsCount! > 0) {
+    cartController.add(itemsModel!.itemsId!.toString());
+    } else {
+    // تنبيه المستخدم أن المنتج غير متوفر
+    Get.snackbar("تنبيه", "هذا المنتج غير متوفر حاليًا");
+    }
+
                     },
                     icon: const Icon(
                       Icons.shopping_cart_outlined,

@@ -31,12 +31,26 @@ class CartData {
     return response.fold((l) => l, (r) => r);
   }
 
-  checkCoupon(String couponname) async {
-    var response =
-    await crud.postData(AppLink.checkcoupon, {"couponname": couponname});
+  // checkCoupon(String couponname) async {
+  //   var response =
+  //   await crud.postData(AppLink.applyDiscount, {"couponname": couponname});
+  //   return response.fold((l) => l, (r) => r);
+  // }
+
+  // checkCoupon(String code, double totalAmount) async {
+  //   var response = await crud.postData(AppLink.applyDiscount, {
+  //     "code": code,
+  //     "total_amount": totalAmount,
+  //   });
+  //   return response.fold((l) => l, (r) => r);
+  // }
+  checkCoupon(String code, double totalAmount) async {
+    var response = await crud.postJsonData(AppLink.applyDiscount, {
+      "code": code,
+      "total_amount": totalAmount,
+    });
     return response.fold((l) => l, (r) => r);
   }
-
 
 
 }
