@@ -175,13 +175,109 @@ import '../widget/home/custombottomappbarhome.dart';
 
 
 
+// class HomeScreen extends StatelessWidget {
+//   const HomeScreen({Key? key}) : super(key: key);
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     final args = Get.arguments;
+//     final int? selectedTabIndex = args != null && args["tab"] != null ? args["tab"] : null;
+//
+//     final controller = Get.put(HomeScreenControllerImp());
+//
+//     if (selectedTabIndex != null && controller.currentpage != selectedTabIndex) {
+//       // نحتاج لتأجيل التغيير لضمان جاهزية البناء
+//       Future.delayed(Duration.zero, () {
+//         controller.changePage(selectedTabIndex);
+//       });
+//     }
+//     Get.put(HomeScreenControllerImp());
+//     final CartController cartController = Get.put(CartController()); // ✅ استرجاع `CartController`
+//
+//     return DoubleTapToExit(
+//       snackBar: SnackBar(content: Text('54'.tr)),
+//       child: GetBuilder<HomeScreenControllerImp>(
+//         builder: (controller) => Scaffold(
+//           floatingActionButton: Stack(
+//             children: [
+//               FloatingActionButton(
+//                 backgroundColor: AppColor.primaryColor,
+//                 onPressed: () {
+//                   final String? userId = cartController.myServices.sharedPreferences.getString("id");
+//                   if (userId == "guest") {
+//                     Get.snackbar(
+//                       "تنبيه",
+//                       "الرجاء تسجيل الدخول للوصول إلى السلة",
+//                       snackPosition: SnackPosition.BOTTOM,
+//                       duration: const Duration(seconds: 2),
+//                     );
+//                   } else {
+//                     Get.toNamed(AppRoute.cart);
+//                   }
+//                 },
+//                 child: const Icon(
+//                   Icons.shopping_cart_outlined,
+//                   color: AppColor.secondColor,
+//                 ),
+//               ),
+//
+//
+//               // ✅ استخدم `Obx` لمراقبة `cartItemCount`
+//               Obx(() => cartController.cartService.cartItemCount.value > 0
+//                   ? Positioned(
+//                 right: 0,
+//                 top: 0,
+//                 child: Container(
+//                   padding: const EdgeInsets.all(6),
+//                   decoration: const BoxDecoration(
+//                     color: Colors.red,
+//                     shape: BoxShape.circle,
+//                   ),
+//                   constraints: const BoxConstraints(
+//                     minWidth: 20,
+//                     minHeight: 20,
+//                   ),
+//                   child: Text(
+//                     '${cartController.cartService.cartItemCount.value}',
+//                     style: const TextStyle(
+//                       color: Colors.white,
+//                       fontSize: 12,
+//                       fontWeight: FontWeight.bold,
+//                     ),
+//                     textAlign: TextAlign.center,
+//                   ),
+//                 ),
+//               )
+//                   : const SizedBox.shrink()), // ✅ إذا كان العدد صفرًا، لا تعرض الإشعار
+//             ],
+//           ),
+//           floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+//           bottomNavigationBar: const CustomBottomAppBarHome(),
+//           body: controller.listPage.elementAt(controller.currentpage),
+//         ),
+//       ),
+//     );
+//   }
+// }
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    Get.put(HomeScreenControllerImp());
-    final CartController cartController = Get.put(CartController()); // ✅ استرجاع `CartController`
+    final args = Get.arguments;
+    final int? selectedTabIndex = args != null && args["tab"] != null ? args["tab"] : null;
+
+    // ⚠️ لا تنشئ الكنترولر مرتين!
+    final controller = Get.put(HomeScreenControllerImp());
+
+    // ✅ تأجيل التغيير بعد التهيئة
+    if (selectedTabIndex != null && controller.currentpage != selectedTabIndex) {
+      Future.delayed(Duration.zero, () {
+        controller.changePage(selectedTabIndex);
+      });
+    }
+
+    final CartController cartController = Get.put(CartController());
 
     return DoubleTapToExit(
       snackBar: SnackBar(content: Text('54'.tr)),
@@ -194,50 +290,27 @@ class HomeScreen extends StatelessWidget {
                 onPressed: () {
                   final String? userId = cartController.myServices.sharedPreferences.getString("id");
                   if (userId == "guest") {
-                    Get.snackbar(
-                      "تنبيه",
-                      "الرجاء تسجيل الدخول للوصول إلى السلة",
-                      snackPosition: SnackPosition.BOTTOM,
-                      duration: const Duration(seconds: 2),
-                    );
+                    Get.snackbar("تنبيه", "الرجاء تسجيل الدخول للوصول إلى السلة");
                   } else {
                     Get.toNamed(AppRoute.cart);
                   }
                 },
-                child: const Icon(
-                  Icons.shopping_cart_outlined,
-                  color: AppColor.secondColor,
-                ),
+                child: const Icon(Icons.shopping_cart_outlined, color: AppColor.secondColor),
               ),
-
-
-              // ✅ استخدم `Obx` لمراقبة `cartItemCount`
               Obx(() => cartController.cartService.cartItemCount.value > 0
                   ? Positioned(
                 right: 0,
                 top: 0,
                 child: Container(
                   padding: const EdgeInsets.all(6),
-                  decoration: const BoxDecoration(
-                    color: Colors.red,
-                    shape: BoxShape.circle,
-                  ),
-                  constraints: const BoxConstraints(
-                    minWidth: 20,
-                    minHeight: 20,
-                  ),
+                  decoration: const BoxDecoration(color: Colors.red, shape: BoxShape.circle),
                   child: Text(
                     '${cartController.cartService.cartItemCount.value}',
-                    style: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 12,
-                      fontWeight: FontWeight.bold,
-                    ),
-                    textAlign: TextAlign.center,
+                    style: const TextStyle(color: Colors.white, fontSize: 12),
                   ),
                 ),
               )
-                  : const SizedBox.shrink()), // ✅ إذا كان العدد صفرًا، لا تعرض الإشعار
+                  : const SizedBox.shrink()),
             ],
           ),
           floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,

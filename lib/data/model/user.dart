@@ -61,7 +61,7 @@ class UserModel {
       id: json['id']?.toString(), // قد لا يكون موجود
       name: json['name'] ?? '',
       phone: json['phone'] ?? '',
-      email: json['email'],
+      email: json['email']?? '',
     );
   }
 

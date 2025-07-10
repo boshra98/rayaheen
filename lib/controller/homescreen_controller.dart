@@ -25,12 +25,18 @@ class HomeScreenControllerImp extends HomeScreenController {
     const Settings()
   ];
 
+  // List bottomappbar = [
+  //   {"title": "81".tr, "icon": Icons.home},
+  //   //{"title": "n", "icon": Icons.notifications_active_outlined},
+  //   //{"title": "profile", "icon": Icons.person_pin_sharp},
+  //   {"title": "82".tr, "icon": Icons.settings}
+  // ];
+
   List bottomappbar = [
-    {"title": "81".tr, "icon": Icons.home},
-    //{"title": "n", "icon": Icons.notifications_active_outlined},
-    //{"title": "profile", "icon": Icons.person_pin_sharp},
-    {"title": "82".tr, "icon": Icons.settings}
+    {"title": "81", "icon": Icons.home},
+    {"title": "82", "icon": Icons.settings}
   ];
+
 
   @override
   changePage(int i) {

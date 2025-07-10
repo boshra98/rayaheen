@@ -31,8 +31,8 @@ class SignUpControllerImp extends SignUpController {
   signUp() async {
     if (formstate.currentState!.validate()) {
       statusRequest = StatusRequest.loading;
-      int intValue = Random().nextInt(10000);
-      email.text = username.text + "$intValue@gmail.com";
+      // int intValue = Random().nextInt(10000);
+      // email.text = username.text + "$intValue@gmail.com";
       update();
 
       var response = await signupData.postdata(

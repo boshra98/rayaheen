@@ -24,14 +24,18 @@ class OrdersArchiveController extends GetxController {
     }
   }
 
-  String printPaymentMethod(String val) {
-    if (val == "0") {
-      return "71".tr;
+
+  String printPaymentMethod(String? val) {
+    if (val == null || val.isEmpty) {
+      return "غير معروف";
+    } else if (val == "0") {
+      return "كاش";
+    } else if (val == "1") {
+      return "تحويل";
     } else {
-      return "72".tr;
+      return "غير معروف";
     }
   }
-
   String printOrderStatus(String val) {
     if (val == "0") {
       return "Pending Approval";

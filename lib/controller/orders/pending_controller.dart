@@ -26,13 +26,28 @@ class OrdersPendingController extends GetxController {
     }
   }
 
-  String printPaymentMethod(String val) {
-    if (val == "0") {
-      return "71".tr;
+  // String printPaymentMethod(String val) {
+  //   if (val == "0") {
+  //     return "71".tr;
+  //   } else {
+  //     return "72".tr;
+  //   }
+  // }
+
+  String printPaymentMethod(String? val) {
+    if (val == null || val.isEmpty) {
+      return "غير معروف";
+    } else if (val == "0") {
+      return "كاش";
+    } else if (val == "1") {
+      return "تحويل";
     } else {
-      return "72".tr;
+      return "غير معروف";
     }
   }
+
+
+
 
   String printOrderStatus(String val) {
     if (val == "0") {
@@ -67,6 +82,9 @@ class OrdersPendingController extends GetxController {
       // Start backend
       if (response['status'] == "success") {
         List listdata = response['data'];
+        for (var e in listdata) {
+          print("💬 وسيلة الدفع القادمة من السيرفر: ${e['payment_method']}");
+        }
         data.addAll(listdata.map((e) => OrdersModel.fromJson(e)));
       } else {
         statusRequest = StatusRequest.failure;

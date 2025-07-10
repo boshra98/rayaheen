@@ -55,7 +55,7 @@ class Cart extends StatelessWidget {
                                 color: Colors.grey),
                             SizedBox(height: 16),
                             Text(
-                              "سلتك فارغة حتى الآن 😊",
+                              "130".tr,
                               style: TextStyle(
                                   fontSize: 16, color: Colors.grey),
                             ),

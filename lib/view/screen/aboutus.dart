@@ -7,77 +7,71 @@ import '../../core/constant/imageasset.dart';
 class AboutUs extends StatelessWidget {
   const AboutUs({Key? key}) : super(key: key);
 
-
   @override
   Widget build(BuildContext context) {
     double fontSize = MediaQuery.of(context).size.width * 0.06; // 6% of screen width
 
-    return Container(
-      color: AppColor.secondColor,
-      child: ListView(
-          children: [
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: AppColor.primaryColor,
+        title:  Text(
+          '48'.tr,
+          style: TextStyle(color: Colors.white),
+        ),
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back, color: Colors.white),
+          onPressed: () => Navigator.of(context).pop(),
+        ),
+      ),
+      backgroundColor: AppColor.secondColor,
+      body: ListView(
+        children: [
           Stack(
-          clipBehavior: Clip.none,
-          alignment: Alignment.center,
-          children: [
-            Container(height: Get.width / 3, color: AppColor.primaryColor),
-            Positioned(
+            clipBehavior: Clip.none,
+            alignment: Alignment.center,
+            children: [
+              Container(height: Get.width / 3, color: AppColor.primaryColor),
+              Positioned(
                 top: Get.width / 3.9,
                 child: Container(
-                  padding: EdgeInsets.all(4),
+                  padding: const EdgeInsets.all(4),
                   decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(100)),
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(100),
+                  ),
                   child: CircleAvatar(
                     radius: 60,
                     backgroundColor: Colors.grey[100],
                     backgroundImage: const AssetImage(ImageAsset.logo),
                   ),
-                )),
-          ]
-      ),
-
-
-        const SizedBox(height: 100),
-
-
-              Container(
-              padding: EdgeInsets.all(20),
-              alignment: Alignment.center,
-                  child: Column(
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 100),
+          Container(
+            padding: const EdgeInsets.all(20),
+            alignment: Alignment.center,
+            child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-              Container(
-              alignment: Alignment.center,
-              child: Text(
+                Text(
+                  "52".tr, // assuming translation key
+                  textAlign: TextAlign.start, // ✅ ذكي حسب اتجاه اللغة
 
-                "52".tr, // Assuming translation key (optional)
-              textAlign: TextAlign.right,
-              style:
-
-              Theme.of(context).textTheme.labelSmall!.copyWith(
-              fontSize: 23, // Responsive font size
-              //fontWeight: FontWeight.bold,
-                fontFamily: "playfairDisplay",
-              color: AppColor.primaryColor2,
-
-              //letterSpacing: 1.2,
-              ),
-              ),
-              ),
+                  //textAlign: TextAlign.right,
+                  style: Theme.of(context).textTheme.labelSmall!.copyWith(
+                    fontSize: 23,
+                    fontFamily: "playfairDisplay",
+                    color: AppColor.primaryColor2,
+                  ),
+                ),
               ],
-              ),
-              )
-        ]),
+            ),
+          ),
+        ],
+      ),
     );
-
   }
 }
-
-
-
-
-
-
-

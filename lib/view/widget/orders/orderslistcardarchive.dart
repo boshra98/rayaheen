@@ -1,3 +1,76 @@
+//
+// import 'package:flutter/material.dart';
+// import 'package:get/get.dart';
+// import 'package:jiffy/jiffy.dart';
+//
+// import '../../../controller/orders/archive_controller.dart';
+// import '../../../core/constant/color.dart';
+// import '../../../core/constant/routes.dart';
+// import '../../../data/model/ordersmodel.dart';
+//
+// class CardOrdersListArchive extends GetView<OrdersArchiveController> {
+//   final OrdersModel listdata;
+//
+//   const CardOrdersListArchive({Key? key, required this.listdata})
+//       : super(key: key);
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     return Card(
+//       child: Container(
+//           padding: const EdgeInsets.all(10),
+//           child: Column(
+//             crossAxisAlignment: CrossAxisAlignment.start,
+//             children: [
+//               Row(
+//                 children: [
+//                   Text("66".tr +" : #${listdata.ordersId}",
+//                       style: const TextStyle(
+//                           fontSize: 18, fontWeight: FontWeight.bold)),
+//                   const Spacer(),
+//                   // Text(listdata.ordersDatetime!)
+//                   Text(
+//                     Jiffy(listdata.ordersDatetime!).fromNow(),
+//                     style: const TextStyle(
+//                         color: AppColor.primaryColor,
+//                         fontWeight: FontWeight.bold),
+//                   )
+//                 ],
+//               ),
+//               const Divider(),
+//               // Text(
+//               //     "Order Type : ${controller.printOrderType(listdata.ordersType!)}"),
+//               Text("67".tr +": ${listdata.ordersTotalprice}  درهم\  "),
+//               // Text("Delivery Price : ${listdata.ordersPricedelivery} درهم\  "),
+//               Text(
+//                   "68".tr + ": ${controller.printPaymentMethod(listdata.ordersPaymentmethod!)} "),
+//               Text(
+//                   "69".tr +": ${listdata.ordersStatus} "),
+//               const Divider(),
+//               Row(
+//                 children: [
+//                   // Text("Total Price : ${listdata.ordersId} درهم\ ",
+//                   //     style: const TextStyle(
+//                   //         color: AppColor.primaryColor,
+//                   //         fontWeight: FontWeight.bold)),
+//                   const Spacer(),
+//                   MaterialButton(
+//                     onPressed: () {
+//                       Get.toNamed(AppRoute.ordersdetails,
+//                           arguments: {"ordersmodel": listdata});
+//                     },
+//                     color: AppColor.secondColor,
+//                     textColor: AppColor.fourth2Color,
+//                     child:  Text("56".tr),
+//                   ),
+//                 ],
+//               ),
+//             ],
+//           )),
+//     );
+//   }
+// }
+
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -16,57 +89,59 @@ class CardOrdersListArchive extends GetView<OrdersArchiveController> {
 
   @override
   Widget build(BuildContext context) {
+    debugPrint("🧾 القيمة القادمة من الباكند: ${listdata.ordersPaymentmethod}");
+
     return Card(
       child: Container(
-          padding: const EdgeInsets.all(10),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                children: [
-                  Text("66".tr +" : #${listdata.ordersId}",
-                      style: const TextStyle(
-                          fontSize: 18, fontWeight: FontWeight.bold)),
-                  const Spacer(),
-                  // Text(listdata.ordersDatetime!)
-                  Text(
-                    Jiffy(listdata.ordersDatetime!).fromNow(),
-                    style: const TextStyle(
-                        color: AppColor.primaryColor,
-                        fontWeight: FontWeight.bold),
-                  )
-                ],
-              ),
-              const Divider(),
-              // Text(
-              //     "Order Type : ${controller.printOrderType(listdata.ordersType!)}"),
-              Text("67".tr +": ${listdata.ordersTotalprice}  درهم\  "),
-              // Text("Delivery Price : ${listdata.ordersPricedelivery} درهم\  "),
-              Text(
-                  "68".tr + ": ${controller.printPaymentMethod(listdata.ordersPaymentmethod!)} "),
-              Text(
-                  "69".tr +": ${listdata.ordersStatus} "),
-              const Divider(),
-              Row(
-                children: [
-                  // Text("Total Price : ${listdata.ordersId} درهم\ ",
-                  //     style: const TextStyle(
-                  //         color: AppColor.primaryColor,
-                  //         fontWeight: FontWeight.bold)),
-                  const Spacer(),
-                  MaterialButton(
-                    onPressed: () {
-                      Get.toNamed(AppRoute.ordersdetails,
-                          arguments: {"ordersmodel": listdata});
-                    },
-                    color: AppColor.secondColor,
-                    textColor: AppColor.fourth2Color,
-                    child:  Text("56".tr),
+        padding: const EdgeInsets.all(10),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              children: [
+                Text(
+                  "66".tr + " : #${listdata.ordersId ?? '—'}",
+                  style: const TextStyle(
+                    fontSize: 18,
+                    fontWeight: FontWeight.bold,
                   ),
-                ],
-              ),
-            ],
-          )),
+                ),
+                const Spacer(),
+                Text(
+                  listdata.ordersDatetime != null
+                      ? Jiffy(listdata.ordersDatetime!).format("dd / MM / yyyy")
+                      : "تاريخ غير متوفر",
+                  style: const TextStyle(
+                    color: AppColor.primaryColor,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+              ],
+            ),
+            const Divider(),
+            Text("67".tr + ": ${listdata.ordersTotalprice ?? '—'} درهم"),
+
+            Text("68".tr +
+                ": ${controller.printPaymentMethod(listdata.ordersPaymentmethod ?? '')}"),
+            Text("69".tr + ": ${listdata.ordersStatus ?? '—'}"),
+            const Divider(),
+            Row(
+              children: [
+                const Spacer(),
+                MaterialButton(
+                  onPressed: () {
+                    Get.toNamed(AppRoute.ordersdetails,
+                        arguments: {"ordersmodel": listdata});
+                  },
+                  color: AppColor.secondColor,
+                  textColor: AppColor.fourth2Color,
+                  child: Text("56".tr),
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
     );
   }
 }

@@ -317,6 +317,69 @@ class CartController extends GetxController {
   //   update();
   // }
 
+  // checkcoupon() async {
+  //   statusRequest = StatusRequest.loading;
+  //   update();
+  //   String discountMessage = "";
+  //   if (couponModel!.discountType == "percent") {
+  //     discountMessage =
+  //     "تم تطبيق خصم بنسبة ${couponModel!.discountValue}% على طلبك.";
+  //   } else if (couponModel!.discountType == "fixed") {
+  //     discountMessage =
+  //     "تم تطبيق خصم بقيمة ${couponModel!.discountValue} درهم على طلبك.";
+  //   } else {
+  //     discountMessage = "تم تطبيق الكوبون بنجاح.";
+  //   }
+  //
+  //   Get.snackbar("✅ تم الحسم", discountMessage);
+  //
+  //   var rawResponse = await cartData.checkCoupon(controllercoupon!.text, priceorders);
+  //   print("================ Controller $rawResponse");
+  //   statusRequest = handlingData(rawResponse);
+  //
+  //   if (StatusRequest.success == statusRequest) {
+  //     CouponResponseModel response = CouponResponseModel.fromJson(rawResponse);
+  //
+  //     if (response.success) {
+  //       couponModel = response.data;
+  //       discountcoupon = couponModel!.discountAmount ?? 0;
+  //       couponname = couponModel!.couponName;
+  //       couponid = couponModel!.couponId;
+  //
+  //       // ✅ حساب السعر بعد الخصم
+  //       if (couponModel!.discountType == "percent") {
+  //         total = priceorders -
+  //             (priceorders * double.parse(couponModel!.discountValue!) / 100);
+  //       } else if (couponModel!.discountType == "fixed") {
+  //         total = priceorders -
+  //             double.parse(couponModel!.discountValue!);
+  //       } else {
+  //         total = priceorders;
+  //       }
+  //
+  //       Get.snackbar("تم الحسم", couponModel!.message ?? "تم تطبيق الكوبون بنجاح");
+  //     } else {
+  //       // ✅ تحقق من وجود حد أدنى للطلب
+  //       if (rawResponse.containsKey('min_order_amount')) {
+  //         Get.snackbar(
+  //           "تنبيه",
+  //           "${rawResponse['message']} (الحد الأدنى: ${rawResponse['min_order_amount']} درهم)",
+  //         );
+  //       } else {
+  //         Get.snackbar("تحذير", response.message ?? "كوبون غير صالح");
+  //       }
+  //
+  //       // ✅ إعادة التعيين عند الفشل
+  //       discountcoupon = 0;
+  //       couponname = null;
+  //       couponid = null;
+  //       total = 0.0;
+  //     }
+  //   }
+  //
+  //   statusRequest = StatusRequest.success;
+  //   update();
+  // }
   checkcoupon() async {
     statusRequest = StatusRequest.loading;
     update();
@@ -339,23 +402,39 @@ class CartController extends GetxController {
           total = priceorders -
               (priceorders * double.parse(couponModel!.discountValue!) / 100);
         } else if (couponModel!.discountType == "fixed") {
-          total = priceorders -
-              double.parse(couponModel!.discountValue!);
+          total = priceorders - double.parse(couponModel!.discountValue!);
         } else {
           total = priceorders;
         }
 
-        Get.snackbar("تم الحسم", couponModel!.message ?? "تم تطبيق الكوبون بنجاح");
+        // ✅ عرض رسالة الخصم بعد التحقق من نجاح الكوبون
+        String discountMessage = "";
+        if (couponModel!.discountType == "percent") {
+          discountMessage =
+          "تم تطبيق خصم بنسبة ${couponModel!.discountValue}% على طلبك.";
+        } else if (couponModel!.discountType == "fixed") {
+          discountMessage =
+          "تم تطبيق خصم بقيمة ${couponModel!.discountValue} درهم على طلبك.";
+        } else {
+          discountMessage = "تم تطبيق الكوبون بنجاح.";
+        }
+
+        Get.snackbar("✅ تم الحسم", discountMessage);
+
       } else {
         // ✅ تحقق من وجود حد أدنى للطلب
         if (rawResponse.containsKey('min_order_amount')) {
           Get.snackbar(
-            "تنبيه",
-            "${rawResponse['message']} (الحد الأدنى: ${rawResponse['min_order_amount']} درهم)",
+            "❗ الكوبون غير قابل للتطبيق",
+            "يجب أن تكون قيمة الطلب على الأقل ${rawResponse['min_order_amount']} درهم لتفعيل هذا الكوبون.",
           );
         } else {
-          Get.snackbar("تحذير", response.message ?? "كوبون غير صالح");
+          Get.snackbar(
+            "⚠️ كوبون غير صالح",
+            response.message ?? "الرجاء التحقق من رمز الكوبون والمحاولة مرة أخرى.",
+          );
         }
+
 
         // ✅ إعادة التعيين عند الفشل
         discountcoupon = 0;
@@ -367,6 +446,24 @@ class CartController extends GetxController {
 
     statusRequest = StatusRequest.success;
     update();
+  }
+
+  // void cancelCoupon() {
+  //   couponModel = null;
+  //   discountcoupon = 0;
+  //   couponname = null;
+  //   couponid = null;
+  //   update(); // لتحديث الواجهة
+  // }
+
+  void cancelCoupon() {
+    couponModel = null;
+    couponname = null;
+    couponid = null;
+    discountcoupon = 0;
+    total = priceorders; // ← رجّع السعر الأساسي
+
+    update(); // ✅ لتحديث الواجهة مباشرة
   }
 
 

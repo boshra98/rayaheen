@@ -1,13 +1,148 @@
+//
+//
+//
+// import 'package:flutter/material.dart';
+// import 'package:get/get.dart';
+//
+// import '../../../../controller/auth/verifycode_controller.dart';
+// import '../../../../core/constant/color.dart';
+// import '../../../widget/auth/customtextbodyauth.dart';
+// import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
+// import '../../../widget/auth/customtexttitleauth.dart';
+//
+// class VerifyCode extends StatelessWidget {
+//   const VerifyCode({Key? key}) : super(key: key);
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     VerifyCodeControllerImp controller= Get.put(VerifyCodeControllerImp());
+//     return Scaffold(
+//       appBar: AppBar(
+//           centerTitle:true,
+//           backgroundColor: AppColor.backgroundcolor,
+//           elevation: 0.0,
+//           title: Text('Verification Code', style:Theme.of(context).textTheme.headline1!.copyWith(color: AppColor.grey))
+//       ),
+//       body: Container(
+//         padding: const EdgeInsets.symmetric(vertical: 15 , horizontal: 30),
+//         child:ListView(children: [
+//
+//           const SizedBox(height: 20,) ,
+//           const  CustomTextTitleAuth(text: "Check code" ,) ,
+//           const  SizedBox(height: 10) ,
+//           const  CustomTextBodyauth(text: "please Enter The Digit Code Sent To email"),
+//           const  SizedBox(height: 15) ,
+//
+//           OtpTextField(
+//
+//             fieldWidth:50.0 ,
+//             borderRadius: BorderRadius.circular(20),
+//             numberOfFields: 5,
+//             borderColor: Color(0xFF512DA8),
+//             //set to true to show as box or false to show as dash
+//             showFieldAsBox: true,
+//             //runs when a code is typed in
+//             onCodeChanged: (String code) {
+//               //handle validation or checks here
+//             },
+//             //runs when every textfield is filled
+//             onSubmit: (String verificationCode){
+//               controller.goToResetPassword();
+//             }, // end onSubmit
+//           ),
+//
+//
+//
+//
+//           //CustomButtomAuth(text:"Check",onPressed:(){},),
+//           const  SizedBox(height: 40,),
+//
+//
+//         ]),
+//       ),
+//
+//     );
+//
+//
+//   }
+//
+// }
 
+// import 'package:flutter/material.dart';
+// import 'package:get/get.dart';
+// import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
+//
+// import '../../../../controller/auth/verifycode_controller.dart';
+// import '../../../../core/class/statusrequest.dart';
+// import '../../../../core/constant/color.dart';
+// import '../../../widget/auth/customtextbodyauth.dart';
+// import '../../../widget/auth/customtexttitleauth.dart';
+//
+// class VerifyCode extends StatelessWidget {
+//   const VerifyCode({Key? key}) : super(key: key);
+//
+//   @override
+//   Widget build(BuildContext context) {
+//     VerifyCodeControllerImp controller = Get.put(VerifyCodeControllerImp());
+//
+//     return Scaffold(
+//       appBar: AppBar(
+//         centerTitle: true,
+//         backgroundColor: AppColor.backgroundcolor,
+//         elevation: 0.0,
+//         title: Text(
+//           'Verification Code',
+//           style: Theme.of(context)
+//               .textTheme
+//               .headline1!
+//               .copyWith(color: AppColor.grey),
+//         ),
+//       ),
+//       body: GetBuilder<VerifyCodeControllerImp>(
+//         builder: (_) => controller.statusRequest == StatusRequest.loading
+//             ? const Center(child: CircularProgressIndicator())
+//             : Container(
+//           padding:
+//           const EdgeInsets.symmetric(vertical: 15, horizontal: 30),
+//           child: ListView(
+//             children: [
+//               const SizedBox(height: 20),
+//               const CustomTextTitleAuth(text: "Check code"),
+//               const SizedBox(height: 10),
+//               const CustomTextBodyauth(
+//                   text: "Please enter the 6-digit code sent to your email" ,),
+//               const SizedBox(height: 15),
+//               OtpTextField(
+//                 fieldWidth: 50.0,
+//                 borderRadius: BorderRadius.circular(20),
+//                 numberOfFields: 6, // ✅ عدد الخانات 6
+//                 borderColor: const Color(0xFF512DA8),
+//                 showFieldAsBox: true,
+//                 onCodeChanged: (String code) {
+//                   // يمكن إضافة منطق مؤقت هنا
+//                 },
+//                 onSubmit: (String verificationCode) {
+//                   controller.checkCode(verificationCode); // ✅ التحقق من الكود
+//                 },
+//               ),
+//               const SizedBox(height: 40),
+//             ],
+//           ),
+//         ),
+//       ),
+//     );
+//   }
+// }
 
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
 
 import '../../../../controller/auth/verifycode_controller.dart';
+import '../../../../core/class/statusrequest.dart';
 import '../../../../core/constant/color.dart';
 import '../../../widget/auth/customtextbodyauth.dart';
-import 'package:flutter_otp_text_field/flutter_otp_text_field.dart';
 import '../../../widget/auth/customtexttitleauth.dart';
 
 class VerifyCode extends StatelessWidget {
@@ -15,55 +150,57 @@ class VerifyCode extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    VerifyCodeControllerImp controller= Get.put(VerifyCodeControllerImp());
+    VerifyCodeControllerImp controller = Get.put(VerifyCodeControllerImp());
+
     return Scaffold(
       appBar: AppBar(
-          centerTitle:true,
-          backgroundColor: AppColor.backgroundcolor,
-          elevation: 0.0,
-          title: Text('Verification Code', style:Theme.of(context).textTheme.headline1!.copyWith(color: AppColor.grey))
+        centerTitle: true,
+        backgroundColor: AppColor.backgroundcolor,
+        elevation: 0.0,
+        title: Text(
+          '115'.tr,
+          style: Theme.of(context)
+              .textTheme
+              .headline1!
+              .copyWith(color: AppColor.grey, fontSize: 20),
+        ),
       ),
-      body: Container(
-        padding: const EdgeInsets.symmetric(vertical: 15 , horizontal: 30),
-        child:ListView(children: [
+      body: GetBuilder<VerifyCodeControllerImp>(
+        builder: (_) => controller.statusRequest == StatusRequest.loading
+            ? const Center(child: CircularProgressIndicator())
+            : SingleChildScrollView(
+          padding:
+          const EdgeInsets.symmetric(vertical: 20, horizontal: 25),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              const SizedBox(height: 30),
+               CustomTextTitleAuth(text: "116".tr),
+              const SizedBox(height: 10),
+               CustomTextBodyauth(
+                text:"117".tr
+              ),
+              const SizedBox(height: 40),
 
-          const SizedBox(height: 20,) ,
-          const  CustomTextTitleAuth(text: "Check code" ,) ,
-          const  SizedBox(height: 10) ,
-          const  CustomTextBodyauth(text: "please Enter The Digit Code Sent To wael@gmail.com"),
-          const  SizedBox(height: 15) ,
+              Center(
+                child: OtpTextField(
+                  fieldWidth: 35,
+                  borderRadius: BorderRadius.circular(12),
+                  numberOfFields: 6,
+                  borderColor: AppColor.primaryColor,
+                  showFieldAsBox: true,
+                  onCodeChanged: (String code) {},
+                  onSubmit: (String verificationCode) {
+                    controller.checkCode(verificationCode);
+                  },
+                ),
+              ),
 
-          OtpTextField(
-
-            fieldWidth:50.0 ,
-            borderRadius: BorderRadius.circular(20),
-            numberOfFields: 5,
-            borderColor: Color(0xFF512DA8),
-            //set to true to show as box or false to show as dash
-            showFieldAsBox: true,
-            //runs when a code is typed in
-            onCodeChanged: (String code) {
-              //handle validation or checks here
-            },
-            //runs when every textfield is filled
-            onSubmit: (String verificationCode){
-              controller.goToResetPassword();
-            }, // end onSubmit
+              const SizedBox(height: 60),
+            ],
           ),
-
-
-
-
-          //CustomButtomAuth(text:"Check",onPressed:(){},),
-          const  SizedBox(height: 40,),
-
-
-        ]),
+        ),
       ),
-
     );
-
-
   }
-
 }

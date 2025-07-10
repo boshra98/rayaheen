@@ -2,6 +2,7 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../controller/buttom_controller.dart';
 import '../../controller/favorit_controller.dart';
 import '../../controller/home_controller.dart';
 import '../../controller/items_controller.dart';
@@ -11,6 +12,8 @@ import '../../core/constant/routes.dart';
 import '../../data/model/itemsmodel.dart';
 import '../../linkapi.dart';
 import '../widget/customappbar.dart';
+import '../widget/home/floatingbottom.dart';
+import '../widget/home/generalbottom.dart';
 import '../widget/items/customlistitems.dart';
 import '../widget/items/listcategoriesitems.dart';
 import 'home.dart';
@@ -22,7 +25,23 @@ class itemsage extends StatelessWidget {
   Widget build(BuildContext context) {
     ItemsControllerImp controller = Get.put(ItemsControllerImp());
     FavoriteController controllerFav = Get.put(FavoriteController());
+    Get.put(GeneralBottomNavController()); // ربط الكونترولر هنا
+
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Colors.white,
+        elevation: 1,
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back, color: Colors.black),
+          onPressed: () {
+            controller.clearSearch(); // تنظيف البحث بشكل أنظف
+            Navigator.of(context).pop();
+          },
+        ),
+      ),
+      bottomNavigationBar: const GeneralBottomNavigationBar(),
+      floatingActionButton: const FloatingCartButton(),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       body: Container(
         padding: const EdgeInsets.all(15),
         child: ListView(children: [
@@ -37,6 +56,9 @@ class itemsage extends StatelessWidget {
             },
             onChanged: (val) {
               controller.checkSearch(val);
+              if (val.isNotEmpty) {
+                controller.onSearchItems(val);
+              }
             },
            // onPressedIconFavorite: () {
            //   Get.toNamed(AppRoute.myfavroite);

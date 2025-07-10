@@ -1,10 +1,13 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import '../../controller/buttom_controller.dart';
 import '../../controller/cart_controller.dart'; // ✅ استيراد `CartController`
 import '../../core/constant/color.dart';
 import '../../data/model/itemsmodel.dart';
 import '../../linkapi.dart';
+import '../widget/home/floatingbottom.dart';
+import '../widget/home/generalbottom.dart';
 
 class BooksListPageDisc extends StatelessWidget {
   final List<ItemsModel> items;
@@ -29,8 +32,13 @@ class BooksListPageDisc extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Get.put(GeneralBottomNavController()); // ربط الكونترولر هنا
+
     return Scaffold(
       appBar: AppBar(title: Text("109".tr)),
+      bottomNavigationBar: const GeneralBottomNavigationBar(),
+      floatingActionButton: const FloatingCartButton(),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       body: items.isEmpty
           ? const Center(child: Text("لا توجد كتب بخصومات"))
           : Padding(

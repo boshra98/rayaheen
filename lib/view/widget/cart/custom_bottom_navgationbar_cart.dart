@@ -193,7 +193,7 @@ class BottomNavgationBarCart extends GetView<CartController> {
                       decoration: InputDecoration(
                         isDense: true,
                         contentPadding: EdgeInsets.symmetric(vertical: 8, horizontal: 10),
-                        hintText: "كوبون الحسم",
+                        hintText: "129".tr,
                         border: OutlineInputBorder(),
                       ),
                     ),
@@ -202,20 +202,41 @@ class BottomNavgationBarCart extends GetView<CartController> {
                   Expanded(
                     flex: 1,
                     child: CustomButtonCoupon(
-                      textbutton: "تفعيل",
+                      textbutton: "128".tr,
                       onPressed: onApplyCoupon,
                     ),
                   ),
                 ],
               ),
             )
-                : Text(
-              "كود الحسم ${controller.couponname!}",
-              style: TextStyle(
-                color: AppColor.primaryColor,
-                fontWeight: FontWeight.bold,
-              ),
+            //     : Text(
+            //   "  127".tr  +" ${controller.couponname!}",
+            //   style: TextStyle(
+            //     color: AppColor.primaryColor,
+            //     fontWeight: FontWeight.bold,
+            //   ),
+            // ),
+
+                : Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(
+                  "127".tr + " ${controller.couponname!}",
+                  style: TextStyle(
+                    color: AppColor.primaryColor,
+                    fontWeight: FontWeight.bold,
+                  ),
+                ),
+                SizedBox(width: 10),
+                GestureDetector(
+                  onTap: () {
+                    controller.cancelCoupon(); // تابع جديد في الكنترولر
+                  },
+                  child: Icon(Icons.cancel, color: Colors.red),
+                ),
+              ],
             ),
+
             Container(
               margin: EdgeInsets.all(10),
               padding: EdgeInsets.all(10),
@@ -233,7 +254,8 @@ class BottomNavgationBarCart extends GetView<CartController> {
                         child: Container(
                           padding: EdgeInsets.symmetric(horizontal: 20, vertical: 10),
                           child: Text(
-                            "حصريا في الامارات رسوم التوصيل 20 درهم و مجاني في حال تجاوزت قيمة الشراء 350 درهم",
+                            "126".tr ,
+                        //    "حصريا في الامارات رسوم التوصيل 20 درهم و مجاني في حال تجاوزت قيمة الشراء 350 درهم",
                             textAlign: TextAlign.center,
                             style: TextStyle(
                               fontSize: MediaQuery.of(context).size.width * 0.04,
@@ -256,7 +278,7 @@ class BottomNavgationBarCart extends GetView<CartController> {
                     children: [
                       Padding(
                         padding: EdgeInsets.symmetric(horizontal: 20),
-                        child: Text("الحسم", style: TextStyle(fontSize: 16)),
+                        child: Text("124".tr, style: TextStyle(fontSize: 16)),
                       ),
                       Padding(
                         padding: EdgeInsets.symmetric(horizontal: 20),
@@ -274,7 +296,7 @@ class BottomNavgationBarCart extends GetView<CartController> {
                       Padding(
                         padding: EdgeInsets.symmetric(horizontal: 20),
                         child: Text(
-                          "السعر الكلي",
+                          "58".tr,
                           style: TextStyle(
                             fontSize: 16,
                             fontWeight: FontWeight.bold,
@@ -301,7 +323,7 @@ class BottomNavgationBarCart extends GetView<CartController> {
             ),
             SizedBox(height: 10),
             CustomButtonCart(
-              textbutton: "اطلب الآن",
+              textbutton: "125".tr,
               onPressed: () {
                 controller.goToPageCheckout();
               },

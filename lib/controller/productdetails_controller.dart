@@ -31,9 +31,14 @@ late ScrollController scrollController;
 class ProductDetailsControllerImp extends ProductDetailsController {
   // CartController cartController = Get.put(CartController());
   final CartService cartService = Get.find(); // Get the CartService instance
+  //late final ItemsModel item;
 
-  late ItemsModel itemsModel;
+  late final ItemsModel itemsModel;
   // late ScrollController scrollController;
+  ProductDetailsControllerImp(this.itemsModel);
+
+
+
 
   PageController pageController = PageController();
 
@@ -55,9 +60,37 @@ class ProductDetailsControllerImp extends ProductDetailsController {
   //   statusRequest = StatusRequest.success;
   //   update();
   // }
+  // Future<void> intialData() async {
+  //   statusRequest = StatusRequest.loading;
+  //   itemsModel = Get.arguments['itemsmodel'];
+  //   countitems = await getCountItems(itemsModel.itemsId!);
+  //   statusRequest = StatusRequest.success;
+  //   update();
+  // }
+
+  // Future<void> intialData() async {
+  //   statusRequest = StatusRequest.loading;
+  //
+  //   final args = Get.arguments;
+  //   if (args is ItemsModel) {
+  //     itemsModel = args;
+  //   } else if (args is Map && args['itemsmodel'] != null) {
+  //     itemsModel = args['itemsmodel'];
+  //   } else {
+  //     print("❌ لم يتم تمرير عنصر صالح إلى ProductDetailsController");
+  //     statusRequest = StatusRequest.failure;
+  //     update();
+  //     return;
+  //   }
+  //
+  //   countitems = await getCountItems(itemsModel.itemsId!);
+  //   statusRequest = StatusRequest.success;
+  //   update();
+  // }
+
+
   Future<void> intialData() async {
     statusRequest = StatusRequest.loading;
-    itemsModel = Get.arguments['itemsmodel'];
     countitems = await getCountItems(itemsModel.itemsId!);
     statusRequest = StatusRequest.success;
     update();
@@ -253,6 +286,7 @@ class ProductDetailsControllerImp extends ProductDetailsController {
     scrollController = ScrollController();
 
     super.onInit();
+    // print("✅ بيانات المنتج: ${item.itemsName}");
 
   }
 
@@ -262,6 +296,10 @@ class ProductDetailsControllerImp extends ProductDetailsController {
   scrollController.dispose();
   super.onClose();
 }
+
+
+
+
 
 
 }

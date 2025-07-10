@@ -7,6 +7,7 @@ class AppRoute {
   static const String homePage = "/homepage";
   static const String splashScreen = "/splashscreen";
 
+  static const String settings = "/settings";
 
   static const String onBoarding = "/onboarding";
 
@@ -14,7 +15,7 @@ class AppRoute {
 
   static const String forgetPassword = "/forgetpassword";
 
-  static const String verfiyCode = "/verfiycode";
+  static const String verifycode = "/verifycode";
 
   static const String resetPassword = "/resetpassword";
 
@@ -46,7 +47,7 @@ class AppRoute {
 
 
   static const String profile = "/profile";
-
+  static const String contactdeveloperPage = "/contactdeveloperpage";
 
   static const String orderspending = "/orderspending";
   static const String ordersarchive = "/ordersarchive";

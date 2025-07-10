@@ -11,6 +11,7 @@ import '../../core/constant/color.dart';
 import '../../core/constant/imageasset.dart';
 import '../../core/constant/routes.dart';
 import '../../core/functions/alartexitapp.dart';
+import 'contectwithdeveloper.dart';
 import 'language.dart';
 
 class Settings extends StatelessWidget {
@@ -21,8 +22,10 @@ class Settings extends StatelessWidget {
     SettingsController controller = Get.put(SettingsController());
     final AccountController accountController = Get.put(AccountController());
 
-    return Container(
-      child: ListView(
+    return Scaffold(
+        backgroundColor: Theme.of(context).scaffoldBackgroundColor,
+        body: ListView(
+
         children: [
           Stack(
               clipBehavior: Clip.none,
@@ -49,6 +52,12 @@ class Settings extends StatelessWidget {
     color: AppColor.secondColor,
     child: Column(
     children: [
+      if (!controller.isGuest)
+        ListTile(
+          onTap: () => Get.toNamed(AppRoute.profile),
+          trailing: const Icon(Icons.person, color: AppColor.black),
+          title: Text('113'.tr, style: _titleStyle),
+        ),
     // ✅ لا تظهر الطلبات إذا كان زائر
     if (!controller.isGuest)
     ListTile(
@@ -65,16 +74,17 @@ class Settings extends StatelessWidget {
     ),
 
     // معلومات عامة للجميع
-    ListTile(
-    onTap: () => Get.toNamed(AppRoute.aboutus),
-    trailing: const Icon(Icons.help_outline_rounded, color: AppColor.black),
-    title: Text('48'.tr, style: _titleStyle),
-    ),
-      if (!controller.isGuest)
+    // ListTile(
+    // onTap: () => Get.toNamed(AppRoute.aboutus),
+    // trailing: const Icon(Icons.help_outline_rounded, color: AppColor.black),
+    // title: Text('48'.tr, style: _titleStyle),
+    // ),
+
+
       ListTile(
-        onTap: () => Get.toNamed(AppRoute.profile),
-        trailing: const Icon(Icons.person, color: AppColor.black),
-        title: Text('113'.tr, style: _titleStyle),
+        onTap: () => Get.toNamed(AppRoute.aboutus),
+        trailing: const Icon(Icons.settings, color: AppColor.black),
+        title: Text('48'.tr, style: _titleStyle),
       ),
 
       ListTile(
@@ -149,6 +159,11 @@ class Settings extends StatelessWidget {
           ),
           trailing: const Icon(Icons.login, color: AppColor.black),
         ),
+      ListTile(
+        onTap: () => Get.toNamed(AppRoute.contactdeveloperPage),
+        trailing: const Icon(Icons.settings, color: AppColor.black),
+        title: Text('140'.tr, style: _titleStyle),
+      ),
 
     ],
     ),

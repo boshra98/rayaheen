@@ -4,9 +4,10 @@
 // class CheckEmailData {
 //   Crud crud;
 //   CheckEmailData(this.crud);
-//   postdata(String email) async {
-//     var response = await crud.postData(AppLink.checkEmail, {
-//       "email" : email
+//   postdata(String email ,String phone) async {
+//     var response = await crud.postData(AppLink.requestReset, {
+//       "email" : email,
+//       "phone": phone
 //     });
 //     return response.fold((l) => l, (r) => r);
 //   }

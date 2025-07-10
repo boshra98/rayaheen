@@ -47,6 +47,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../../controller/profile_controller.dart';
+import '../screen/auth/forgetpassword/forgetpassword.dart';
 //import '../change_password_page.dart'; // تأكد من وجود هذه الصفحة أو أنشئها
 
 class ProfilePage extends StatelessWidget {
@@ -55,7 +56,7 @@ class ProfilePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(title: const Text("الملف الشخصي")),
+      appBar: AppBar(title:  Text("118".tr)),
       body: Obx(() => controller.isLoading.value
           ? const Center(child: CircularProgressIndicator())
           : SingleChildScrollView(
@@ -69,19 +70,22 @@ class ProfilePage extends StatelessWidget {
               backgroundColor: Colors.grey[200],
             ),
             const SizedBox(height: 24),
-            buildTextField("الاسم", controller.nameController),
+            buildTextField("119".tr, controller.nameController),
             const SizedBox(height: 16),
-            buildTextField("رقم الهاتف", controller.phoneController,
+            buildTextField("21".tr, controller.phoneController,
                 keyboardType: TextInputType.phone),
+            const SizedBox(height: 16),
+            buildTextField("18".tr, controller.emailController,
+                keyboardType: TextInputType.emailAddress),
             const SizedBox(height: 16),
             Align(
               alignment: Alignment.centerRight,
               child: TextButton(
                 onPressed: () {
-                //  Get.to(() => ChangePasswordPage()); // انتقل لصفحة تغيير كلمة المرور
+                 Get.to(() => ForgetPassword()); // انتقل لصفحة تغيير كلمة المرور
                 },
-                child: const Text(
-                  "تغيير كلمة المرور",
+                child:  Text(
+                  "83".tr,
                   style: TextStyle(color: Colors.blue),
                 ),
               ),
@@ -95,8 +99,8 @@ class ProfilePage extends StatelessWidget {
                 style: ElevatedButton.styleFrom(
                   backgroundColor: const Color(0xFF4BA6A4),
                 ),
-                child: const Text(
-                  "تحديث البيانات",
+                child:  Text(
+                  "120".tr,
                   style: TextStyle(fontSize: 16,color: Colors.white),
 
 
@@ -114,6 +118,8 @@ class ProfilePage extends StatelessWidget {
     return TextField(
       controller: controller,
       keyboardType: keyboardType,
+      style: const TextStyle(fontSize: 16,fontFamily:"cairo"),
+
       decoration: InputDecoration(
         labelText: label,
         border: const OutlineInputBorder(),

@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../core/class/statusrequest.dart';
+import '../core/constant/routes.dart';
 import '../core/functions/handlingdatacontroller.dart';
 import '../core/services/services.dart';
 import '../data/datasource/remote/items_data.dart';
@@ -155,9 +156,24 @@ print(publishername);
     update();
   }
   @override
-  goToPageProductDetails(itemsModel) {
-    Get.toNamed("productdetails", arguments: {"itemsmodel": itemsModel});
+  // goToPageProductDetails(itemsModel) {
+  //   Get.toNamed("productdetails", arguments: {"itemsmodel": itemsModel});
+  // }
+  // goToPageProductDetails(ItemsModel itemsModel) {
+  //   Get.toNamed(AppRoute.productdetails, arguments: itemsModel);
+  // }
+  goToPageProductDetails(ItemsModel itemsModel) {
+    Get.toNamed("productdetails", arguments: itemsModel);
   }
+
+  void clearSearch() {
+    search?.clear();
+    isSearch = false;
+    listdata.clear();
+    statusRequest = StatusRequest.none;
+    update();
+  }
+
 }
 
 

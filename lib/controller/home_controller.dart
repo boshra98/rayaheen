@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:convert';
 
 import 'package:rayaheen_bookstore/core/class/statusrequest.dart';
@@ -7,10 +8,13 @@ import 'package:rayaheen_bookstore/data/datasource/remote/home_data.dart';
 import 'package:rayaheen_bookstore/data/model/itemsmodel.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
+import 'package:uni_links3/uni_links.dart';
 
 import '../core/functions/handlingdatacontroller.dart';
 import '../data/model/categorymodel.dart';
 import '../linkapi.dart';
+import '../view/screen/productdetails.dart';
+import '../view/widget/productdetails/prodectdetailsfromlink.dart';
 
 abstract class HomeController extends SearchMixController {
   initialData();
@@ -26,6 +30,7 @@ class HomeControllerImp extends HomeController {
   String? username;
   String? id;
   String? lang;
+  late ItemsModel itemsModel;
 
   HomeData homedata = HomeData(Get.find());
 
@@ -67,62 +72,6 @@ class HomeControllerImp extends HomeController {
   }
 
 
-
-
-  // @override
-  // fetchAll() async {
-  //   var response = await homedata.getallitems();
-  //   print("fetch");
-  //   print("=============================== Controller $response ");
-  //   statusRequest = handlingData(response);
-  //
-  //   if (StatusRequest.success == statusRequest) {
-  //     print("fetch correct");
-  //
-  //     if (response['status'] == "success") {
-  //       print("fetch correct1");
-  //
-  //       // ✅ تحويل البيانات إلى List<ItemsModel> بدلاً من Map<String, dynamic>
-  //       books = (response['data'] as List)
-  //           .map((json) => ItemsModel.fromJson(json as Map<String, dynamic>))
-  //           .toList();
-  //
-  //       print("📢 عدد الكتب المحملة: ${books.length}");
-  //     } else {
-  //       statusRequest = StatusRequest.failure;
-  //     }
-  //   }
-  //   update();
-  // }
-
-  // @override
-  // fetchAll() async {
-  //   //statusRequest = StatusRequest.loading;
-  //   var response = await homedata.getallitems();
-  //   print("fetch");
-  //   print("=============================== Controller $response ");
-  //   statusRequest = handlingData(response);
-  //   if (StatusRequest.success == statusRequest) {
-  //     print("fetch coreect");
-  //
-  //     if (response['status'] == "success") {
-  //       // print("heloo2");
-  //       print("fetch coreect1");
-  //
-  //       books.addAll(response['data']);
-  //       // items.addAll(response['items']['data']);
-  //       //categories.addAll(response['data']);
-  //       //items.addAll(response[3]['data']);
-  //
-  //       //print(items[1]);
-  //     } else {
-  //       statusRequest = StatusRequest.failure;
-  //     }
-  //   }
-  //   update();
-  //
-  // }
-
   @override
   fetchAll() async {
     print("🔄 جاري جلب جميع الكتب...");
@@ -147,6 +96,35 @@ class HomeControllerImp extends HomeController {
       }
     }
     update();
+  }
+  // Future<void> loadProductById(int id) async {
+  //   await fetchAll(); // جلب كل الكتب
+  //
+  //   itemsModel = books.firstWhere(
+  //         (book) => book.itemsId == id,
+  //     orElse: () {
+  //       statusRequest = StatusRequest.failure;
+  //       return ItemsModel(); // تفادي الخطأ
+  //     },
+  //   );
+  //
+  //   update();
+  // }
+  Future<ItemsModel?> loadProductById(int id) async {
+    await fetchAll(); // جلب جميع الكتب
+
+    try {
+      final matchedBook = books.firstWhere(
+            (book) => book.itemsId == id,
+      );
+      itemsModel = matchedBook;
+      update();
+      return matchedBook;
+    } catch (e) {
+      statusRequest = StatusRequest.failure;
+      update();
+      return null;
+    }
   }
 
 
@@ -329,13 +307,16 @@ class HomeControllerImp extends HomeController {
     });
   }
 
-  goToPageProductDetails(itemsModel) {
-    //print("hhhheeew");
-    //print(itemsModel);
-    Get.toNamed("productdetails", arguments: {"itemsmodel": itemsModel});
+  // goToPageProductDetails(itemsModel) {
+  //   //print("hhhheeew");
+  //   //print(itemsModel);
+  //   Get.toNamed("productdetails", arguments: {"itemsmodel": itemsModel});
+  //
+  // }
 
+  goToPageProductDetails(ItemsModel itemsModel) {
+    Get.toNamed("productdetails", arguments: itemsModel);
   }
-
 
 
 
@@ -425,4 +406,77 @@ class SearchMixController extends GetxController {
 //   update();  // Make sure to call update to refresh UI
 // }
 
+}
+
+// class DeepLinkService {
+//   static StreamSubscription? _sub;
+//
+//   static void initLinkListener() {
+//     _sub = uriLinkStream.listen((Uri? uri) {
+//       if (uri != null && uri.scheme == 'rayaheenbooks') {
+//         if (uri.host == 'product') {
+//           final productId = uri.pathSegments.isNotEmpty ? uri.pathSegments[0] : null;
+//           if (productId != null) {
+//             Get.to(() => ProductDetails(productId: int.parse(productId)));
+//           }
+//         }
+//       }
+//     }, onError: (err) {
+//       // التعامل مع الأخطاء إذا لزم
+//     });
+//   }
+//
+//   static void dispose() {
+//     _sub?.cancel();
+//   }
+// }
+// class DeepLinkHandler {
+//   static StreamSubscription? _sub;
+//
+//   static void init() {
+//     _sub = uriLinkStream.listen((Uri? uri) {
+//       if (uri != null && uri.scheme == 'rayaheenbooks' && uri.host == 'product') {
+//         final String? id = uri.pathSegments.isNotEmpty ? uri.pathSegments[0] : null;
+//         if (id != null) {
+//           Get.to(() => ProductDetailsFromLink(productId: int.parse(id))); // أنشئ هذه الصفحة لفتح المنتج مباشرة
+//         }
+//       }
+//     });
+//   }
+//
+//   static void dispose() => _sub?.cancel();
+// }
+
+
+
+class DeepLinkHandler {
+  static StreamSubscription? _sub;
+
+  /// ✅ استدعِ هذه في بداية التطبيق
+  static Future<void> init() async {
+    // ⬅️ أولاً: التعامل مع الرابط الأول إذا تم فتح التطبيق به
+    final initialUri = await getInitialUri();
+    _handleUri(initialUri);
+
+    // ⬅️ ثانيًا: الاستماع للتغييرات أثناء التشغيل
+    _sub = uriLinkStream.listen((Uri? uri) {
+      _handleUri(uri);
+    }, onError: (err) {
+      print("خطأ في قراءة الرابط: $err");
+    });
+  }
+
+  static void _handleUri(Uri? uri) {
+    if (uri != null && uri.scheme == 'rayaheenbooks' && uri.host == 'product') {
+      final String? id = uri.pathSegments.isNotEmpty ? uri.pathSegments[0] : null;
+      if (id != null) {
+        final int? productId = int.tryParse(id);
+        if (productId != null) {
+          Get.to(() => ProductDetailsFromLink(productId: productId));
+        }
+      }
+    }
+  }
+
+  static void dispose() => _sub?.cancel();
 }

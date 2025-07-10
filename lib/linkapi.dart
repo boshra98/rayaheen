@@ -27,7 +27,9 @@ class AppLink {
 // ================================= ForgetPassword ========================== //
 
 
-  static const String checkPhone = "$server/requestReset";
+  static const String requestReset = "$server/requestReset";
+  static const String verifycode = "$server/verifycode";
+
   static const String resetPassword = "$server/Resetpassword";
 
   static const String homepage = "$server/category";

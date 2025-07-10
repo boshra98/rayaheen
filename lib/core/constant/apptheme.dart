@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:rayaheen_bookstore/core/constant/color.dart';
 
 ThemeData themeEnglish = ThemeData(
+  brightness: Brightness.light, // ✅ مانع للوضع الداكن
+  scaffoldBackgroundColor: Colors.white,
+
   fontFamily: "playfairDisplay",
   textTheme:  const TextTheme(
     displayMedium:  TextStyle(
@@ -13,6 +16,9 @@ ThemeData themeEnglish = ThemeData(
   ),
 );
 ThemeData themeArabic = ThemeData(
+  brightness: Brightness.light, // ✅ مانع للوضع الداكن
+  scaffoldBackgroundColor: Colors.white,
+
   fontFamily: "cairo",
   textTheme: const TextTheme(
     displayMedium:  TextStyle(

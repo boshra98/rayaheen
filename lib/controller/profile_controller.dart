@@ -14,6 +14,7 @@ class ProfileController extends GetxController {
   // المتغيرات التي نربطها مع الواجهة
   final nameController = TextEditingController();
   final phoneController = TextEditingController();
+  final emailController = TextEditingController();
 
   var isLoading = false.obs;
 
@@ -29,6 +30,7 @@ class ProfileController extends GetxController {
   void onClose() {
     nameController.dispose();
     phoneController.dispose();
+    emailController.dispose();
     super.onClose();
   }
 
@@ -42,7 +44,10 @@ class ProfileController extends GetxController {
 
       nameController.text = user.name;
       phoneController.text = user.phone;
-      // إذا عندك email: emailController.text = user.email ?? '';
+      //emailController.text = user.email;
+
+      // إذا عندك
+       emailController.text = user.email ?? '';
     } else {
       print("🚫 لا يوجد بيانات مستخدم مخزنة في GetStorage!");
     }
@@ -57,7 +62,7 @@ class ProfileController extends GetxController {
       "id": user.id ?? '',
       "name": nameController.text.trim(),
       "phone": phoneController.text.trim(),
-      "email": user.email ?? '', // ← لو أردت دعمه
+      "email": emailController.text.trim(), // ← لو أردت دعمه
     };
 
 
@@ -79,7 +84,7 @@ class ProfileController extends GetxController {
           // تحديث الموديل
           user.name = nameController.text;
           user.phone = phoneController.text;
-
+           user.email=emailController.text;
           box.write("user", user.toJson());
           Get.snackbar("نجاح", "تم تحديث الملف الشخصي");
         } else {

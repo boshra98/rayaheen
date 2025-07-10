@@ -6,9 +6,10 @@ import '../../../../linkapi.dart';
 class CheckphoneData {
   Crud crud;
   CheckphoneData(this.crud);
-  postdata(String phone) async {
-    var response = await crud.postData(AppLink.checkPhone, {
-      "phone" : phone
+  postdata(String phone, String email) async {
+    var response = await crud.postData(AppLink.requestReset, {
+      "phone" : phone,
+      "email": email,
     });
     return response.fold((l) => l, (r) => r);
   }

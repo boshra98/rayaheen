@@ -36,44 +36,80 @@ class ResetPassword extends StatelessWidget {
             CustomTextBodyauth(text: "34".tr),
             const  SizedBox(height: 15) ,
 
-            CustomTextFormAuth(
-              isNumber: false,
-              valid:(val){
-                return validInput(val! ,8,30, "password") ;
+        //     CustomTextFormAuth(
+        //       isNumber: false,
+        //       valid:(val){
+        //         return validInput(val! ,8,30, "password") ;
+        //
+        //       },
+        //
+        //       mycontroller: controller.password,
+        //       hinttext: "13".tr,
+        //       iconData: Icons.lock_outline,
+        //       labeltext: "19".tr,
+        //       //mycontrller
+        //     ) ,
+        //     CustomTextFormAuth(
+        //       isNumber: false,
+        //
+        //       valid:(val){
+        //         return validInput(val! ,8,30, "password") ;
+        //
+        //       },
+        //
+        //       mycontroller: controller.password,
+        //       hinttext: "84".tr,
+        //       iconData: Icons.lock_outline,
+        //       labeltext: "19".tr,
+        //       //mycontrller
+        //     ) ,
+        //
+        //
+        //     CustomButtomAuth(text:"33".tr,onPressed:(){
+        //       controller.goToSuccessResetPassword();
+        //     },),
+        //     const  SizedBox(height: 40,),
+        //
+        //
+        //   ]),
+        // ),
 
-              },
 
-              mycontroller: controller.password,
-              hinttext: "13".tr,
-              iconData: Icons.lock_outline,
-              labeltext: "19".tr,
-              //mycontrller
-            ) ,
-            CustomTextFormAuth(
-              isNumber: false,
+    CustomTextFormAuth(
+    isNumber: false,
+    valid: (val) => validInput(val!, 8, 30, "password"),
+    mycontroller: controller.password,
+    hinttext: "كلمة المرور الجديدة",
+    iconData: Icons.lock_outline,
+    labeltext: "كلمة المرور",
+    ),
 
-              valid:(val){
-                return validInput(val! ,8,30, "password") ;
+    CustomTextFormAuth(
+    isNumber: false,
+    valid: (val) => validInput(val!, 8, 30, "password"),
+    mycontroller: controller.confirmPassword,
+    hinttext: "تأكيد كلمة المرور",
+    iconData: Icons.lock_outline,
+    labeltext: "تأكيد كلمة المرور",
+    ),
 
-              },
-
-              mycontroller: controller.password,
-              hinttext: "84".tr,
-              iconData: Icons.lock_outline,
-              labeltext: "19".tr,
-              //mycontrller
-            ) ,
-
-
-            CustomButtomAuth(text:"33".tr,onPressed:(){
-              controller.goToSuccessResetPassword();
-            },),
-            const  SizedBox(height: 40,),
-
-
+    CustomButtomAuth(
+    text: "تحديث كلمة المرور",
+    onPressed: () {
+    if (controller.password.text == controller.confirmPassword.text) {
+    controller.goToSuccessResetPassword();
+    } else {
+    Get.defaultDialog(
+    title: "خطأ",
+    middleText: "كلمتا المرور غير متطابقتين",
+    );
+    }
+    },
+    ),
           ]),
-        ),
-      ),
+          // ),
+        )
+    ),
 
     );
 

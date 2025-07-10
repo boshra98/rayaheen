@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../controller/buttom_controller.dart';
 import '../../controller/home_controller.dart';
 import '../../data/model/itemsmodel.dart';
 
@@ -9,6 +10,9 @@ import 'package:get/get.dart';
 
 import '../../controller/home_controller.dart';
 import '../../data/model/itemsmodel.dart';
+import '../widget/home/custombottomappbarhome.dart';
+import '../widget/home/floatingbottom.dart';
+import '../widget/home/generalbottom.dart';
 import '../widget/home/listitemshome.dart';
 import '../widget/home/listitemshome2.dart';
 import '../widget/items/customlistitems.dart'; // Assuming you're using this widget for grid items
@@ -20,9 +24,14 @@ class BooksListPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    Get.put(GeneralBottomNavController()); // ربط الكونترولر هنا
 
     return Scaffold(
       appBar: AppBar(title: Text("96".tr)),
+      //bottomNavigationBar: const CustomBottomAppBarHome(),
+      bottomNavigationBar: const GeneralBottomNavigationBar(),
+      floatingActionButton: const FloatingCartButton(),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
       body: items.isNotEmpty
           ? GridView.builder(
         shrinkWrap: true, // Ensures it does not take up excess space
@@ -45,6 +54,7 @@ class BooksListPage extends StatelessWidget {
       )
           : const Center(child: CircularProgressIndicator()),
     );
+
   }
 }
 

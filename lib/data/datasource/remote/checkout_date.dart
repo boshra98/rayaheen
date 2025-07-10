@@ -22,25 +22,24 @@ import '../../../linkapi.dart';
 
 class CheckoutData {
   Crud crud;
+
   CheckoutData(this.crud);
 
-  Future postdata(
-      String id,
+  Future postdata(String id,
       String city,
       String area,
       String street,
       String paymentMethod,
       String phone,
-      double total, // ✅ السعر بعد الحسم فقط
-      ) async {
+      double total,) async {
     var response = await crud.postJsonData(AppLink.checkout, {
       "user_id": id,
       "city": city,
       "area": area,
       "street": street,
-      "payment_method": paymentMethod,
+      "paymentMethod": paymentMethod, // ✅ هذا هو الصحيح
       "phone": phone,
-      "total": total, // ✅ هذا ما تريده زميلتك
+      "total": total,
     });
 
     return response.fold((l) => l, (r) => r);

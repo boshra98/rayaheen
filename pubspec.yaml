@@ -52,6 +52,10 @@ dependencies:
   double_tap_to_exit: 1.0.1
   flutter_dash: ^1.0.0
   get_storage: ^2.1.1
+  share_plus: ^10.0.0
+  uni_links3: ^0.5.3
+
+
 
 
 

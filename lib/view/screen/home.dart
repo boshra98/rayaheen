@@ -325,7 +325,7 @@ class ListItemsSearch extends GetView<HomeControllerImp> {
 
   @override
   Widget build(BuildContext context) {
-    Get.put(HomeControllerImp());
+    //Get.put(HomeControllerImp());
 
     return GetBuilder<HomeControllerImp>(
       builder: (controller) {

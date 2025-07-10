@@ -49,7 +49,11 @@ class OrdersModel {
  //  ordersPrice = json['orders_price'];
   ordersTotalprice = json['total'];
   // ordersCoupon = json['orders_coupon'];
-  ordersPaymentmethod = json['payment_method'];
+  //ordersPaymentmethod = json['payment_method'];
+  // ordersPaymentmethod = json['payment_method'].toString();
+  ordersPaymentmethod = json['payment_method']?.toString() ?? '';
+
+
   ordersStatus = json['status'];
   ordersDatetime = json['created_at'];
   // addressId = json['address_id'];

@@ -22,6 +22,8 @@ class Checkout extends StatelessWidget {
   Widget build(BuildContext context) {
     //Get.lazyPut(()=>CheckoutControllerImp());
     Get.put(CheckoutControllerImp()) ;
+   // final CheckoutControllerImp controller = Get.put(CheckoutControllerImp());
+    final controller = Get.find<CheckoutControllerImp>();
 
     // CheckoutController controller = Get.put(CheckoutControllerImp());
     return Scaffold(
@@ -30,7 +32,9 @@ class Checkout extends StatelessWidget {
       ),
 
 
-      body: GetBuilder<CheckoutControllerImp>(builder:(controller)=>
+      body:
+      GetBuilder<CheckoutControllerImp>
+        (builder:(controller)=>
 
           Container(
 
@@ -41,8 +45,8 @@ class Checkout extends StatelessWidget {
 
             child: ListView(
                     children: [
-                      const Text(
-                        "اختر طريقة الدفع",
+                       Text(
+                        "121".tr,
                         style: TextStyle(
                             color: AppColor.secondColor2,
                             fontWeight: FontWeight.bold,
@@ -51,35 +55,40 @@ class Checkout extends StatelessWidget {
                       const SizedBox(height: 10),
                       InkWell(
                         onTap: () {
-                          print(controller.paymentMethod);
-
-                          controller.choosePaymentMethod("كاش");
-                          print(controller.paymentMethod);
-
+                          controller.choosePaymentMethod("0"); // كاش
                         },
                         child: CardPaymentMethodCheckout(
-                            title: "كاش",
-
-                            isActive: controller.paymentMethod == "كاش" // cash
-                                ? true
-                                : false),
+                          title: "122".tr,
+                          isActive: controller.paymentMethod == "0",
+                        ),
                       ),
                       const SizedBox(height: 10),
                       InkWell(
                         onTap: () {
-                          controller.choosePaymentMethod("تحويل");
-
+                          controller.choosePaymentMethod("1"); // تحويل
                         },
                         child: CardPaymentMethodCheckout(
-                            title: "تحويل",
-                            isActive: controller.paymentMethod == "تحويل" // Card
-                                ? true
-                                : false),
+                          title: "123".tr,
+                          isActive: controller.paymentMethod == "1",
+                        ),
                       ),
+
+                      const SizedBox(height: 10),
+                      // InkWell(
+                      //   onTap: () {
+                      //     controller.choosePaymentMethod("تحويل");
+                      //
+                      //   },
+                      //   child: CardPaymentMethodCheckout(
+                      //       title: "تحويل",
+                      //       isActive: controller.paymentMethod == "تحويل" // Card
+                      //           ? true
+                      //           : false),
+                      // ),
                       const SizedBox(height: 20),
-                      const Text(
-                        "حدد عنوان السكن",
-                        style: TextStyle(
+                       Text(
+                        "131".tr,
+                        style: const TextStyle(
                             color: AppColor.secondColor2,
                             fontWeight: FontWeight.bold,
                             fontSize: 16),
@@ -96,8 +105,8 @@ class Checkout extends StatelessWidget {
                               CardDeliveryAddressCheckout(
                                 isNumber: false,
                                mycontroller:controller.Imara,
-                                hinttext: "ادخل اسم الامارة",
-                                labeltext: "الامارة" ,
+                                hinttext: "132".tr,
+                                labeltext: "133" .tr,
                                 valid:(val){
                                   return validInput(val! ,3,30, "address") ;
 
@@ -107,8 +116,8 @@ class Checkout extends StatelessWidget {
                               CardDeliveryAddressCheckout(
                                 isNumber: false,
                                 mycontroller: controller.mantica,
-                                hinttext: "ادخل اسم المنطقة",
-                                labeltext: "المنطقة",
+                                hinttext: "134".tr,
+                                labeltext: "135".tr,
                                 valid:(val){
                                   return validInput(val! ,3,30, "address") ;
 
@@ -117,8 +126,8 @@ class Checkout extends StatelessWidget {
                               CardDeliveryAddressCheckout(
                                 isNumber: false,
                                 mycontroller: controller.sharae,
-                                hinttext: "ادخل اسم الشارع",
-                                labeltext: "الشارع",
+                                hinttext: "136".tr,
+                                labeltext: "137".tr,
                                 valid:(val){
                                   return validInput(val! ,3,30, "address") ;
 
@@ -131,8 +140,8 @@ class Checkout extends StatelessWidget {
 
                                 },
                                 mycontroller: controller.phone,
-                                hinttext: "ادخل رقم الهاتف",
-                                labeltext:"الهاتف",
+                                hinttext: "138".tr,
+                                labeltext:"139".tr,
 
                               ),
                               CustomButtomAuth(text:"73".tr,onPressed:(){

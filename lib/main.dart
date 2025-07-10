@@ -6,6 +6,7 @@ import 'package:rayaheen_bookstore/view/screen/homescreen.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'binding/initialbinding.dart';
 import 'controller/cart_controller.dart';
+import 'controller/home_controller.dart';
 import 'core/localization/changelocal.dart';
 import 'core/localization/translation.dart';
 import 'core/services/cartservices.dart';
@@ -21,7 +22,8 @@ void main() async {
 
   await initialservices();
   await GetStorage.init(); // ← مهم جداً
-
+  // DeepLinkService.initLinkListener();
+  await DeepLinkHandler.init();
 
   // Register CartService
 
@@ -45,6 +47,8 @@ class MyApp extends StatelessWidget {
       translations: MyTranslation(),
       debugShowCheckedModeBanner: false,
       locale:controller.language,
+      themeMode: ThemeMode.light, // ✅ مانع التبديل التلقائي للوضع الداكن
+
       theme: controller.appTheme ,
       initialBinding:InitialBindings() ,
 
