@@ -61,6 +61,7 @@ class ProfilePage extends StatelessWidget {
           ? const Center(child: CircularProgressIndicator())
           : SingleChildScrollView(
         padding: const EdgeInsets.all(24),
+        //addcoloumn
         child: Column(
           children: [
             const SizedBox(height: 16),
