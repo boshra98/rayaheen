@@ -202,7 +202,7 @@ class _ForgetPasswordState extends State<ForgetPassword> {
   late ForgetPasswordControllerImp controller;
 
   // Initialize selectedCountryCode as a state variable
-  String selectedCountryCode = "+971"; // Set a default value here
+ // String selectedCountryCode = "+971"; // Set a default value here
 
   @override
   void initState() {
@@ -222,117 +222,111 @@ class _ForgetPasswordState extends State<ForgetPassword> {
           style: Theme.of(context).textTheme.displayMedium!.copyWith(color: AppColor.grey),
         ),
       ),
-      body: Container(
-        padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 30),
-        child: Form(
-          key: controller.formstate,
-          child: ListView(
-            children: [
-              const SizedBox(height: 20),
-              CustomTextTitleAuth(text: "27".tr),
-              const SizedBox(height: 10),
-              CustomTextBodyauth(text: "29".tr),
-              const SizedBox(height: 15),
-              TextFormField(
-                style: const TextStyle(
-                    fontSize: 15.0, // Adjust the font size as needed
+      body: GetBuilder<ForgetPasswordControllerImp>(
+        builder: (controller) => Container(
+          padding: const EdgeInsets.symmetric(vertical: 15, horizontal: 30),
+          child: Form(
+            key: controller.formstate,
+            child: ListView(
+              children: [
+                const SizedBox(height: 20),
+                CustomTextTitleAuth(text: "27".tr),
+                const SizedBox(height: 10),
+                CustomTextBodyauth(text: "29".tr),
+                const SizedBox(height: 15),
+                TextFormField(
+                  style: const TextStyle(
+                    fontSize: 15.0,
                     color: Colors.black,
-                    fontFamily:"cairo"// Adjust the text color as needed
-                ),
-                keyboardType: TextInputType.phone,
-                controller: controller.phone,
-                textDirection: TextDirection.ltr,
-
-                decoration: InputDecoration(
-                  contentPadding: const EdgeInsets.symmetric(vertical: 5, horizontal: 30),
-                  labelText: "21".tr,
-                  labelStyle:TextStyle(fontSize:12,fontFamily:"cairo"),
-
-                  hintText: "22".tr,
-
-                  hintStyle:TextStyle(fontSize:12),
-                  prefixIcon: Padding(
-                    padding: const EdgeInsets.only(right: 8),
-                    child: DropdownButtonHideUnderline(
-                      child: DropdownButton<String>(
-                        value: selectedCountryCode,
-                        items: countryCodes.map((country) {
-                          final iso = country['iso']!.toLowerCase(); // 'ae', 'sy', etc.
-                          return DropdownMenuItem<String>(
-                            value: country['code'],
-                            child: Row(
-                              children: [
-                                Image.network(
-                                  'https://flagcdn.com/24x18/$iso.png',
-                                  width: 24,
-                                  height: 18,
-                                  errorBuilder: (context, error, stackTrace) => const Icon(Icons.flag),
-                                ),
-                                const SizedBox(width: 8),
-                                Text("${country['code']}"),
-                              ],
-                            ),
-                          );
-                        }).toList(),
-                        onChanged: (newCode) {
-                          setState(() {
-                            selectedCountryCode = newCode!;
-                            controller.code.text = newCode;
-                          });
-                          controller.phone.clear();
-                        },
+                    fontFamily: "cairo",
+                  ),
+                  keyboardType: TextInputType.phone,
+                  controller: controller.phone,
+                  textDirection: TextDirection.ltr,
+                  decoration: InputDecoration(
+                    contentPadding: const EdgeInsets.symmetric(vertical: 5, horizontal: 30),
+                    labelText: "21".tr,
+                    labelStyle: const TextStyle(fontSize: 12, fontFamily: "cairo"),
+                    hintText: "22".tr,
+                    hintStyle: const TextStyle(fontSize: 12),
+                    prefixIcon: Padding(
+                      padding: const EdgeInsets.only(right: 8),
+                      child: DropdownButtonHideUnderline(
+                        child: DropdownButton<String>(
+                          value: controller.code.text.isEmpty ? null : controller.code.text,
+                          hint: const Text("⚑ رمز الدولة"),
+                          items: countryCodes.map((country) {
+                            final iso = country['iso']!.toLowerCase();
+                            return DropdownMenuItem<String>(
+                              value: country['code'],
+                              child: Row(
+                                children: [
+                                  Image.network(
+                                    'https://flagcdn.com/24x18/$iso.png',
+                                    width: 24,
+                                    height: 18,
+                                    errorBuilder: (context, error, stackTrace) => const Icon(Icons.flag),
+                                  ),
+                                  const SizedBox(width: 8),
+                                  Text("${country['code']}"),
+                                ],
+                              ),
+                            );
+                          }).toList(),
+                          onChanged: (newCode) {
+                            controller.code.text = newCode!;
+                            controller.update();
+                            controller.phone.clear();
+                          },
+                        ),
                       ),
-
+                    ),
+                    suffixIcon: const Icon(Icons.phone_android, color: Colors.grey),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(30),
                     ),
                   ),
-                  suffixIcon: const Icon(
-                    Icons.phone_android,
-                    color: Colors.grey,
-                  ),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(30),
-                  ),
+                  validator: (val) {
+                    return validInput(val!, 5, 15, "phone", countryCode: controller.code.text);
+                  },
                 ),
-                validator: (val) {
-                  return validInput(val!, 5, 15, "phone", countryCode: selectedCountryCode);
-                },
-              ),
-              const SizedBox(height: 20),
-              TextFormField(
-                controller: controller.email,
-                keyboardType: TextInputType.emailAddress,
-                style: const TextStyle(
-                  fontSize: 15.0,
-                  color: Colors.black,
-                  fontFamily: "cairo",
-                ),
-                decoration: InputDecoration(
-                  contentPadding: const EdgeInsets.symmetric(vertical: 5, horizontal: 30),
-                  labelText: "18".tr,
-                  hintText: "12".tr,
-                  prefixIcon: const Icon(Icons.email_outlined, color: Colors.grey),
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(30),
+                const SizedBox(height: 20),
+                TextFormField(
+                  controller: controller.email,
+                  keyboardType: TextInputType.emailAddress,
+                  style: const TextStyle(
+                    fontSize: 15.0,
+                    color: Colors.black,
+                    fontFamily: "cairo",
                   ),
+                  decoration: InputDecoration(
+                    contentPadding: const EdgeInsets.symmetric(vertical: 5, horizontal: 30),
+                    labelText: "18".tr,
+                    hintText: "12".tr,
+                    prefixIcon: const Icon(Icons.email_outlined, color: Colors.grey),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(30),
+                    ),
+                  ),
+                  validator: (val) {
+                    return validInput(val!, 5, 100, "email");
+                  },
                 ),
-                validator: (val) {
-                  return validInput(val!, 5, 100, "email");
-                },
-              ),
-
-              const SizedBox(height: 35),
-
-              CustomButtomAuth(
-                text: "30".tr,
-                onPressed: () {
-                  controller.checkphone();
-                },
-              ),
-              const SizedBox(height: 40),
-            ],
+                const SizedBox(height: 35),
+                CustomButtomAuth(
+                  text: "30".tr,
+                  onPressed: () {
+                    controller.checkphone();
+                  },
+                ),
+                const SizedBox(height: 40),
+              ],
+            ),
           ),
         ),
       ),
     );
   }
+
+
 }

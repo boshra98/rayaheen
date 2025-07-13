@@ -7,7 +7,7 @@ class MyTranslation extends Translations {
         "ar": {
           "1": "اختر اللغة",
           "2": "اختر المنتجة",
-          "3": "نحن لدينا الكثير من المنتجات  , اختر \n  منتجك  من  متجرنا",
+          "3": "نحن لدينا الكثير من الكتب  , اختر \n  كتابك  من  متجرنا",
           "4": "سهل وآمن للشراء",
           "5": "يمكنك الدفع كاش او عن طريق التحويل الكترونيا",
           "6": "تتبع طلبك",
@@ -79,7 +79,7 @@ class MyTranslation extends Translations {
           "69":"حالة الطلب",
           "70": "في انتظار الموافقة" ,
           "71":"الدفع عند الاستلام" ,
-          "72": "تحويل" ,
+          "72": " تحويل  " ,
           "73": " تأكيد الطلب",
           "74":"اختر حسب التصنيفات" ,
           "75": "تثبيت الطلب" ,
@@ -129,7 +129,7 @@ class MyTranslation extends Translations {
           "120":"تحديث البيانات",
           "121":"اختر طريقة الدفع",
           "122":"كاش",
-          "123":"تحويل",
+          "123":"تحويل بنكي / رابط دفع",
           "124":"الحسم",
           "125":"اطلب الان",
           "126":"حصريا في الامارات رسوم التوصيل 20 درهم و مجاني في حال تجاوزت قيمة الشراء 350 درهم",
@@ -151,7 +151,13 @@ class MyTranslation extends Translations {
            "142":"معلومات الاتصال",
           "143":"راسلنا على البريد الالكتروني",
           "144":"تواصل معنا عالواتساب",
-
+          "145":"حذف الكوبون" ,
+          "146":"كلمة المرور الجديدة",
+          "147":"تأكيد كلمة المرور",
+          "148":"تحديث كلمة المرور",
+          "149":"خطـأ في الاتصال",
+          "150":"البيانات غير صحيحة او غير مسجلة.يرجى التأكد من رقم الهاتف والبريد الالكتروني",
+           "151":"تعذر انشاء الحساب.تحقق من أن البريد الالكتروني أو رقم الهاتف غير مستخدمين مسبقا"
 
 
         },
@@ -159,7 +165,7 @@ class MyTranslation extends Translations {
           "1": "Choose Language",
           "2": "Choose Product",
           "3":
-          "We Have  more and more  Products , Choose \n Your Product From  Our \n E-commerce Shop",
+          "We Have  more and more  Books , Choose \n Your Book From  Our \n E-commerce Shop",
           "4": "Easy And Safe Paymnet",
           "5": "You can pay in cash \n or through payment gateways",
           "6": "Track Your Order",
@@ -229,7 +235,7 @@ class MyTranslation extends Translations {
           "69": "Order Status",
           "70":"pending",
           "71":"Cash On Delivery",
-          "72":"transformation",
+          "72":"transformation ",
           "73":"Checkout",
           "74":"Select By Categories",
           "75":"Confirmation",
@@ -277,7 +283,7 @@ class MyTranslation extends Translations {
           "120":"update data",
           "121":"choose payment method",
           "122":"cash",
-          "123":"transfer",
+          "123":"transfer / Electronic payment",
           "124":"discount",
           "125":"order now",
           "126": "Exclusively in the UAE, delivery fee is 20 dirhams and free if the purchase value exceeds 350 dirhams." ,
@@ -298,7 +304,14 @@ class MyTranslation extends Translations {
           "141":"Do you have technical ideas or would like a similar application? We would be happy to connect you with the developer responsible for building this application. We will respond to you within 24 hours",
            "142":"Contact Information",
           "143":"Email Us",
-          "144":"Contact us on WhatsApp"
+          "144":"Contact us on WhatsApp",
+          "145":"delete coupon",
+          "146":"New Password",
+          "147":"confirm password",
+          "148":"update password",
+          "149": "Connection error",
+          "150":"The data is incorrect or not registered. Please submit it using your phone number and email",
+          "151":": Account creation failed. Please check that the email or phone number has not been used before"
 
 
 

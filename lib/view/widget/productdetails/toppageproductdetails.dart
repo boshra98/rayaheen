@@ -198,6 +198,8 @@ class TopProductPageDetails extends StatefulWidget {
 class _TopProductPageDetailsState extends State<TopProductPageDetails> {
   late PageController _pageController;
   int _currentPage = 0;
+  final Map<int, TransformationController> controllers = {};
+  Map<int, double> zoomLevels = {}; // لتتبع حالة التكبير لكل صورة
 
   @override
   void initState() {
@@ -208,6 +210,9 @@ class _TopProductPageDetailsState extends State<TopProductPageDetails> {
   @override
   void dispose() {
     _pageController.dispose();
+    controllers.clear();
+    zoomLevels.clear();
+
     super.dispose();
   }
 
@@ -224,6 +229,8 @@ class _TopProductPageDetailsState extends State<TopProductPageDetails> {
       setState(() => _currentPage--);
     }
   }
+
+
 
   @override
   Widget build(BuildContext context) {
@@ -260,21 +267,7 @@ class _TopProductPageDetailsState extends State<TopProductPageDetails> {
                             : "${AppLink.imagesItems}/${widget.item.itemsImages![index - 1].path}";
 
                         return GestureDetector(
-                          // onTap: () => showDialog(
-                          //   context: context,
-                          //   builder: (_) => Dialog(
-                          //     backgroundColor: Colors.black,
-                          //     child: InteractiveViewer(
-                          //       child: CachedNetworkImage(
-                          //         imageUrl: imageUrl,
-                          //         fit: BoxFit.contain,
-                          //         placeholder: (_, __) =>
-                          //         const Center(child: CircularProgressIndicator()),
-                          //         errorWidget: (_, __, ___) =>
-                          //         const Icon(Icons.error, color: Colors.white),
-                          //       ),
-                          //     ),
-                          //   ),
+
 
                           onTap: () {
                             final allImages = [
@@ -296,27 +289,61 @@ class _TopProductPageDetailsState extends State<TopProductPageDetails> {
                                   insetPadding: EdgeInsets.zero,
                                   child: Stack(
                                     children: [
-                                      PageView.builder(
-                                        controller: dialogController,
-                                        itemCount: allImages.length,
-                                        itemBuilder: (context, i) {
-                                          return InteractiveViewer(
-                                            child: Center(
-                                              child: CachedNetworkImage(
-                                                imageUrl: allImages[i],
-                                                fit: BoxFit.contain,
-                                                placeholder: (_,
-                                                    __) => const CircularProgressIndicator(),
-                                                errorWidget: (_, __,
-                                                    ___) => const Icon(
-                                                    Icons.error,
-                                                    color: Colors.white),
+
+                                    PageView.builder(
+                                    controller: dialogController,
+                                    itemCount: allImages.length,
+                                    itemBuilder: (context, i) {
+                                      controllers.putIfAbsent(i, () => TransformationController());
+                                      double scale = 1.0;
+
+                                      return StatefulBuilder(
+                                        builder: (context, setState) {
+                                          final controller = controllers.putIfAbsent(i, () => TransformationController());
+                                          double scale = zoomLevels[i] ?? 1.0;
+                                          TapDownDetails? doubleTapDetails;
+
+                                          return GestureDetector(
+                                            onDoubleTapDown: (details) {
+                                              doubleTapDetails = details;
+                                            },
+                                            onDoubleTap: () {
+                                              final position = doubleTapDetails!.localPosition;
+
+                                              setState(() {
+                                                if (scale == 1.0) {
+                                                  scale = 2.5;
+                                                  controller.value = Matrix4.identity()
+                                                    ..translate(-position.dx * (scale - 1), -position.dy * (scale - 1))
+                                                    ..scale(scale);
+                                                } else {
+                                                  scale = 1.0;
+                                                  controller.value = Matrix4.identity();
+                                                }
+
+                                                zoomLevels[i] = scale; // حفظ حالة التكبير لكل صورة
+                                              });
+                                            },
+                                            child: InteractiveViewer(
+                                              transformationController: controller,
+                                              child: Center(
+                                                child: CachedNetworkImage(
+                                                  imageUrl: allImages[i],
+                                                  fit: BoxFit.contain,
+                                                  placeholder: (_, __) => const CircularProgressIndicator(),
+                                                  errorWidget: (_, __, ___) => const Icon(Icons.error, color: Colors.white),
+                                                ),
                                               ),
                                             ),
                                           );
                                         },
-                                      ),
-                                      Positioned(
+                                      );
+
+                                    },
+                                  ),
+
+
+                                  Positioned(
                                         top: 40,
                                         right: 20,
                                         child: IconButton(

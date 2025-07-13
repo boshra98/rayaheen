@@ -11,7 +11,6 @@ class SignupData {
       "password" : password  ,
       "email" : email ,
       "phone" : phone  ,
-
       "password_confirmation":password,
     });
     return response.fold((l) => l, (r) => r);

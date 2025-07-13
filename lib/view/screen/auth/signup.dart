@@ -261,15 +261,16 @@ class _SignUpState extends State<SignUp> {
                     hintStyle: const TextStyle(fontSize:14),
                     prefixIcon: Padding(
                       padding: const EdgeInsets.only(right: 8),
-                      child: DropdownButtonHideUnderline(
+                      child:
+                      DropdownButtonHideUnderline(
                         child: DropdownButton<String>(
-                          value: controller.code.text,  // Bind to code controller
+                          value: controller.code.text.isEmpty ? null : controller.code.text,
+                          hint: const Text("⚑ رمز الدولة"),
                           items: countryCodes.map((country) {
-                            final iso = country['iso']!.toLowerCase(); // 'ae', 'sy', etc.
+                            final iso = country['iso']!.toLowerCase(); // مثل "sa"
 
                             return DropdownMenuItem<String>(
                               value: country['code'],
-
                               child: Row(
                                 children: [
                                   Image.network(
@@ -283,16 +284,16 @@ class _SignUpState extends State<SignUp> {
                                 ],
                               ),
                             );
-
                           }).toList(),
                           onChanged: (newCode) {
                             controller.code.text = newCode!;
-                            controller.update();  // Force UI update after selection
-
+                            controller.update();
                             controller.phone.clear();
+
                           },
                         ),
                       ),
+
                     ),
                     suffixIcon: const Icon(
                       Icons.phone_android,
@@ -305,6 +306,28 @@ class _SignUpState extends State<SignUp> {
                   validator: (val) {
                     return validInput(
                         val!, 5, 15, "phone", countryCode: controller.code.text);
+                  },
+                ),
+                const SizedBox(height: 20),
+                TextFormField(
+                  controller: controller.email,
+                  keyboardType: TextInputType.emailAddress,
+                  style: const TextStyle(
+                    fontSize: 15.0,
+                    color: Colors.black,
+                    fontFamily: "cairo",
+                  ),
+                  decoration: InputDecoration(
+                    contentPadding: const EdgeInsets.symmetric(vertical: 5, horizontal: 30),
+                    labelText: "18".tr,
+                    hintText: "12".tr,
+                    prefixIcon: const Icon(Icons.email_outlined, color: Colors.grey),
+                    border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(30),
+                    ),
+                  ),
+                  validator: (val) {
+                    return validInput(val!, 5, 100, "email");
                   },
                 ),
 

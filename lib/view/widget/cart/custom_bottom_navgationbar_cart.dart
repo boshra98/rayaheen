@@ -228,12 +228,31 @@ class BottomNavgationBarCart extends GetView<CartController> {
                   ),
                 ),
                 SizedBox(width: 10),
-                GestureDetector(
-                  onTap: () {
-                    controller.cancelCoupon(); // تابع جديد في الكنترولر
+                // GestureDetector(
+                //   onTap: () {
+                //     controller.cancelCoupon(); // تابع جديد في الكنترولر
+                //   },
+                //   child: Icon(Icons.cancel, color: Colors.red),
+                // ),
+                TextButton(
+                  onPressed: () {
+                    controller.cancelCoupon(); // تابع الإلغاء
                   },
-                  child: Icon(Icons.cancel, color: Colors.red),
+                  style: TextButton.styleFrom(
+                    backgroundColor: Colors.red.shade50, // خلفية خفيفة
+                    side: const BorderSide(color: Colors.red), // حدود المستطيل
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+                  ),
+                  child: Text(
+                    "145".tr, // مثل: "حذف الكوبون"
+                    style: const TextStyle(color: Colors.red, fontWeight: FontWeight.bold),
+                  ),
                 ),
+
+
               ],
             ),
 

@@ -159,11 +159,11 @@ class Settings extends StatelessWidget {
           ),
           trailing: const Icon(Icons.login, color: AppColor.black),
         ),
-      ListTile(
-        onTap: () => Get.toNamed(AppRoute.contactdeveloperPage),
-        trailing: const Icon(Icons.settings, color: AppColor.black),
-        title: Text('140'.tr, style: _titleStyle),
-      ),
+      // ListTile(
+      //   onTap: () => Get.toNamed(AppRoute.contactdeveloperPage),
+      //   trailing: const Icon(Icons.settings, color: AppColor.black),
+      //   title: Text('140'.tr, style: _titleStyle),
+      // ),
 
     ],
     ),

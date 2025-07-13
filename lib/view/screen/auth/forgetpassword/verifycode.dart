@@ -183,20 +183,24 @@ class VerifyCode extends StatelessWidget {
               const SizedBox(height: 40),
 
               Center(
-                child: OtpTextField(
-                  fieldWidth: 35,
-                  borderRadius: BorderRadius.circular(12),
-                  numberOfFields: 6,
-                  borderColor: AppColor.primaryColor,
-                  showFieldAsBox: true,
-                  onCodeChanged: (String code) {},
-                  onSubmit: (String verificationCode) {
-                    controller.checkCode(verificationCode);
-                  },
+                child: Directionality(
+                  textDirection: TextDirection.ltr, // ✅ إجبار الاتجاه من اليسار لليمين
+                  child: OtpTextField(
+                    fieldWidth: 35,
+                    borderRadius: BorderRadius.circular(12),
+                    numberOfFields: 6,
+                    borderColor: AppColor.primaryColor,
+                    showFieldAsBox: true,
+                    onCodeChanged: (String code) {},
+                    onSubmit: (String verificationCode) {
+                      controller.checkCode(verificationCode);
+                    },
+                  ),
                 ),
-              ),
+              )
 
-              const SizedBox(height: 60),
+
+             // const SizedBox(height: 60),
             ],
           ),
         ),

@@ -105,7 +105,19 @@ class LoginControllerImp extends LoginController {
       statusRequest = StatusRequest.loading;
       update();
 
-      var response = await loginData.postdata("${code.text}${phone.text}".substring(1), password.text);
+      if (code.text.isEmpty) {
+        Get.snackbar(
+          "رمز الدولة مطلوب",
+          "يرجى اختيار رمز الدولة قبل المتابعة.",
+          snackPosition: SnackPosition.BOTTOM,
+          backgroundColor: Colors.orange.shade100,
+          colorText: Colors.black,
+        );
+        return;
+      }
+      final String fullPhone = "${code.text.replaceAll('+', '')}${phone.text}";
+
+      var response = await loginData.postdata(fullPhone , password.text);
       print("=============================== Controller $response ");
 
       statusRequest = handlingData(response);
@@ -163,7 +175,7 @@ class LoginControllerImp extends LoginController {
   @override
   void onInit() {
     phone = TextEditingController();
-    code = TextEditingController(text: "+971"); // Set default code
+    code = TextEditingController(); // Set default code
 
     password = TextEditingController();
     super.onInit();

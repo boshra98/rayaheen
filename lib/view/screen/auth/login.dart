@@ -247,11 +247,13 @@ class Login extends StatelessWidget {
                           ),
                           prefixIcon: Padding(
                             padding: const EdgeInsets.symmetric(horizontal: 8.0),
-                            child: DropdownButtonHideUnderline(
+                            child:
+                            DropdownButtonHideUnderline(
                               child: DropdownButton<String>(
-                                value: controller.code.text.isNotEmpty ? controller.code.text : null,
+                                value: controller.code.text.isEmpty ? null : controller.code.text,
+                                hint: const Text("⚑ رمز الدولة"),
                                 items: countryCodes.map((country) {
-                                  final iso = country['iso']!.toLowerCase(); // 'ae', 'sy', etc.
+                                  final iso = country['iso']!.toLowerCase(); // مثل "sa"
 
                                   return DropdownMenuItem<String>(
                                     value: country['code'],
@@ -273,11 +275,11 @@ class Login extends StatelessWidget {
                                   controller.code.text = newCode!;
                                   controller.update();
                                   controller.phone.clear();
+
                                 },
-                                isExpanded: false, // Prevent dropdown from expanding too much
-                                iconSize: 24.0, // Adjust the dropdown arrow size
                               ),
                             ),
+
                           ),
                           border: OutlineInputBorder(
                             borderRadius: BorderRadius.circular(30),

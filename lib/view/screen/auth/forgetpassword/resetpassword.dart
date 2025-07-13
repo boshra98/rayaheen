@@ -79,22 +79,22 @@ class ResetPassword extends StatelessWidget {
     isNumber: false,
     valid: (val) => validInput(val!, 8, 30, "password"),
     mycontroller: controller.password,
-    hinttext: "كلمة المرور الجديدة",
+    hinttext: "146".tr,
     iconData: Icons.lock_outline,
-    labeltext: "كلمة المرور",
+    labeltext: "19".tr,
     ),
 
     CustomTextFormAuth(
     isNumber: false,
     valid: (val) => validInput(val!, 8, 30, "password"),
     mycontroller: controller.confirmPassword,
-    hinttext: "تأكيد كلمة المرور",
+    hinttext: "147".tr,
     iconData: Icons.lock_outline,
-    labeltext: "تأكيد كلمة المرور",
+    labeltext: "147".tr,
     ),
 
     CustomButtomAuth(
-    text: "تحديث كلمة المرور",
+    text: "148".tr,
     onPressed: () {
     if (controller.password.text == controller.confirmPassword.text) {
     controller.goToSuccessResetPassword();
