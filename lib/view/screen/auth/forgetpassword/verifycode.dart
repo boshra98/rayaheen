@@ -161,7 +161,7 @@ class VerifyCode extends StatelessWidget {
           '115'.tr,
           style: Theme.of(context)
               .textTheme
-              .headline1!
+              .displayMedium!
               .copyWith(color: AppColor.grey, fontSize: 20),
         ),
       ),

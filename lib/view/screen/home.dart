@@ -257,11 +257,20 @@ class HomePage extends StatelessWidget {
                   ListTile(
                     title: Text("108".tr,
                         style: TextStyle(color: AppColor.primaryColor2)),
-                      onTap: () {
-                        List<ItemsModel> discountedBooks = controller.getDiscountedBooks();
-                        print("📢 عدد الكتب المتاحة بخصومات: ${discountedBooks.length}");
-                        Get.to(() => BooksListPageDisc(items: discountedBooks));
-                      }
+                      // onTap: () {
+                      //   List<ItemsModel> discountedBooks = controller.getDiscountedBooks();
+                      //   print("📢 عدد الكتب المتاحة بخصومات: ${discountedBooks.length}");
+                      //   Get.to(() => BooksListPageDisc(items: discountedBooks));
+                      // }
+
+          onTap: () async {
+            List<ItemsModel> discountedBooks = await controller.getDiscountedBooksAsync();
+            Get.to(() => BooksListPageDisc(items: discountedBooks));
+          }
+
+
+
+
 
 
                   ),

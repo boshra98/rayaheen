@@ -59,7 +59,11 @@ class BooksListPageDisc extends StatelessWidget {
 
             return GestureDetector(
               onTap: () {
-                Get.toNamed("productdetails", arguments: {"itemsmodel": book});
+               // Get.toNamed("productdetails", arguments: {"itemsmodel": book});
+
+                Get.toNamed("productdetails", arguments: book);
+//here perfect
+
               },
               child: Card(
                 color:AppColor.secondColor,

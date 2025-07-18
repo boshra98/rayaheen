@@ -229,7 +229,33 @@ class HomeControllerImp extends HomeController {
     }
     update();
   }
-  List<ItemsModel> getDiscountedBooks() {
+  // List<ItemsModel> getDiscountedBooks() {
+  //   return books.where((book) {
+  //     if (book.discount == null) return false;
+  //
+  //     double discount = double.tryParse(book.discount!.discountPercentage ?? "0") ?? 0.0;
+  //     if (discount <= 0) return false;
+  //
+  //     DateTime? expiryDate;
+  //     if (book.discount!.expiresAt != null) {
+  //       try {
+  //         expiryDate = DateTime.parse(book.discount!.expiresAt!);
+  //       } catch (e) {
+  //         print("❌ خطأ في تحليل expiresAt للكتاب ${book.itemsId}: $e");
+  //         return false;
+  //       }
+  //     }
+  //
+  //     return expiryDate != null && DateTime.now().isBefore(expiryDate);
+  //   }).toList();
+  // }
+
+
+  Future<List<ItemsModel>> getDiscountedBooksAsync() async {
+    if (books.isEmpty) {
+      await fetchAll(); // أو whatever you use to load the books
+    }
+
     return books.where((book) {
       if (book.discount == null) return false;
 
