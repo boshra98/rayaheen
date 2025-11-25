@@ -15,7 +15,7 @@ class ListAgeGroupR extends GetView<HomeControllerImp> {
       "3-6 سنوات",
       "6-9 سنوات",
       "9-12 سنوات",
-      "12+ سنوات",
+      "لليافعين",
       "للأهل والمربين",
     ];
 
