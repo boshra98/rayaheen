@@ -30,7 +30,8 @@ bool isValidPhoneNumber(String val, String countryCode) {
     case "+971": // UAE
       return val.startsWith("5") && val.length == 9; // UAE mobile numbers start with '5' and have 9 digits after country code
     case "+968": // Oman
-      return val.length == 8; // Oman numbers have 8 digits after country code
+      return val.length >= 7 && val.length <= 9;
+  // Oman numbers have 8 digits after country code
     case "+966": // Saudi Arabia
       return val.startsWith("5") && val.length == 9; // Saudi Arabia mobile numbers start with '5' and have 9 digits after country code
     case "+93": // Afghanistan
@@ -455,7 +456,7 @@ String? validInput(String val, int min, int max, String type, {String? countryCo
 
   // Handle phone number validation based on country code
   if (type == "phone" && countryCode != null) {
-    if (!GetUtils.isPhoneNumber(val) || !isValidPhoneNumber(val, countryCode)) {
+    if (!isValidPhoneNumber(val, countryCode)) {
       return "رقم الهاتف غير صالح"; // "Not a valid phone number" in Arabic
     }
   }

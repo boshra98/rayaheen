@@ -40,63 +40,6 @@ class LoginControllerImp extends LoginController {
     update();
   }
 
-//   @override
-//   login() async {
-//
-//     print("hello");
-//     //print(response);
-//
-//     if (formstate.currentState!.validate()) {
-//       statusRequest = StatusRequest.loading;
-//       update();
-//       var response = await loginData.postdata( "${code.text}${phone.text}".substring(1), password.text);
-//       print("${code.text}${phone.text}".substring(1));
-//
-//       print("=============================== Controller $response ");
-//       statusRequest = handlingData(response);
-//       if (StatusRequest.success == statusRequest) {
-//         if (response['message'] == "true") {
-//           print("hhhhhh");
-//           myServices.sharedPreferences.setString("id", response['id']);
-//           //////////////////////////////////////////////////////////////////////
-//           final userData = response['data']; // ← تأكد أن هذا يحتوي: id, username, phone, address
-//           GetStorage().write("user", userData);
-//           print("✅ بيانات المستخدم المخزنة: ${GetStorage().read("user")}");
-// //////////////////////////////////////////////////////////////////
-// //           final userData = {
-// //             "id": response['id'],
-// //             "username": "اسم افتراضي", // ← حتى تتفادى null
-// //             "phone": "${code.text}${phone.text}".substring(1),
-// //             "address": "غير محدد",
-// //             "email": "غير متوفر"
-// //           };
-// //           GetStorage().write("user", userData);
-// //           print("✅ تم تخزين بيانات المستخدم: $userData");
-//
-//           // ✅ أضف هذه السطر لتحديد أن المستخدم "ليس زائرًا"
-//           myServices.sharedPreferences.setBool("guest", false);
-//           // Simulate login by saving a token
-//           // SharedPreferences prefs = await SharedPreferences.getInstance();
-//           // await prefs.setString('auth_token', 'user_token');
-//           String userid = myServices.sharedPreferences.getString("id")!;
-//           // data.addAll(response['data']);
-//           myServices.sharedPreferences.setString("token", response['access_token']) ;
-//           //  myServices.sharedPreferences.setString("username", response['data']['users_name']) ;
-//           // myServices.sharedPreferences.setString("email", response['data']['users_email']) ;
-//           // myServices.sharedPreferences.setString("phone", response['data']['users_phone']) ;
-//           myServices.sharedPreferences.setString("step", "2");
-//           Get.offNamed(AppRoute.homePage);
-//         }
-//       }else {
-//         print("hhhhho");
-//         Get.defaultDialog(
-//             title: "ُWarning", middleText: "Phone Or Password Not Correct");
-//         statusRequest = StatusRequest.failure;
-//       }
-//
-//       update();
-//     } else {}
-//   }
 
 
   @override
@@ -179,13 +122,7 @@ class LoginControllerImp extends LoginController {
 
     password = TextEditingController();
     super.onInit();
-    //   FirebaseMessaging.instance.getToken().then((value) {
-    //     print(value);
-    //     String? token = value;
-    //   });
-    //   email = TextEditingController();
-    //   password = TextEditingController();
-    //super.onInit();
+
   }
 
   @override

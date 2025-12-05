@@ -22,8 +22,10 @@ void main() async {
 
   await initialservices();
   await GetStorage.init(); // ← مهم جداً
-  // DeepLinkService.initLinkListener();
   await DeepLinkHandler.init();
+
+  // DeepLinkService.initLinkListener();
+  // await DeepLinkHandler.init();
 
   // Register CartService
 
@@ -32,6 +34,7 @@ void main() async {
   // Register CartController (dependencies resolved in onInit)
   // Get.put(CartController(), permanent: true);
   runApp(const MyApp());
+
 
 }
 

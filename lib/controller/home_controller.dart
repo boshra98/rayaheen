@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'dart:convert';
 
+import 'package:app_links/app_links.dart';
 import 'package:rayaheen_bookstore/core/class/statusrequest.dart';
 import 'package:rayaheen_bookstore/core/constant/routes.dart';
 import 'package:rayaheen_bookstore/core/services/services.dart';
@@ -8,7 +9,7 @@ import 'package:rayaheen_bookstore/data/datasource/remote/home_data.dart';
 import 'package:rayaheen_bookstore/data/model/itemsmodel.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-import 'package:uni_links3/uni_links.dart';
+// import 'package:uni_links/uni_links.dart';
 
 import '../core/functions/handlingdatacontroller.dart';
 import '../data/model/categorymodel.dart';
@@ -474,35 +475,81 @@ class SearchMixController extends GetxController {
 // }
 
 
-
+//
+// class DeepLinkHandler {
+//   static StreamSubscription? _sub;
+//
+//   /// ✅ استدعِ هذه في بداية التطبيق
+//   static Future<void> init() async {
+//     // ⬅️ أولاً: التعامل مع الرابط الأول إذا تم فتح التطبيق به
+//     final initialUri = await getInitialUri();
+//     _handleUri(initialUri);
+//
+//     // ⬅️ ثانيًا: الاستماع للتغييرات أثناء التشغيل
+//     _sub = uriLinkStream.listen((Uri? uri) {
+//       _handleUri(uri);
+//     }, onError: (err) {
+//       print("خطأ في قراءة الرابط: $err");
+//     });
+//   }
+//
+//   static void _handleUri(Uri? uri) {
+//     if (uri != null && uri.scheme == 'rayaheenbooks' && uri.host == 'product') {
+//       final String? id = uri.pathSegments.isNotEmpty ? uri.pathSegments[0] : null;
+//       if (id != null) {
+//         final int? productId = int.tryParse(id);
+//         if (productId != null) {
+//           Get.to(() => ProductDetailsFromLink(productId: productId));
+//         }
+//       }
+//     }
+//   }
+//
+//   static void dispose() => _sub?.cancel();
+// }
 class DeepLinkHandler {
-  static StreamSubscription? _sub;
+  static StreamSubscription<Uri>? _sub;
+  static AppLinks? _appLinks;
 
-  /// ✅ استدعِ هذه في بداية التطبيق
+  /// هنا نُخزن الـ ID الذي جاء من الرابط
+  static int? pendingProductId;
+
   static Future<void> init() async {
-    // ⬅️ أولاً: التعامل مع الرابط الأول إذا تم فتح التطبيق به
-    final initialUri = await getInitialUri();
-    _handleUri(initialUri);
+    _appLinks ??= AppLinks();
 
-    // ⬅️ ثانيًا: الاستماع للتغييرات أثناء التشغيل
-    _sub = uriLinkStream.listen((Uri? uri) {
-      _handleUri(uri);
-    }, onError: (err) {
-      print("خطأ في قراءة الرابط: $err");
+    try {
+      final Uri? initialUri = await _appLinks!.getInitialLink();
+      _extract(initialUri);
+    } catch (_) {}
+
+    _sub = _appLinks!.uriLinkStream.listen((Uri uri) {
+      _extract(uri);
+
+      // في حال التطبيق مفتوح أصلاً، يمكنك هنا لاحقاً
+      // استدعاء navigation مباشر إن أحببت.
+      // لكن للـ cold start، سنترك القرار للسبلاش.
     });
   }
 
-  static void _handleUri(Uri? uri) {
-    if (uri != null && uri.scheme == 'rayaheenbooks' && uri.host == 'product') {
-      final String? id = uri.pathSegments.isNotEmpty ? uri.pathSegments[0] : null;
-      if (id != null) {
-        final int? productId = int.tryParse(id);
-        if (productId != null) {
-          Get.to(() => ProductDetailsFromLink(productId: productId));
-        }
+  static void _extract(Uri? uri) {
+    if (uri == null) return;
+
+    print("Received deep link: $uri");
+
+    if (uri.scheme == 'rayaheenbooks' && uri.host == 'product') {
+      String? id = uri.pathSegments.isNotEmpty
+          ? uri.pathSegments.first
+          : uri.queryParameters['id'];
+
+      final int? productId = int.tryParse(id ?? "");
+      if (productId != null) {
+        pendingProductId = productId;
+        print("Pending productId set to: $pendingProductId");
       }
     }
   }
 
-  static void dispose() => _sub?.cancel();
+  static void dispose() {
+    _sub?.cancel();
+  }
 }

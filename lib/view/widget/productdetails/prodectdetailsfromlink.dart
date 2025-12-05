@@ -135,6 +135,9 @@ import 'package:rayaheen_bookstore/data/model/itemsmodel.dart';
 //   }
 // }
 
+//
+
+
 
 class ProductDetailsFromLink extends StatelessWidget {
   final int productId;
@@ -142,8 +145,8 @@ class ProductDetailsFromLink extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-   // final controller = Get.put(HomeControllerImp());
-    final controller = Get.find<HomeControllerImp>();
+    // هذا يضمن وجود الكنترولر؛ إذا موجود يعيده، إذا غير موجود ينشئه.
+    final controller = Get.put(HomeControllerImp(), permanent: true);
 
     return FutureBuilder<ItemsModel?>(
       future: controller.loadProductById(productId),
@@ -157,8 +160,7 @@ class ProductDetailsFromLink extends StatelessWidget {
         }
 
         final item = snapshot.data!;
-
-        return ItemFromLinkPage(item: item); // ← هذا الكلاس الذي تسأل عنه
+        return ItemFromLinkPage(item: item);
       },
     );
   }

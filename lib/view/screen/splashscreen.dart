@@ -4,8 +4,10 @@ import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../controller/home_controller.dart';
 import '../../core/constant/color.dart';
 import '../../core/constant/routes.dart';
+import '../widget/productdetails/prodectdetailsfromlink.dart';
 
 class SplashScreen extends StatefulWidget {
   @override
@@ -23,24 +25,31 @@ class _SplashScreenState extends State<SplashScreen> {
   // Check if the user is logged in or not
   Future<void> _checkLoginStatus() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
-    //String? token = prefs.getString('auth_token');
     String? token = prefs.getString('id');
 
-
-    // Simulate loading time (optional)
-    await Future.delayed(Duration(seconds: 2));
+    await Future.delayed(const Duration(seconds: 2));
 
     if (token != null) {
-      // If user is logged in, navigate to home screen
-      //Get.offAllNamed('/homePage');
-      Get.offAllNamed(AppRoute.homePage);
-    } else {
-      // If user is not logged in, navigate to login screen
-     // Get.offAllNamed('/login');
-      Get.offAllNamed(AppRoute.language);
+      // ✅ المستخدم مسجل دخول
 
+      if (DeepLinkHandler.pendingProductId != null) {
+        final int productId = DeepLinkHandler.pendingProductId!;
+        DeepLinkHandler.pendingProductId = null;
+
+        // ممكن هنا تجهز الكنترولرات العامة إن احتجت
+        // Get.put(HomeControllerImp(), permanent: true);
+
+        Get.offAll(() => ProductDetailsFromLink(productId: productId));
+      } else {
+        // لا يوجد Deep Link → تابع بشكل طبيعي
+        Get.offAllNamed(AppRoute.homePage);
+      }
+    } else {
+      // ❌ المستخدم غير مسجل → روح لصفحة اللغة / التسجيل
+      Get.offAllNamed(AppRoute.language);
     }
   }
+
   void triggerCheckLoginStatus() {
     _checkLoginStatus(); // Public method to trigger the private method
   }

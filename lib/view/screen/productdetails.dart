@@ -526,8 +526,14 @@ class ProductDetails extends StatelessWidget {
           IconButton(
             icon: const Icon(Icons.share, color: AppColor.primaryColor),
             onPressed: () {
+              // final String webLink = "https://rayaheenbooks.com/deeplink.html?id=${item.itemsId}";
+              // Share.share("\ud83d\udcda ${item.itemsName}\n\ud83d\udcf2 $webLink");
+
               final String webLink = "https://rayaheenbooks.com/deeplink.html?id=${item.itemsId}";
-              Share.share("\ud83d\udcda ${item.itemsName}\n\ud83d\udcf2 $webLink");
+              Share.share("📚 ${item.itemsName}\n🔗 $webLink");
+
+              // final String deepLink = "rayaheenbooks://product/${item.itemsId}";
+              // Share.share("📚 ${item.itemsName}\n🔗 $deepLink");
             },
           ),
         ],
